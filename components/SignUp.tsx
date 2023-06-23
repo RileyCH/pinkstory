@@ -40,11 +40,11 @@ const SignUp = () => {
       >
         <div>
           <label htmlFor="">帳號</label>
-          <input type="email" ref={emailRef} />
+          <input type="email" />
         </div>
         <div>
           <label htmlFor="">密碼</label>
-          <input type="password" ref={passwordRef} />
+          <input type="password" />
         </div>
         <button>登入</button>
       </form>

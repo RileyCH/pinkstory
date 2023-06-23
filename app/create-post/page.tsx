@@ -95,8 +95,8 @@ const CreatePost = () => {
       </div>
       <div className="w-[90%] mx-auto mt-[5px] mb-[10px] py-[5px]">
         <textarea
-          rows="6"
-          cols="40"
+          rows={6}
+          cols={40}
           placeholder="新增貼文內容"
           className="w-[100%] p-[10px] block border-[1px] border-gray-100"
         ></textarea>
