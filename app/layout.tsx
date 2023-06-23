@@ -1,6 +1,8 @@
+// import { store } from "../redux/store";
+import { Providers } from "../redux/provider";
+// import { Provider } from "react-redux";
 import "../style/globals.css";
 import { Inter } from "next/font/google";
-import Nav from "../components/Nav";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,8 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <Nav />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

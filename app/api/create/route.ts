@@ -1,14 +1,14 @@
 // // 下面是原本的code
-// import { NextRequest, NextResponse } from "next/server";
-// import { storage } from "../../../utils/database";
-// import {
-//   ref,
-//   uploadBytes,
-//   getDownloadURL,
-//   uploadBytesResumable,
-// } from "firebase/storage";
-// import { useUploadFile, useDownloadURL } from "react-firebase-hooks/storage";
-// import multer from "multer";
+import { NextRequest, NextResponse } from "next/server";
+import { storage } from "../../../utils/database";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  uploadBytesResumable,
+} from "firebase/storage";
+import { useUploadFile, useDownloadURL } from "react-firebase-hooks/storage";
+import multer from "multer";
 
 // const upload = multer({ dest: "/public" }); // 替換為實際的上傳目錄路徑
 
@@ -52,33 +52,33 @@
 // };
 
 // export default POST;
-// export async function POST(req: NextRequest, res: NextResponse) {
-//   try {
-//     // const uploadImg = await req.formData();
-//     // const image: any = uploadImg.get("image");
-//     // const metatype: any = {
-//     //   contentType: image.mimetype,
-//     //   name: image.name,
-//     // };
-//     if (req) {
-//       const picRef = ref(storage, `test`);
-//       // const uploadedFile = req.images;
+export async function POST(req: NextRequest, res: NextResponse) {
+  try {
+    // const uploadImg = await req.formData();
+    // const image: any = uploadImg.get("image");
+    // const metatype: any = {
+    //   contentType: image.mimetype,
+    //   name: image.name,
+    // };
+    if (req) {
+      const picRef = ref(storage, `test`);
+      // const uploadedFile = req.images;
 
-//       // uploadBytesResumable(picRef, uploadedFile).then((snapshot) => {
-//       //   console.log(snapshot, 123);
-//       // });
+      // uploadBytesResumable(picRef, uploadedFile).then((snapshot) => {
+      //   console.log(snapshot, 123);
+      // });
 
-//       return new Response("You've already subscribed to this subreddit", {
-//         status: 200,
-//       });
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     return new Response("Failed to upload image.", {
-//       status: 500,
-//     });
-//   }
-// }
+      return new Response("You've already subscribed to this subreddit", {
+        status: 200,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return new Response("Failed to upload image.", {
+      status: 500,
+    });
+  }
+}
 
 // export async function PostPic(req: Request, res: Response) {
 //   try {
