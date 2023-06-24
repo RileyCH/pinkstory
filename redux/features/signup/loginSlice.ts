@@ -19,7 +19,7 @@ const initialState: InitialState = {
     uid: "",
   },
   error: "",
-  loginStatus: false,
+  loginStatus: true, //need to be modified
 };
 
 export const loginUser = createAsyncThunk(

@@ -1,6 +1,6 @@
 import React from "react";
 import NativeLogin from "@/components/NativeLogin";
-import Nav from "../../components/Nav";
+import Nav from "@/components/Nav";
 
 function Main() {
   return (

@@ -28,6 +28,10 @@ body {
     rgb(var(--background-start-rgb));
 } */
 
+* {
+  box-sizing: border-box;
+}
+
 main {
   background-color: aqua;
 }
