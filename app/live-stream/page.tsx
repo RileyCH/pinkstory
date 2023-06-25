@@ -4,7 +4,7 @@ import Nav from "../../components/Nav";
 const LiveStream = () => {
   return (
     <div>
-      LiveStream
+      發起直播
       <Nav />
     </div>
   );

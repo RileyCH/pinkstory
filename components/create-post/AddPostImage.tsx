@@ -1,4 +1,3 @@
-"use client";
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -23,7 +22,15 @@ interface Crop {
   height: number;
 }
 
-const AddPostImage = () => {
+interface AddPostImageProps {
+  postImage: string[];
+  setPostImage: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const AddPostImage: React.FC<AddPostImageProps> = ({
+  postImage,
+  setPostImage,
+}) => {
   const user = useAppSelector((state) => state.user);
   const [imageSrc, setImageSrc] = useState<string>("");
   const [crop, setCrop] = useState<CropXY>({
@@ -38,7 +45,6 @@ const AddPostImage = () => {
     height: 0,
   });
   const [croppedImage, setCroppedImage] = useState<string>("");
-  const [postImage, setPostImage] = useState<string[]>([]);
 
   // console.log("imageSrc", imageSrc);
   // console.log("crop", crop);
@@ -108,7 +114,7 @@ const AddPostImage = () => {
         <Link href="../main">
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
-        <label>
+        {/* <label>
           <Image src={plus} alt="back to main page" width={20} height={20} />
           <input
             type="file"
@@ -116,7 +122,7 @@ const AddPostImage = () => {
             onChange={inputPostImage}
             className="hidden"
           />
-        </label>
+        </label> */}
       </div>
 
       <div className="w-[90vw] mx-auto mt-[60px]">
@@ -125,13 +131,13 @@ const AddPostImage = () => {
             ? postImage.map((url, index) => (
                 <div
                   key={index}
-                  className={`w-[100vw] max-w-[400px] h-[400px] border relative flex-none`}
+                  className={`w-[200px] h-[200px] relative flex-none`}
                 >
                   <Image
                     src={url}
                     alt="post"
-                    width={400}
-                    height={400}
+                    width={200}
+                    height={200}
                     className="absolute"
                   />
 
@@ -152,12 +158,18 @@ const AddPostImage = () => {
             : ""}
 
           <form
-            className={`w-[100vw] max-w-[400px] h-[400px] bg-gray-100 border-none flex justify-center items-center`}
+            className={`w-[200px] h-[200px] border bottom-2 rounded-md flex justify-center items-center`}
           >
-            <label className="w-[100vw] max-w-[400px] h-[100%] flex justify-center items-center">
-              <span className="block bg-red-500 text-white py-[10px] px-[15px] rounded-full hover:cursor-pointer hover:bg-red-600">
+            <label className="w-[100vw] max-w-[300px] h-[100%] flex justify-center items-center">
+              <Image
+                src={plus}
+                alt="back to main page"
+                width={20}
+                height={20}
+              />
+              {/* <span className="block bg-red-500 text-white py-[10px] px-[15px] rounded-full hover:cursor-pointer hover:bg-red-600">
                 新增圖片
-              </span>
+              </span> */}
               <input
                 type="file"
                 accept="image/*"
@@ -171,7 +183,6 @@ const AddPostImage = () => {
       </div>
 
       {imageSrc ? (
-        // <div className="relative">
         <div className="w-[90vw] h-[90vh] fixed top-4 left-0 right-0 mx-auto bg-white">
           <Cropper
             image={imageSrc}
@@ -198,7 +209,6 @@ const AddPostImage = () => {
           </div>
         </div>
       ) : (
-        // </div>
         ""
       )}
     </div>

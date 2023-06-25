@@ -1,119 +1,137 @@
 "use client";
-import { useRef, useState, Suspense, FormEvent, ChangeEvent } from "react";
+import { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
-import AddPostImage from "@/components/AddPostImage";
-
-import addGray from "@/public/add-gray.png";
-import pin from "@/public/create-post/pin.png";
+import { useAppSelector } from "@/redux/hooks";
+import AddPostImage from "@/components/create-post/AddPostImage";
+import TagUser from "@/components/create-post/TagUser";
+import Location from "@/components/create-post/Location";
+import FinishAdd from "@/components/create-post/FinishAdd";
+import category from "@/public/create-post/category.png";
 import diskette from "@/public/create-post/diskette.png";
+import back from "@/public/back.png";
 import lock from "@/public/create-post/lock.png";
 //uid: bntWcXZUSKQ46EeJtei73g3pijs1
 
-type post = {
-  category: string;
-  content: string;
-  hashtag: string[];
-  location: {
-    lat: number;
-    lon: number;
-  };
+interface post {
+  uid: string;
   picture: string[] | null;
-  status: string;
-  title: string;
-  video: string | null;
-};
-
-type area = {
-  city: string;
-  area: string;
-};
+  title: string | null;
+  category: string | null;
+  content: string | null;
+  location: {
+    lat: number | null;
+    lon: number | null;
+  };
+  address: {
+    city: string | null;
+    area: string | null;
+  };
+  authority: string | null;
+  status: string | null;
+  tagUer: string[] | null;
+}
 
 const CreatePost = () => {
   const user = useAppSelector((state) => state.user);
-  const picRef = useRef<HTMLInputElement | null>(null);
-  const titleRef = useRef<HTMLInputElement | null>(null);
-  const contentRef = useRef<HTMLTextAreaElement | null>(null);
-
+  const [postImage, setPostImage] = useState<string[]>([]);
+  const [selectCategory, setSelectCategory] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [tagUsers, setTagUsers] = useState<string[] | []>([]);
   const [location, setLocation] = useState<post["location"]>({
     lat: 0,
     lon: 0,
   });
-  const [address, setAddress] = useState<area>({
+  const [address, setAddress] = useState<post["address"]>({
     city: "",
     area: "",
   });
-
-  const checkLocation: React.MouseEventHandler<HTMLDivElement> = () => {
-    navigator.geolocation.getCurrentPosition((potion) => {
-      console.log(potion.coords.latitude, potion.coords.longitude);
-      if (navigator.geolocation) {
-        setLocation({
-          lat: Number(potion.coords.latitude),
-          lon: Number(potion.coords.longitude),
-        });
-        const googleMapApi = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${potion.coords.latitude}0,${potion.coords.longitude}0&language=zh-TW&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`;
-        const area = axios.get(googleMapApi).then((area) => {
-          const result = area.data.results[0].address_components.reverse();
-          setAddress({
-            city: result[2].long_name,
-            area: result[3].long_name,
-          });
-          console.log(
-            area.data.results[0].address_components.reverse()[3].long_name
-          );
-          console.log(
-            area.data.results[0].address_components.reverse()[4].long_name
-          );
-        });
-      }
-    });
-  };
-
+  const [postAuth, setPostAuth] = useState<string>("");
+  const [postStatus, setPostStatus] = useState<string>("published");
+  const [createStatus, setCreateStatus] = useState<boolean>(false);
   const createPost = () => {
-    const post: post = {
-      category: "makeup",
-      content: "今天心情好",
-      hashtag: ["#tag", "metoo"],
+    const postDetails: post = {
+      uid: "bntWcXZUSKQ46EeJtei73g3pijs1",
+      picture: postImage,
+      category: selectCategory,
+      title: title,
+      content: content,
+      tagUer: tagUsers,
       location: {
-        lat: 123,
-        lon: 456,
+        lat: location.lat,
+        lon: location.lon,
       },
-      picture: [
-        "https://fakeimg.pl/300x200/200",
-        "https://fakeimg.pl/300x200/200",
-      ],
-      status: "published",
-      title: "文章標題",
-      video: null,
+      address: {
+        city: address.city,
+        area: address.area,
+      },
+      authority: postAuth,
+      status: postStatus,
     };
+
     axios
       .post(
         "/api/create-post",
-        { post },
+        { postDetails },
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        console.log(response.data);
+        if (response.status === 200) setCreateStatus(true);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-  const createDraft = () => {};
 
   return (
     <div className="wrapper relative pb-[70px]">
       {user.loginStatus ? (
-        <>
-          <AddPostImage />
+        <div className="">
+          <div className="w-[100vw] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
+            <Link href="../main">
+              <Image
+                src={back}
+                alt="back to main page"
+                width={25}
+                height={25}
+              />
+            </Link>
+          </div>
+          <AddPostImage postImage={postImage} setPostImage={setPostImage} />
+          <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
+            <Image src={category} alt="check auth icon" width={20}></Image>
+            <select
+              name=""
+              id=""
+              onChange={(e) => setSelectCategory(e.target.value)}
+            >
+              文章類別
+              <option value="none" disabled>
+                文章類別
+              </option>
+              <option value="makeup">美妝</option>
+              <option value="fashion">穿搭</option>
+              <option value="beautyCare">保養</option>
+              <option value="travel">旅遊</option>
+              <option value="book">書籍</option>
+              <option value="movie">電影</option>
+              <option value="workout">運動</option>
+              <option value="food">美食</option>
+              <option value="3c">3C</option>
+              <option value="study">學習</option>
+              <option value="babyCare">育兒</option>
+              <option value="photography">攝影</option>
+              <option value="pet">寵物</option>
+            </select>
+          </div>
+
           <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px]">
             <label htmlFor=""></label>
             <input
               type="text"
-              ref={titleRef}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="填寫標題會有更多讚喔～"
               className="w-[90vw] border-b-[1px] border-gray-100 p-[10px]"
             />
@@ -122,50 +140,58 @@ const CreatePost = () => {
             <textarea
               rows={6}
               cols={40}
-              ref={contentRef}
+              onChange={(e) => setContent(e.target.value)}
               placeholder="新增貼文內容"
               className="w-[90vw] p-[10px] block border-[1px] border-gray-100"
-            ></textarea>
+            />
           </div>
-          <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] flex gap-5 border-b-[1px] border-gray-100 p-[10px]">
-            <div># 話題</div>
-            <div>@ 使用者</div>
+          <div className="w-[90vw] mx-auto mt-[5px] mb-[20px] py-[15px] flex gap-5 border-b-[1px] border-gray-100 p-[10px]">
+            <TagUser
+              uid={user.user.uid}
+              tagUsers={tagUsers}
+              setTagUsers={setTagUsers}
+            />
           </div>
-          <div
-            onClick={(e: React.MouseEvent<HTMLDivElement>) => checkLocation(e)}
-            className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] flex gap-2"
-          >
-            <Image src={pin} alt="location icon" width={20} height={20} />
-            {address.city.length === 0 && address.area.length === 0 ? (
-              <p>新增地點</p>
-            ) : (
-              <p>
-                {address.city} {address.area}
-              </p>
-            )}
-          </div>
-          <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] flex gap-2">
+          <Location
+            location={location}
+            setLocation={setLocation}
+            address={address}
+            setAddress={setAddress}
+          />
+          <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
             <Image src={lock} alt="check auth icon" width={20}></Image>
-            <select name="" id="">
-              <option value="">公開可看</option>
-              <option value="">僅自己可看</option>
+            <select name="" id="" onChange={(e) => setPostAuth(e.target.value)}>
+              文章瀏覽權限
+              <option value="none" disabled>
+                文章瀏覽權限
+              </option>
+              <option value="public">公開可看</option>
+              <option value="private">僅自己可看</option>
             </select>
           </div>
-
-          <div className="w-[90vw] h-[50px] p-[30px] flex justify-between items-center fixed bottom-0 bg-white">
+          <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white">
             <div className="">
               <Image
                 src={diskette}
                 alt="save draft icon"
-                className="m-auto"
+                className="m-auto mb-1"
               ></Image>
-              <p className="text-[10px]">存草稿</p>
+              <p
+                className="text-[10px]"
+                onClick={() => setPostStatus("drafted")}
+              >
+                草稿
+              </p>
             </div>
-            <div className="w-[100vw] h-[40px] bg-red-500 flex items-center justify-center rounded-full text-white cursor-pointer">
-              釋出筆記
+            <div
+              className="w-[80%] h-[40px] bg-red-500 flex items-center justify-center rounded-full text-white cursor-pointer"
+              onClick={createPost}
+            >
+              發佈貼文
             </div>
           </div>
-        </>
+          {createStatus && <FinishAdd />}
+        </div>
       ) : (
         <Link href="../main" className="">
           請先登入！

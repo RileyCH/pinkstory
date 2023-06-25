@@ -4,7 +4,7 @@ import add from "../public/add.png";
 
 const Nav = () => {
   return (
-    <nav>
+    <nav className="fixed -bottom-10">
       <Link href="/">首頁</Link>
       <Link href="../live-stream">直播</Link>
       <Link href="../create-post">
