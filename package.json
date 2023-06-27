@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@100mslive/react-sdk": "^0.8.8",
     "@google-cloud/storage": "^6.11.0",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "20.3.1",
