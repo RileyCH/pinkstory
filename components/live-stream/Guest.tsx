@@ -6,6 +6,8 @@ import {
   selectPeers,
   // getAuthTokenByRoomCode,
 } from "@100mslive/react-sdk";
+import Viewers from "./Viewers";
+import Message from "@/components/live-stream/Message";
 
 const Guest = () => {
   const peers = useHMSStore(selectPeers);
@@ -51,6 +53,8 @@ const Guest = () => {
         <p onClick={leaveRoom} className="bg-slate-200 p-[15px]">
           結束觀看
         </p>
+        <Viewers />
+        <Message />
       </div>
     </div>
   );
