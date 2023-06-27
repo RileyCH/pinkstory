@@ -1,10 +1,10 @@
 "use client";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import { hmsActions, hmsNotifications, hmsStore } from "@/utils/hms";
-import JoinMeeting from "@/components/live-stream/JoinMeeting";
+import Guest from "@/components/live-stream/Guest";
 import Nav from "@/components/Nav";
 
-const StartStreaming = () => {
+const StartStreaming = ({ params }: { params: { roomid: string } }) => {
   return (
     <HMSRoomProvider
       actions={hmsActions}
@@ -12,8 +12,7 @@ const StartStreaming = () => {
       notifications={hmsNotifications}
     >
       <div>
-        發起直播
-        <JoinMeeting />
+        <Guest />
         <Nav />
       </div>
     </HMSRoomProvider>
