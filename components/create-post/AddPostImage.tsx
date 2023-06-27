@@ -86,27 +86,26 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
     }
   }, [imageSrc, croppedAreaPixels]);
 
-  const uploadImage = async () => {
-    if (croppedImage) {
-      try {
-        const randomId = doc(collection(db, "temp")).id;
-        const mountainsRef = ref(
-          storage,
-          `/${user.user.uid}/images/${randomId}`
-        );
-        await uploadString(mountainsRef, croppedImage, "data_url");
-        const url = await getDownloadURL(mountainsRef);
-        setPostImage((prev) => [...prev, url]);
-      } catch (error) {
-        window.alert("請重新上傳圖片123");
-        console.error(error);
-      }
-    }
-  };
-
   useEffect(() => {
+    const uploadImage = async () => {
+      if (croppedImage) {
+        try {
+          const randomId = doc(collection(db, "temp")).id;
+          const mountainsRef = ref(
+            storage,
+            `/${user.user.uid}/images/${randomId}`
+          );
+          await uploadString(mountainsRef, croppedImage, "data_url");
+          const url = await getDownloadURL(mountainsRef);
+          setPostImage((prev) => [...prev, url]);
+        } catch (error) {
+          window.alert("請重新上傳圖片123");
+          console.error(error);
+        }
+      }
+    };
     uploadImage();
-  }, [croppedImage]);
+  }, [croppedImage, postImage, user, setPostImage]);
 
   return (
     <div className="w-[100vw] mx-auto">
