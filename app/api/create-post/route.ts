@@ -1,14 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  collection,
-  setDoc,
-  doc,
-  getDocs,
-  serverTimestamp,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, setDoc, doc } from "firebase/firestore";
 import { db } from "@/utils/database";
 
 export async function POST(req: NextRequest) {
@@ -27,11 +18,3 @@ export async function POST(req: NextRequest) {
     return new NextResponse("OK", { status: 200 });
   }
 }
-
-//回傳JSON格式的方法
-//   if (req) {
-//     const { uid } = await req.json();
-//     const data = { message: "Hello, world!" };
-//     const userCollection = query(collection(db, "users"));
-//     return new Response(JSON.stringify(data), { status: 200 });
-//   }

@@ -1,16 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import axios from "axios";
-import liveStream100ms from "@/utils/liveStream100ms";
+import { setDoc, doc, deleteDoc } from "firebase/firestore";
+import { db } from "@/utils/database";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   try {
-    const result = await axios.get(`${liveStream100ms.activeSessions}`, {
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
-      },
-    });
-    const streamingRooms = result.data;
-    return new NextResponse(JSON.stringify(streamingRooms), {
+    if (req.method === "POST") {
+      const result = await req.json();
+
+      if (result.type === "peer.join.success" && result.data.role === "host") {
+        const liveStreamCollection = doc(
+          db,
+          "liveStream",
+          `${result.data.room_id}`
+        );
+        await setDoc(liveStreamCollection, result);
+      }
+
+      if (result.type === "peer.leave.success" && result.data.role === "host") {
+        const liveStreamCollection = doc(
+          db,
+          "liveStream",
+          `${result.data.room_id}`
+        );
+        await deleteDoc(liveStreamCollection);
+      }
+    }
+    return new NextResponse("OK", {
       status: 200,
     });
   } catch (error) {

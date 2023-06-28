@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import { extractFeedbackData } from "@/app/api/live-stream/streaming-rooms/route";
+import { collection, query, where, doc, onSnapshot } from "firebase/firestore";
+import { db } from "@/utils/database";
+import Rooms from "@/components/live-stream/Rooms";
 
 interface HostEvent {
   version: string;
@@ -8,7 +10,7 @@ interface HostEvent {
   account_id: string;
   app_id: string;
   timestamp: string;
-  type: "peer.join.success";
+  type: string;
   data: {
     account_id: string;
     app_id: string;
@@ -26,10 +28,7 @@ interface HostEvent {
   };
 }
 
-const LiveStream = async () => {
-  const data = extractFeedbackData();
-  const { event } = JSON.parse(data.toString());
-
+const LiveStream = () => {
   return (
     <div>
       <div className="">
@@ -41,23 +40,7 @@ const LiveStream = async () => {
         </Link>
         <div className="mt-[30px]">
           <p className="mb-[10px]">直播用戶列表</p>
-          {event.length > 0 ? (
-            event.map((room: HostEvent, index: number) => (
-              <Link
-                href={`/live-stream/${room.data.room_id}/guest`}
-                key={index}
-                className="bg-red-200 my-3"
-              >
-                <p>RoomID {room.data.room_id}</p>
-                <p>標題 {JSON.parse(room.data.user_data).knowledge}</p>
-                <p>使用者名稱 {room.data.user_name}</p>
-                <p>開始時間 {room.data.joined_at}</p>
-                <p>地點 {JSON.parse(room.data.user_data).city}</p>
-              </Link>
-            ))
-          ) : (
-            <p>目前沒有直播</p>
-          )}
+          <Rooms />
         </div>
       </div>
 
