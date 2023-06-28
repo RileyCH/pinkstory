@@ -193,20 +193,20 @@ const CreatePost = () => {
           {createStatus && <FinishAdd />}
         </div>
       ) : (
-        <Link href="../main" className="">
+        <Link
+          href="../main"
+          className="bg-gray-200 p-[15px] flex justify-center items-center w-[150px] rounded-xl"
+        >
           請先登入！
         </Link>
       )}
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9rPlvAdkzmyTmkt6YSmp-LJYn4_RGq30&libraries=geometry"
+        async
+        defer
+      ></script>
     </div>
   );
 };
 
 export default CreatePost;
-//upload with server side
-// const formData = new FormData();
-// formData.append("image", picRef?.current.files?.[0]);
-// const response = await axios.post("/api/create", formData);
-// const response = await fetch("/api/create", {
-//   method: "POST",
-//   body: { images: picRef.current?.files[0] },
-// });

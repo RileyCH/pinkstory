@@ -46,13 +46,6 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
   });
   const [croppedImage, setCroppedImage] = useState<string>("");
 
-  // console.log("imageSrc", imageSrc);
-  // console.log("crop", crop);
-  // console.log("zoom", zoom);
-  // console.log("croppedAreaPixels", croppedAreaPixels);
-  // console.log("croppedImage", croppedImage);
-  // console.log("postImage", postImage);
-
   const readImage = (image: File): Promise<string> => {
     return new Promise((resolve) => {
       const reader = new FileReader();
@@ -105,7 +98,7 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
       }
     };
     uploadImage();
-  }, [croppedImage, postImage, user, setPostImage]);
+  }, [croppedImage, user.user.uid, setPostImage]);
 
   return (
     <div className="w-[100vw] mx-auto">
@@ -113,15 +106,6 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
         <Link href="../main">
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
-        {/* <label>
-          <Image src={plus} alt="back to main page" width={20} height={20} />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={inputPostImage}
-            className="hidden"
-          />
-        </label> */}
       </div>
 
       <div className="w-[90vw] mx-auto mt-[60px]">
@@ -166,15 +150,11 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
                 width={20}
                 height={20}
               />
-              {/* <span className="block bg-red-500 text-white py-[10px] px-[15px] rounded-full hover:cursor-pointer hover:bg-red-600">
-                新增圖片
-              </span> */}
               <input
                 type="file"
                 accept="image/*"
                 onChange={inputPostImage}
                 className="hidden"
-                // accept="video/*,image/*"
               />
             </label>
           </form>

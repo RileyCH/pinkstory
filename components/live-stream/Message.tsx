@@ -25,7 +25,8 @@ const Message = () => {
   };
 
   return (
-    <div className="fixed top-5 right-5 bg-white">
+    <div className="fixed top-10 right-5 bg-white">
+      <div>聊天室訊息</div>
       <div>
         {broadcastMessages &&
           broadcastMessages.map((message, index) => (
