@@ -10,7 +10,6 @@ type InitialState = {
   error: string;
 };
 
-// const storageID = window.localStorage.getItem("uid");
 const initialState: InitialState = {
   uid: typeof window !== "undefined" ? localStorage.getItem("uid") : "",
   loginStatus:
@@ -20,12 +19,6 @@ const initialState: InitialState = {
   loading: false,
   error: "",
 };
-// const initialState: InitialState = {
-//   uid: "",
-//   loginStatus: false,
-//   loading: false,
-//   error: "",
-// };
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",

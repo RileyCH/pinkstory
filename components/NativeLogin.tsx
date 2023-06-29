@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import SignUp from "@/components/SignUp";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/redux/features/signup/loginSlice";
@@ -10,6 +11,7 @@ const NativeLogin = () => {
   const [signUp, setSignUp] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
@@ -19,7 +21,7 @@ const NativeLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
+        router.push(`main/${user.uid}`);
       })
       .catch((error) => {
         const errorCode = error.code;
