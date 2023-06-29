@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import SignUp from "@/components/SignUp";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/redux/features/signup/loginSlice";
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/utils/database";
 
 const NativeLogin = () => {
   const [signUp, setSignUp] = useState<boolean>(false);
@@ -13,7 +15,16 @@ const NativeLogin = () => {
   const dispatch = useAppDispatch();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email: email, password: password }));
+    dispatch(loginUser({ email: email, password: password, uid: "" }));
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   };
 
   return (

@@ -1,7 +1,6 @@
-"use client";
-import React, { useRef } from "react";
-// import { auth } from "../utils/database";
+import { useRef } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/utils/database";
 
 const SignUp = () => {
   //   const auth = getAuth();

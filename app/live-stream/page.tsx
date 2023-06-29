@@ -1,32 +1,6 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
-import { collection, query, where, doc, onSnapshot } from "firebase/firestore";
-import { db } from "@/utils/database";
 import Rooms from "@/components/live-stream/Rooms";
-
-interface HostEvent {
-  version: string;
-  id: string;
-  account_id: string;
-  app_id: string;
-  timestamp: string;
-  type: string;
-  data: {
-    account_id: string;
-    app_id: string;
-    joined_at: string;
-    peer_id: string;
-    role: string;
-    room_id: string;
-    room_name: string;
-    session_id: string;
-    session_started_at: string;
-    template_id: string;
-    user_data: string;
-    user_id: string;
-    user_name: string;
-  };
-}
 
 const LiveStream = () => {
   return (

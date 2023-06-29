@@ -1,37 +1,50 @@
+"use client";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../utils/database";
-
-type LoginUser = {
-  uid: string;
-};
+import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/utils/database";
 
 type InitialState = {
-  loading: boolean;
-  user: LoginUser;
-  error: string;
+  uid: string | null;
   loginStatus: boolean;
+  loading: boolean;
+  error: string;
 };
 
+// const storageID = window.localStorage.getItem("uid");
 const initialState: InitialState = {
+  uid: typeof window !== "undefined" ? localStorage.getItem("uid") : "",
+  loginStatus:
+    typeof window !== "undefined" && window.localStorage.getItem("uid")
+      ? true
+      : false,
   loading: false,
-  user: {
-    uid: "",
-  },
   error: "",
-  loginStatus: false, //need to be false default
 };
+// const initialState: InitialState = {
+//   uid: "",
+//   loginStatus: false,
+//   loading: false,
+//   error: "",
+// };
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
-  async (payload: { email: string; password: string }, { rejectWithValue }) => {
+  async (
+    payload: { uid: string; email: string; password: string },
+    { rejectWithValue }
+  ) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        payload.email,
-        payload.password
-      );
-      return { uid: userCredential.user.uid };
+      const userCredential: any = await new Promise((resolve, reject) => {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            localStorage.setItem("uid", user.uid);
+            resolve(user);
+          } else {
+            reject(new Error("User not found"));
+          }
+        });
+      });
+      return { uid: userCredential.uid };
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -48,15 +61,12 @@ const loginSlice = createSlice({
     });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.loading = false;
-      state.user = {
-        uid: action.payload.uid,
-      };
-      state.error = "";
+      (state.uid = action.payload.uid), (state.error = "");
       state.loginStatus = true;
     });
     builder.addCase(loginUser.rejected, (state, action) => {
       state.loading = false;
-      state.user = { uid: "" };
+      state.uid = "";
       state.error = "Something went wrong";
       state.loginStatus = false;
     });

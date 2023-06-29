@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
@@ -12,7 +12,7 @@ import category from "@/public/create-post/category.png";
 import diskette from "@/public/create-post/diskette.png";
 import back from "@/public/back.png";
 import lock from "@/public/create-post/lock.png";
-//uid: bntWcXZUSKQ46EeJtei73g3pijs1
+//test3 uid: bntWcXZUSKQ46EeJtei73g3pijs1
 
 interface post {
   uid: string;
@@ -51,43 +51,46 @@ const CreatePost = () => {
   const [postAuth, setPostAuth] = useState<string>("");
   const [postStatus, setPostStatus] = useState<string>("published");
   const [createStatus, setCreateStatus] = useState<boolean>(false);
-  const createPost = () => {
-    const postDetails: post = {
-      uid: "bntWcXZUSKQ46EeJtei73g3pijs1",
-      picture: postImage,
-      category: selectCategory,
-      title: title,
-      content: content,
-      tagUer: tagUsers,
-      location: {
-        lat: location.lat,
-        lon: location.lon,
-      },
-      address: {
-        city: address.city,
-        area: address.area,
-      },
-      authority: postAuth,
-      status: postStatus,
-    };
 
-    axios
-      .post(
-        "/api/create-post",
-        { postDetails },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((response) => {
-        if (response.status === 200) setCreateStatus(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  const createPost = () => {
+    if (user.uid) {
+      const postDetails: post = {
+        uid: user.uid,
+        picture: postImage,
+        category: selectCategory,
+        title: title,
+        content: content,
+        tagUer: tagUsers,
+        location: {
+          lat: location.lat,
+          lon: location.lon,
+        },
+        address: {
+          city: address.city,
+          area: address.area,
+        },
+        authority: postAuth,
+        status: postStatus,
+      };
+
+      axios
+        .post(
+          "/api/create-post",
+          { postDetails },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .then((response) => {
+          if (response.status === 200) setCreateStatus(true);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   return (
     <div className="wrapper relative pb-[70px]">
-      {user.loginStatus ? (
+      {user.uid ? (
         <div className="">
           <div className="w-[100vw] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
             <Link href="../main">
@@ -147,7 +150,7 @@ const CreatePost = () => {
           </div>
           <div className="w-[90vw] mx-auto mt-[5px] mb-[20px] py-[15px] flex gap-5 border-b-[1px] border-gray-100 p-[10px]">
             <TagUser
-              uid={user.user.uid}
+              uid={user.uid}
               tagUsers={tagUsers}
               setTagUsers={setTagUsers}
             />

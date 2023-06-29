@@ -18,7 +18,7 @@ const TagUser: React.FC<TagUserProps> = ({ uid, tagUsers, setTagUsers }) => {
     axios
       .get("/api/user-data", {
         headers: {
-          Authorization: `Bearer zTnraDs2ItDg5lPyJyEG`, //記得回來改uid喔！
+          Authorization: `Bearer ${uid}`, //記得回來改uid喔！
         },
       })
       .then((response) => {

@@ -84,10 +84,7 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
       if (croppedImage) {
         try {
           const randomId = doc(collection(db, "temp")).id;
-          const mountainsRef = ref(
-            storage,
-            `/${user.user.uid}/images/${randomId}`
-          );
+          const mountainsRef = ref(storage, `/${user.uid}/images/${randomId}`);
           await uploadString(mountainsRef, croppedImage, "data_url");
           const url = await getDownloadURL(mountainsRef);
           setPostImage((prev) => [...prev, url]);
@@ -98,12 +95,12 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
       }
     };
     uploadImage();
-  }, [croppedImage, user.user.uid, setPostImage]);
+  }, [croppedImage, user.uid, setPostImage]);
 
   return (
     <div className="w-[100vw] mx-auto">
       <div className="w-[100%] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
-        <Link href="../main">
+        <Link href={`/main/${user.uid}`}>
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
       </div>
