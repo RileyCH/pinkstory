@@ -1,3 +1,4 @@
+import { serverTimestamp, Timestamp } from "firebase/firestore";
 export interface UserDataType {
   uid: string;
   age: number | null;
@@ -19,4 +20,30 @@ export interface UserDataType {
   profileImg: string | null;
   registedDate: number;
   thumbnailedPost: string[] | [];
+}
+
+export interface PostType {
+  postID: string;
+  data: {
+    tagUer: string[] | [];
+    title: string | null;
+    authority: string | null;
+    address: { area: string | null; city: string | null };
+    picture: string[] | [];
+    uid: string;
+    location: { lon: number | null; lat: number | null };
+    category: string | null;
+    content: string | null;
+    status: string | null;
+    loveUser: string[] | [];
+    createTime: string;
+    keepUser: string[] | [];
+  };
+}
+
+export interface CommentType {
+  content: string;
+  commentTime: Timestamp | any;
+  loveUser: string[] | [];
+  uid: string | null;
 }

@@ -8,30 +8,12 @@ import AddPostImage from "@/components/create-post/AddPostImage";
 import TagUser from "@/components/create-post/TagUser";
 import Location from "@/components/create-post/Location";
 import FinishAdd from "@/components/create-post/FinishAdd";
+import { PostType } from "@/utils/type";
 import category from "@/public/create-post/category.png";
 import diskette from "@/public/create-post/diskette.png";
 import back from "@/public/back.png";
 import lock from "@/public/create-post/lock.png";
 //test3 uid: bntWcXZUSKQ46EeJtei73g3pijs1
-
-interface post {
-  uid: string;
-  picture: string[] | null;
-  title: string | null;
-  category: string | null;
-  content: string | null;
-  location: {
-    lat: number | null;
-    lon: number | null;
-  };
-  address: {
-    city: string | null;
-    area: string | null;
-  };
-  authority: string | null;
-  status: string | null;
-  tagUer: string[] | null;
-}
 
 const CreatePost = () => {
   const user = useAppSelector((state) => state.user);
@@ -40,11 +22,11 @@ const CreatePost = () => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [tagUsers, setTagUsers] = useState<string[] | []>([]);
-  const [location, setLocation] = useState<post["location"]>({
+  const [location, setLocation] = useState<PostType["data"]["location"]>({
     lat: 0,
     lon: 0,
   });
-  const [address, setAddress] = useState<post["address"]>({
+  const [address, setAddress] = useState<PostType["data"]["address"]>({
     city: "",
     area: "",
   });
@@ -54,7 +36,7 @@ const CreatePost = () => {
 
   const createPost = () => {
     if (user.uid) {
-      const postDetails: post = {
+      const postDetails: PostType["data"] = {
         uid: user.uid,
         picture: postImage,
         category: selectCategory,
@@ -71,6 +53,9 @@ const CreatePost = () => {
         },
         authority: postAuth,
         status: postStatus,
+        loveUser: [],
+        createTime: new Date(),
+        keepUser: [],
       };
 
       axios

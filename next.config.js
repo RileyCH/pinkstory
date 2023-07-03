@@ -3,10 +3,10 @@ const nextConfig = {
   images: {
     domains: ["firebasestorage.googleapis.com"],
   },
-  // experimental: {
-  //   serverActions: true,
-  // },
-  reactStrictMode: true,
+  experimental: {
+    serverActions: true,
+  },
+  // reactStrictMode: true,
 };
 
 module.exports = nextConfig;

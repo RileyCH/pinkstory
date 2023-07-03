@@ -14,7 +14,7 @@ const Nav = () => {
   }, []);
 
   return (
-    <nav className="fixed -bottom-10">
+    <nav className="fixed -bottom-7 bg-white py-[20px]">
       <Link href="/">首頁</Link>
       <Link href="/live-stream">直播</Link>
       <Link href="/create-post">

@@ -4,15 +4,20 @@ import Image from "next/image";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
 import Nav from "@/components/Nav";
-import { UserDataType } from "@/utils/type";
+import { UserDataType, PostType } from "@/utils/type";
+import Post from "@/components/main/Post";
+import Keep from "@/components/main/Keep";
+import Love from "@/components/main/Love";
+import Stock from "@/components/main/Stock";
 import profile from "@/public/main/profile.png";
 import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
 import plus from "@/public/create-post/plus.png";
 
+type Clicked = "Post" | "Keep" | "Love" | "Stock";
+
 function User({ params }: { params: { uid: string } }) {
   const user = useAppSelector((state) => state.user);
-  const [posts, setPosts] = useState([]);
   const [userData, setUserData] = useState<UserDataType>({
     uid: "",
     age: 0,
@@ -35,6 +40,8 @@ function User({ params }: { params: { uid: string } }) {
     registedDate: 0,
     thumbnailedPost: [],
   });
+  const [posts, setPosts] = useState<PostType[]>([]);
+  const [click, setClick] = useState<Clicked>("Post");
 
   useEffect(() => {
     if (user.uid) {
@@ -68,6 +75,10 @@ function User({ params }: { params: { uid: string } }) {
 
   return (
     <div>
+      <div className="flex justify-between">
+        <div>編輯</div>
+        <div>{"->"}</div>
+      </div>
       <div>
         <div className="flex items-center mb-[20px]">
           <div className="relative mx-[20px]">
@@ -114,20 +125,31 @@ function User({ params }: { params: { uid: string } }) {
           {user.uid === userData.uid ? (
             <div>編輯個人資料</div>
           ) : (
-            <div>關注</div>
+            <div>
+              <div>關注</div>
+              <div className="w-[80vw]">發送訊息</div>
+            </div>
           )}
         </div>
-
-        <div className="w-[80vw]">發送訊息</div>
       </div>
       <div className="flex gap-5">
-        <div>筆記</div>
-        <div>收藏</div>
-        <div>按讚</div>
+        <div onClick={() => setClick("Post")}>筆記</div>
+        <div onClick={() => setClick("Keep")}>收藏</div>
+        <div onClick={() => setClick("Love")}>按讚</div>
+        <div onClick={() => setClick("Stock")}>囤貨清單</div>
       </div>
       <div>
-        {/* <Image src={"/"} alt="" width={1} height={1} /> */}
-        <div>文章標題</div>
+        {click === "Post" ? (
+          <Post posts={posts} />
+        ) : click === "Keep" ? (
+          <Keep />
+        ) : click === "Love" ? (
+          <Love />
+        ) : click === "Stock" ? (
+          <Stock />
+        ) : (
+          ""
+        )}
       </div>
 
       <Nav />
