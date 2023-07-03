@@ -1,4 +1,4 @@
-import { serverTimestamp, Timestamp } from "firebase/firestore";
+import { Timestamp } from "firebase/firestore";
 export interface UserDataType {
   uid: string;
   age: number | null;
@@ -36,7 +36,7 @@ export interface PostType {
     content: string | null;
     status: string | null;
     loveUser: string[] | [];
-    createTime: string;
+    createTime: Timestamp | null;
     keepUser: string[] | [];
   };
 }

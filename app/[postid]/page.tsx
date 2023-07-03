@@ -63,8 +63,11 @@ const PostID = async ({ params }: { params: { postid: string } }) => {
           </Link>
         </div>
         <div>{post.postData.data.category}</div>
-        <div>發文時間</div>
-        <div>{post.postData.data.createTime.slice(0, 10)}</div>
+        <div>
+          {new Date(
+            post.postData.data.createTime.seconds * 1000
+          ).toLocaleString()}
+        </div>
         <div>
           {post.postData.data.address.city} / {post.postData.data.address.area}
         </div>

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import { collection, doc, getDocs, query } from "firebase/firestore";
+import { collection, doc, getDocs, query, orderBy } from "firebase/firestore";
 import { db } from "@/utils/database";
 
 export async function GET() {
@@ -14,7 +14,7 @@ export async function GET() {
   const sanitizedUid = uid.replace("Bearer ", "");
   const userCollection = doc(db, "users", sanitizedUid);
   const postList = collection(userCollection, "posts");
-  const q = query(postList);
+  const q = query(postList, orderBy("createTime"));
   const postDoc = await getDocs(q);
 
   if (!postDoc) {

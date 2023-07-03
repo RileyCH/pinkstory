@@ -3,7 +3,6 @@ import { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
-import { CommentType } from "@/utils/type";
 import heart from "@/public/post/heart.png";
 import heartClick from "@/public/post/heart-click.png";
 import keep from "@/public/post/keep.png";
@@ -21,7 +20,7 @@ const AddComment = ({
   const [kept, setKept] = useState<boolean>(false);
   const [comment, setComment] = useState<string>("");
 
-  const handleComment = (e) => {
+  const handleComment = (e: React.FormEvent) => {
     e.preventDefault();
     axios.post(
       "/api/post/add-comment",

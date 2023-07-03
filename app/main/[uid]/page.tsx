@@ -45,8 +45,8 @@ function User({ params }: { params: { uid: string } }) {
 
   useEffect(() => {
     if (user.uid) {
-      const fetchUserData = () => {
-        axios
+      const fetchUserData = async () => {
+        await axios
           .get("/api/user-data", {
             headers: { Authorization: `Bearer ${user.uid}` },
           })
@@ -57,8 +57,8 @@ function User({ params }: { params: { uid: string } }) {
           });
       };
 
-      const fetchPost = () => {
-        axios
+      const fetchPost = async () => {
+        await axios
           .get("/api/user-data/post", {
             headers: { Authorization: `Bearer ${user.uid}` },
           })
