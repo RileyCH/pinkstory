@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
       subCategory,
       brand,
       itemName,
+      amount,
       capacity,
       price,
       purchasingDate,
@@ -31,15 +32,16 @@ export async function POST(req: NextRequest) {
     const stockList = collection(userCollection, "stocks");
     const newStock = doc(stockList); //產生一個新的doc跟ID出來
     await setDoc(newStock, {
-      postID: newStock.id,
+      stockId: newStock.id,
       uid: uid,
       picture: picture,
       category: category,
-      subCategory,
+      subCategory: subCategory,
       brand: brand,
-      itemName,
+      itemName: itemName,
+      amount: amount,
       capacity: {
-        amount: capacity.amount,
+        itemCapacity: capacity.itemCapacity,
         unit: capacity.unit,
       },
       price: price,

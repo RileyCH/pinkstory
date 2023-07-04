@@ -47,3 +47,28 @@ export interface CommentType {
   loveUser: string[] | [];
   uid: string | null;
 }
+
+export interface StockType {
+  stockId: string;
+  data: {
+    stockId: string;
+    uid: string;
+    picture: string[] | [];
+    category: string | null;
+    subCategory: string | null;
+    brand: string | null;
+    itemName: string | null;
+    amount: string | null;
+    capacity: {
+      itemCapacity: string | null;
+      unit: string | null;
+    };
+    price: string | null;
+    purchasingDate: string | null;
+    expirationDate: string | null;
+    durationDay: number | null;
+    used: string | null;
+    note: string | null;
+    createTime: Timestamp | any;
+  };
+}

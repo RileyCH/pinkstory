@@ -25,6 +25,7 @@ const AddStock = () => {
   const [brand, setBrand] = useState<string>("");
   const [itemName, setItemName] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
+  const [capacity, setCapacity] = useState<string>("");
   const [unit, setUnit] = useState<string>("ml");
   const [price, setPrice] = useState<string>("");
   const [purchasingDate, setPurchasingDate] = useState<string>("");
@@ -42,8 +43,9 @@ const AddStock = () => {
         subCategory: subCategory,
         brand: brand,
         itemName: itemName,
+        amount: amount,
         capacity: {
-          amount: amount,
+          itemCapacity: capacity,
           unit: unit,
         },
         price: price,
@@ -86,11 +88,11 @@ const AddStock = () => {
             onChange={(e) => setSelectCategory(e.target.value)}
           >
             <option value="none">請選擇文章分類</option>
-            <option value="makeup">彩妝</option>
-            <option value="beautyCare">保養</option>
-            <option value="grocery">日用品</option>
-            <option value="healthCare">醫療保健</option>
-            <option value="other">其他</option>
+            <option value="彩妝">彩妝</option>
+            <option value="保養">保養</option>
+            <option value="日用品">日用品</option>
+            <option value="醫療保健">醫療保健</option>
+            <option value="其他">其他</option>
           </select>
         </div>
 
@@ -103,32 +105,32 @@ const AddStock = () => {
           >
             {selectCategory === "makeup" ? (
               makeupCategory.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))
             ) : selectCategory === "beautyCare" ? (
               beautyCareCategory.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))
             ) : selectCategory === "grocery" ? (
               groceryCategory.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))
             ) : selectCategory === "healthCare" ? (
               healthCareCategory.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))
             ) : selectCategory === "beautyCare" ? (
               beautyCareCategory.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
+                <option key={category} value={category}>
+                  {category}
                 </option>
               ))
             ) : selectCategory === "other" ? (
@@ -178,7 +180,11 @@ const AddStock = () => {
           <label htmlFor="" className={`${labelStyle}`}>
             容量
           </label>
-          <input type="number" placeholder="請在此輸入..." />
+          <input
+            type="number"
+            placeholder="請在此輸入..."
+            onChange={(e) => setCapacity(e.target.value)}
+          />
           <select name="" id="" onChange={(e) => setUnit(e.target.value)}>
             <option value="none" disabled>
               請選擇

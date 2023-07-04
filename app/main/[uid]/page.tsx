@@ -1,19 +1,20 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
 import Nav from "@/components/Nav";
 import { UserDataType, PostType } from "@/utils/type";
-import Post from "@/components/main/Post";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
-import Stock from "@/components/main/stock/Stock";
 import profile from "@/public/main/profile.png";
 import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
 import plus from "@/public/create-post/plus.png";
+
+const Post = React.lazy(() => import("@/components/main/Post"));
+const Stock = React.lazy(() => import("@/components/main/stock/Stock"));
 
 type Clicked = "Post" | "Keep" | "Love" | "Stock";
 
@@ -146,13 +147,17 @@ function User({ params }: { params: { uid: string } }) {
       </div>
       <div>
         {click === "Post" ? (
-          <Post posts={posts} />
+          <Suspense fallback={<div>資料讀取中...</div>}>
+            <Post posts={posts} />
+          </Suspense>
         ) : click === "Keep" ? (
           <Keep />
         ) : click === "Love" ? (
           <Love />
         ) : click === "Stock" ? (
-          <Stock uid={params.uid} />
+          <Suspense fallback={<div>資料讀取中...</div>}>
+            <Stock uid={params.uid} />
+          </Suspense>
         ) : (
           ""
         )}

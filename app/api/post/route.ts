@@ -8,7 +8,6 @@ export async function GET() {
   const querySnapshot = await getDocs(q);
   const posts: any = [];
   querySnapshot.forEach((doc) => {
-    console.log(doc.id, " => ", doc.data());
     posts.push({
       postID: doc.id,
       data: doc.data(),
