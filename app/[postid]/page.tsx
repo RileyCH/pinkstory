@@ -40,7 +40,7 @@ const PostID = async ({ params }: { params: { postid: string } }) => {
   return (
     <div className="pb-[100px]">
       <div className="w-[100vw] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
-        <Link href={`/main/${post.postData.data.uid}`}>
+        <Link href="/">
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
         <div>

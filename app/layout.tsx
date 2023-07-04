@@ -1,4 +1,4 @@
-import { Providers } from "../redux/provider";
+import { Providers } from "@/redux/provider";
 import Script from "next/script";
 import "../style/globals.css";
 import { Inter } from "next/font/google";

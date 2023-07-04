@@ -36,7 +36,7 @@ export interface PostType {
     content: string | null;
     status: string | null;
     loveUser: string[] | [];
-    createTime: Timestamp | null;
+    createTime: Timestamp | any;
     keepUser: string[] | [];
   };
 }

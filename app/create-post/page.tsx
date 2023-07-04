@@ -19,6 +19,21 @@ import lock from "@/public/create-post/lock.png";
 const CreatePost = () => {
   const user = useAppSelector((state) => state.user);
   const [postImage, setPostImage] = useState<string[]>([]);
+  const categories = [
+    { value: "makeup", label: "美妝" },
+    { value: "fashion", label: "穿搭" },
+    { value: "beautyCare", label: "保養" },
+    { value: "travel", label: "旅遊" },
+    { value: "book", label: "書籍" },
+    { value: "movie", label: "電影" },
+    { value: "workout", label: "運動" },
+    { value: "food", label: "美食" },
+    { value: "3c", label: "3C" },
+    { value: "study", label: "學習" },
+    { value: "babyCare", label: "育兒" },
+    { value: "photography", label: "攝影" },
+    { value: "pet", label: "寵物" },
+  ];
   const [selectCategory, setSelectCategory] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
@@ -100,19 +115,11 @@ const CreatePost = () => {
               <option value="none" disabled>
                 文章類別
               </option>
-              <option value="makeup">美妝</option>
-              <option value="fashion">穿搭</option>
-              <option value="beautyCare">保養</option>
-              <option value="travel">旅遊</option>
-              <option value="book">書籍</option>
-              <option value="movie">電影</option>
-              <option value="workout">運動</option>
-              <option value="food">美食</option>
-              <option value="3c">3C</option>
-              <option value="study">學習</option>
-              <option value="babyCare">育兒</option>
-              <option value="photography">攝影</option>
-              <option value="pet">寵物</option>
+              {categories.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
             </select>
           </div>
 

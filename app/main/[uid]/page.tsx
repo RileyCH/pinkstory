@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
 import Nav from "@/components/Nav";
@@ -8,7 +9,7 @@ import { UserDataType, PostType } from "@/utils/type";
 import Post from "@/components/main/Post";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
-import Stock from "@/components/main/Stock";
+import Stock from "@/components/main/stock/Stock";
 import profile from "@/public/main/profile.png";
 import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
@@ -42,6 +43,9 @@ function User({ params }: { params: { uid: string } }) {
   });
   const [posts, setPosts] = useState<PostType[]>([]);
   const [click, setClick] = useState<Clicked>("Post");
+  const logout = () => {
+    localStorage.removeItem("uid");
+  };
 
   useEffect(() => {
     if (user.uid) {
@@ -76,7 +80,9 @@ function User({ params }: { params: { uid: string } }) {
   return (
     <div>
       <div className="flex justify-between">
-        <div>編輯</div>
+        <Link href="/main" onClick={() => logout()}>
+          登出
+        </Link>
         <div>{"->"}</div>
       </div>
       <div>
@@ -146,7 +152,7 @@ function User({ params }: { params: { uid: string } }) {
         ) : click === "Love" ? (
           <Love />
         ) : click === "Stock" ? (
-          <Stock />
+          <Stock uid={params.uid} />
         ) : (
           ""
         )}
