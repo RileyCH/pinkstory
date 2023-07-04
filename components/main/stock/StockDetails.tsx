@@ -29,7 +29,16 @@ const StockDetails = ({ stock }: { stock: StockType }) => {
       <p>到期日：{stock.data.expirationDate}</p>
       <p>剩餘使用時間：{stock.data.durationDay} 天</p>
       <p>是否開封：{stock.data.used === "true" ? "已開封" : "未開封"}</p>
-      <p>備註：{stock.data.note}</p>
+      <p>
+        備註：
+        {stock.data.note &&
+          stock.data.note.split("\n").map((note: string, index: number) => (
+            <p key={index}>
+              {note}
+              <br />
+            </p>
+          ))}
+      </p>
       <p>{new Date(stock.data.createTime.seconds * 1000).toLocaleString()}</p>
     </div>
   );

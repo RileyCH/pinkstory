@@ -103,31 +103,31 @@ const AddStock = () => {
             id=""
             onChange={(e) => setSubCategory(e.target.value)}
           >
-            {selectCategory === "makeup" ? (
+            {selectCategory === "彩妝" ? (
               makeupCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))
-            ) : selectCategory === "beautyCare" ? (
+            ) : selectCategory === "保養" ? (
               beautyCareCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))
-            ) : selectCategory === "grocery" ? (
+            ) : selectCategory === "日用品" ? (
               groceryCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))
-            ) : selectCategory === "healthCare" ? (
+            ) : selectCategory === "醫療保健" ? (
               healthCareCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))
-            ) : selectCategory === "beautyCare" ? (
+            ) : selectCategory === "其他" ? (
               beautyCareCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
