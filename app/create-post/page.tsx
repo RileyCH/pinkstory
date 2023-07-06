@@ -4,17 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
-
 import AddPostImage from "@/components/create-post/AddPostImage";
 import TagUser from "@/components/create-post/TagUser";
 import Location from "@/components/create-post/Location";
 import FinishAdd from "@/components/create-post/FinishAdd";
+import Nav from "@/components/Nav";
 import { PostType } from "@/utils/type";
 import category from "@/public/create-post/category.png";
 import diskette from "@/public/create-post/diskette.png";
 import back from "@/public/back.png";
 import lock from "@/public/create-post/lock.png";
-//test3 uid: bntWcXZUSKQ46EeJtei73g3pijs1
 
 const CreatePost = () => {
   const user = useAppSelector((state) => state.user);
@@ -189,12 +188,20 @@ const CreatePost = () => {
           {createStatus && <FinishAdd />}
         </div>
       ) : (
-        <Link
-          href="../main"
-          className="bg-gray-200 p-[15px] flex justify-center items-center w-[150px] rounded-xl"
-        >
-          請先登入！
-        </Link>
+        <div className="text-center mt-[250px]">
+          <p className="mb-[30px]">
+            您目前尚未登入，
+            <br />
+            需登入才能發佈文章
+          </p>
+          <Link
+            href="/main"
+            className="bg-[#FB6E6E] hover:bg-[#b62c2c] text-white px-[20px] py-[10px] rounded-sm cursor-pointer"
+          >
+            點此登入
+          </Link>
+          <Nav />
+        </div>
       )}
       <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9rPlvAdkzmyTmkt6YSmp-LJYn4_RGq30&libraries=geometry"

@@ -1,21 +1,19 @@
 import Link from "next/link";
 import Nav from "@/components/Nav";
 import Rooms from "@/components/live-stream/Rooms";
+import HostButton from "@/components/live-stream/HostButton";
 
 const LiveStream = () => {
   return (
     <div>
       <div className="">
-        <Link
-          href={`/live-stream/6490284b06cb49564217643c/host`}
-          className="bg-gray-200 p-[15px] flex justify-center items-center w-[120px] rounded-lg"
-        >
-          發起直播
-        </Link>
-        <div className="mt-[30px]">
-          <p className="mb-[10px]">直播用戶列表</p>
+        <div className="my-[30px]">
+          <p className="my-[10px] text-[24px] mx-auto text-center">
+            直播用戶列表
+          </p>
           <Rooms />
         </div>
+        <HostButton />
       </div>
 
       <Nav />

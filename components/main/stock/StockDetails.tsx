@@ -14,9 +14,8 @@ const StockDetails = ({ stock }: { stock: StockType }) => {
           ))}
       </div>
 
-      <p>
-        分類：{stock.data.category} - {stock.data.subCategory}
-      </p>
+      <p>類別：{stock.data.category}</p>
+      <p>用途：{stock.data.subCategory}</p>
       <p>品牌：{stock.data.brand}</p>
       <p>名稱：{stock.data.itemName}</p>
       <p>數量：{stock.data.amount}</p>

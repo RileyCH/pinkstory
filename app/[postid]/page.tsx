@@ -83,7 +83,7 @@ const PostID = async ({ params }: { params: { postid: string } }) => {
             ))}
         </div>
       </div>
-      <h2 className="">{post.postData.data.title}</h2>
+      <p className="text-[18px] font-semibold">{post.postData.data.title}</p>
       <p>
         {postContent.map((Content: string, index: number) => (
           <p key={index}>

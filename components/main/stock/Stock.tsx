@@ -38,14 +38,14 @@ const Stock = ({ uid }: { uid: string }) => {
         >
           全部
         </p>
-        <p
+        {/* <p
           onClick={() => {
             setCategory("makeup");
             setSelectItem(null);
           }}
         >
           彩妝
-        </p>
+        </p> */}
         <p
           onClick={() => {
             setCategory("beautyCare");
@@ -54,7 +54,7 @@ const Stock = ({ uid }: { uid: string }) => {
         >
           保養
         </p>
-        <p
+        {/* <p
           onClick={() => {
             setCategory("grocery");
             setSelectItem(null);
@@ -77,7 +77,7 @@ const Stock = ({ uid }: { uid: string }) => {
           }}
         >
           其他
-        </p>
+        </p> */}
       </div>
 
       <div className="grid gap-2 grid-cols-2">

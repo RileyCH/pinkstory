@@ -34,14 +34,14 @@ const Post = ({ posts }: { posts: PostType[] }) => {
               <p className="text-[12px]">{post.data.uid.slice(0, 5)}</p>
             </div>
 
-            <div className="flex gap-2">
+            {/* <div className="flex gap-2">
               <p>按讚數</p>
               <p>{post.data.loveUser ? post.data.loveUser.length : 0}</p>
             </div>
             <div className="flex gap-2">
               <p>收藏數</p>
               <p>{post.data?.keepUser ? post.data.loveUser.length : 0}</p>
-            </div>
+            </div> */}
           </Link>
         </div>
       ))}

@@ -7,8 +7,8 @@ import Nav from "@/components/Nav";
 function Main() {
   const user = useAppSelector((state) => state.user.uid);
   return (
-    <div>
-      <p>請先登入</p>
+    <div className="text-center">
+      <p className="text-[24px] text-center py-[25px]">個人主頁</p>
       {!user && <NativeLogin />}
       <Nav />
     </div>

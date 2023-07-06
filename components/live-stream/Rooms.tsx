@@ -68,7 +68,7 @@ const Rooms = () => {
           </Link>
         ))
       ) : (
-        <p>目前沒有直播</p>
+        <p className="text-center mb-[40px]">目前沒有用戶正在直播中</p>
       )}
     </div>
   );

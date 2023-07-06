@@ -1,11 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import SignUp from "@/components/SignUp";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/redux/features/signup/loginSlice";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/utils/database";
+import emailIcon from "@/public/login/email.png";
+import passwordIcon from "@/public/login/padlock.png";
+import facebook from "@/public/login/facebook.png";
+import google from "@/public/login/google.png";
 
 const NativeLogin = () => {
   const [signUp, setSignUp] = useState<boolean>(false);
@@ -24,40 +29,81 @@ const NativeLogin = () => {
         router.push(`main/${user.uid}`);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        console.error(error);
       });
   };
 
   return (
     <>
       {!user.loginStatus && (
-        <div className="w-[300px] h-[400px] bg-slate-200 rounded-[10px] m-auto">
+        <div className="nativeLoginArea">
           {!signUp ? (
-            <div>
-              <p>我要登入</p>
-              <form action="" onSubmit={handleLogin}>
-                <div>
-                  <label htmlFor="">帳號</label>
-                  <input
-                    type="email"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
+            <div className="h-[90vh] md:h-[85vh] 2xl:h-[75vh] flex flex-col justify-between">
+              <div className="mb-[10px]">
+                <h1 className="text-[42px] md:text-[72px] 2xl:text-[96px] font-black tracking-widest mb-2 text-mainPink">
+                  PinkStory
+                </h1>
+                <h2 className="text-[18px] md:text-[24px] 2xl:text-[36px]">
+                  Enrich your life, <br />
+                  anytime, anywhere.
+                </h2>
+              </div>
+              <div>
+                <form onSubmit={handleLogin} className="mb-[20px] md:mb-[30px]">
+                  <div className="loginInputDiv">
+                    <div className="absolute left-7 md:left-10">
+                      <Image src={emailIcon} alt="login account" width={20} />
+                    </div>
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="loginInput"
+                    />
+                  </div>
 
-                <div>
-                  <label htmlFor="">密碼</label>
-                  <input
-                    type="password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <div className="loginInputDiv">
+                    <div className="absolute left-7 md:left-10">
+                      <Image
+                        src={passwordIcon}
+                        alt="login password"
+                        width={20}
+                      />
+                    </div>
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="loginInput"
+                    />
+                  </div>
+
+                  <button className="w-[270px] xl:w-[490px] bg-mainPink text-[14px] hover:bg-amber-600 py-[10px] rounded-full cursor-pointer">
+                    登入
+                  </button>
+                </form>
+                <p className="text-[14px] mb-[20px] md:mb-[30px] relative textOr">
+                  或
+                </p>
+                <div className="thirdLoginDiv">
+                  <div>
+                    <Image src={facebook} alt="login account" width={20} />
+                  </div>
+                  <p>Facebook 登入</p>
                 </div>
-                <button>登入</button>
-              </form>
-              <div>或</div>
-              <div>使用 Facebook 帳號登入</div>
-              <div>使用 Google 帳號登入</div>
-              <div onClick={() => setSignUp(true)}>建立帳戶</div>
+                <div className="thirdLoginDiv">
+                  <div>
+                    <Image src={google} alt="login account" width={15} />
+                  </div>
+                  <p>Google 登入</p>
+                </div>
+                <div
+                  onClick={() => setSignUp(true)}
+                  className="w-[270px] text-[14px] mx-auto cursor-pointer"
+                >
+                  建立帳戶
+                </div>
+              </div>
             </div>
           ) : (
             <SignUp />

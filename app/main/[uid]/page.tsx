@@ -77,6 +77,7 @@ function User({ params }: { params: { uid: string } }) {
       fetchPost();
     }
   }, [user.uid]);
+  console.log(window.Notification.permission);
 
   return (
     <div>
@@ -84,7 +85,7 @@ function User({ params }: { params: { uid: string } }) {
         <Link href="/main" onClick={() => logout()}>
           登出
         </Link>
-        <div>{"->"}</div>
+        <div>通知</div>
       </div>
       <div>
         <div className="flex items-center mb-[20px]">

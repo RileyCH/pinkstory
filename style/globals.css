@@ -8,9 +8,9 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-}
+} */
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -32,15 +32,81 @@ body {
   box-sizing: border-box;
 }
 
-main {
-  background-color: aqua;
+.nativeLoginArea {
+  color: white;
+  text-align: center;
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 50px;
+  margin: auto;
+  z-index: 10;
+
+  @media (min-width: 768px) {
+    margin: 0;
+    top: 100px;
+    left: 120px;
+  }
+  @media (min-width: 1280px) {
+    margin: 0;
+    top: 80px;
+    left: 720px;
+  }
+  @media (min-width: 1920px) {
+    margin: 0;
+    top: 100px;
+    left: 900px;
+  }
 }
 
-nav {
-  width: 100vw;
-  height: 100px;
+.loginInputDiv {
+  width: 300px;
+  margin: 0 auto 20px auto;
   display: flex;
-  justify-content: space-evenly;
-  position: fixed;
-  bottom: 150px;
+  align-items: center;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 450px;
+    margin-bottom: 30px;
+  }
+  @media (min-width: 1280px) {
+    width: 550px;
+    margin-bottom: 30px;
+  }
+}
+
+.loginInput {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 48px;
+  background-color: rgba(237, 199, 191, 0.2);
+  color: white;
+  border-radius: 6px;
+}
+
+.loginInput::placeholder {
+  color: white;
+  font-size: 14px;
+}
+
+.thirdLoginDiv {
+  width: 270px;
+  font-size: 14px;
+  border: 1px solid rgba(206, 124, 107);
+  border-radius: 9999px;
+  margin: 0 auto 15px auto;
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  @media (min-width: 768px) {
+    width: 490px;
+    margin-bottom: 25px;
+  }
+}
+
+.thirdLoginDiv:hover {
+  background-color: rgba(206, 124, 107);
 }

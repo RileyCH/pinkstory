@@ -69,24 +69,28 @@ const Comments = ({
         }
       });
     });
-    // unsubscribe();
   }, [postId, authorId]);
 
   return (
     <div>
-      <div>共 {commentData.length} 則留言</div>
+      <p className="text-center text-gray-400 mb-[20px]">
+        -- 共 {commentData.length} 則留言 --
+      </p>
       <div>
         {commentData.length > 0 ? (
           commentData.map((comment: CommentsType, index: number) => (
-            <div key={index} className="flex justify-between">
+            <div
+              key={index}
+              className="w-[90vw] mx-auto my-[10px] py-[10px] px-[10px] border-b flex justify-between"
+            >
               <div className="flex">
-                <div>
+                <div className="mr-[10px]">
                   <Image src={profile} alt="" width={25} height={25} />
                 </div>
                 <div>
-                  <p>{comment?.data?.uid}</p>
+                  <p>{comment?.data?.uid.slice(0, 5)}</p>
                   <p>{comment?.data?.content}</p>
-                  <p>
+                  <p className="text-[8px]">
                     {new Date(
                       comment?.data?.commentTime?.seconds * 1000
                     ).toLocaleString()}
@@ -123,7 +127,7 @@ const Comments = ({
         )}
       </div>
 
-      <p> - 沒有其他留言了 - </p>
+      <p className="text-center"> 沒有其他留言了</p>
     </div>
   );
 };

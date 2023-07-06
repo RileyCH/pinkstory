@@ -72,3 +72,12 @@ export interface StockType {
     createTime: Timestamp | any;
   };
 }
+
+export interface ChatRoomType {
+  chatRoomId: string;
+  data: {
+    roomId: string;
+    uid: string[];
+    message: { content: string; sentTime: Timestamp; uid: string }[];
+  };
+}
