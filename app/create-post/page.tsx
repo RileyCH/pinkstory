@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { loginUser } from "@/redux/features/signup/loginSlice";
 import AddPostImage from "@/components/create-post/AddPostImage";
 import TagUser from "@/components/create-post/TagUser";
 import Location from "@/components/create-post/Location";
@@ -17,6 +18,7 @@ import lock from "@/public/create-post/lock.png";
 
 const CreatePost = () => {
   const user = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const [postImage, setPostImage] = useState<string[]>([]);
   const categories = [
     { value: "makeup", label: "美妝" },
@@ -87,6 +89,13 @@ const CreatePost = () => {
         });
     }
   };
+
+  useEffect(() => {
+    const checkUid = localStorage.getItem("uid");
+    if (checkUid) {
+      dispatch(loginUser({ uid: checkUid, email: "", password: "" }));
+    }
+  }, [dispatch]);
 
   return (
     <div className="wrapper relative pb-[70px]">
@@ -203,11 +212,11 @@ const CreatePost = () => {
           <Nav />
         </div>
       )}
-      <script
+      {/* <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9rPlvAdkzmyTmkt6YSmp-LJYn4_RGq30&libraries=geometry"
         async
         defer
-      ></script>
+      ></script> */}
     </div>
   );
 };

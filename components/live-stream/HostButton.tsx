@@ -1,9 +1,20 @@
 "use client";
+import { useEffect } from "react";
 import Link from "next/link";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { loginUser } from "@/redux/features/signup/loginSlice";
 
 const HostButton = () => {
-  const uid = useAppSelector((state) => state).user.uid;
+  const uid = useAppSelector((state) => state.user.uid);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const checkUid = localStorage.getItem("uid");
+    if (checkUid) {
+      dispatch(loginUser({ uid: checkUid, email: "", password: "" }));
+    }
+  }, [dispatch]);
+
   return (
     <div>
       {uid ? (

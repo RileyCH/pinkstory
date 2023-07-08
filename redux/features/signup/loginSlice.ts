@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/utils/database";
@@ -11,14 +12,21 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  uid: typeof window !== "undefined" ? localStorage.getItem("uid") : "",
-  loginStatus:
-    typeof window !== "undefined" && window.localStorage.getItem("uid")
-      ? true
-      : false,
+  uid: "",
+  loginStatus: false,
   loading: false,
   error: "",
 };
+
+// const initialState: InitialState = {
+//   uid: typeof window !== "undefined" ? localStorage.getItem("uid") : "",
+//   loginStatus:
+//     typeof window !== "undefined" && window.localStorage.getItem("uid")
+//       ? true
+//       : false,
+//   loading: false,
+//   error: "",
+// };
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",

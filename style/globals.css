@@ -146,6 +146,7 @@ nav {
   justify-content: center;
   align-items: center;
   position: relative;
+  cursor: pointer;
   @media (min-width: 768px) {
     width: 40px;
     height: 40px;
@@ -209,4 +210,30 @@ nav {
   height: 200px;
   margin-bottom: 10px;
   position: relative;
+}
+
+.liveStreamMessageInputDiv {
+  width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  @media (min-width: 768px) {
+    width: 30vw;
+    margin-bottom: 30px;
+  }
+}
+
+.liveStreamMessageInput {
+  width: calc(100% - 80px);
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 999px;
 }

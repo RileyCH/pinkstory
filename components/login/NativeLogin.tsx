@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SignUp from "@/components/login/SignUp";
@@ -17,9 +17,9 @@ const NativeLogin = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
-
   const user = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(loginUser({ email: email, password: password, uid: "" }));
@@ -32,6 +32,14 @@ const NativeLogin = () => {
         console.error(error);
       });
   };
+
+  useEffect(() => {
+    const checkUid = localStorage.getItem("uid");
+    if (checkUid) {
+      dispatch(loginUser({ uid: checkUid, email: "", password: "" }));
+      router.push(`main/${checkUid}`);
+    }
+  }, [dispatch, router]);
 
   return (
     <>

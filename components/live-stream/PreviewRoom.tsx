@@ -188,16 +188,16 @@ const PreviewRoom = ({
         </div>
       </div>
 
-      <div className="flex justify-center gap-5 fixed bottom-5 left-0 right-0 mx-auto">
+      <div className="flex justify-center items-center gap-5 fixed bottom-5 left-0 right-0 mx-auto">
         <div
           onClick={leaveRoom}
-          className="w-[50px] h-[50px] text-[14px] text-white bg-mainGray rounded-full flex justify-center items-center p-2"
+          className="w-[50px] h-[50px] text-[14px] text-white bg-mainGray rounded-full flex justify-center items-center p-2 cursor-pointer hover:bg-DarkGray"
         >
           取消
         </div>
         <div
           onClick={onJoinClick}
-          className="w-[50px] h-[50px] text-[14px] text-white bg-mainPink rounded-full flex justify-center items-center p-2"
+          className="w-[50px] h-[50px] text-[14px] text-white bg-mainPink rounded-full flex justify-center items-center p-2 cursor-pointer hover:bg-darkPink"
         >
           開始
         </div>

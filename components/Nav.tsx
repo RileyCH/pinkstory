@@ -7,8 +7,9 @@ import { UserLoginInitialState, UserDataType } from "@/utils/type";
 import add from "../public/add.png";
 
 const Nav = () => {
-  const uid = useAppSelector((state: { user: UserLoginInitialState }) => state)
-    .user.uid;
+  const uid = useAppSelector(
+    (state: { user: UserLoginInitialState }) => state.user.uid
+  );
   // const [userData, setUserData] = useState<UserDataType>({
   //   uid: "",
   //   age: 0,

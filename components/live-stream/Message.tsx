@@ -1,4 +1,5 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import {
   useHMSStore,
   useCustomEvent,
@@ -10,6 +11,7 @@ import {
   selectPeers,
 } from "@100mslive/react-sdk";
 import { hmsActions } from "@/utils/hms";
+import sendIcon from "@/public/live-stream/send.png";
 
 const Message = () => {
   const [message, setMessage] = useState<string>("");
@@ -21,13 +23,12 @@ const Message = () => {
   const sentMessage = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     hmsActions.sendBroadcastMessage(`${message}`);
-    e.target.value = "";
   };
+  console.log(message);
 
   return (
-    <div className="fixed top-10 right-5 bg-white">
-      <div>聊天室訊息</div>
-      <div>
+    <div>
+      <div className="h-[150px] overflow-auto fixed bottom-[85px] left-9 z-10 ">
         {broadcastMessages &&
           broadcastMessages.map((message, index) => (
             <div key={index} className="bg-red-100">
@@ -36,15 +37,18 @@ const Message = () => {
           ))}
       </div>
 
-      <form onSubmit={sentMessage}>
+      <form onSubmit={sentMessage} className="liveStreamMessageInputDiv">
         <input
           type="text"
+          placeholder="輸入訊息..."
           onChange={(e) => {
             setMessage(e.target.value);
           }}
-          className="border border-gray-300"
+          className="liveStreamMessageInput"
         />
-        <button>傳送</button>
+        <button className="w-[40px] h-[40px] bg-mainPink rounded-full flex justify-center items-center p-3 relative">
+          <Image src={sendIcon} alt="send message" />
+        </button>
       </form>
     </div>
   );
