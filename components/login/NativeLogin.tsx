@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import SignUp from "@/components/SignUp";
+import SignUp from "@/components/login/SignUp";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/redux/features/signup/loginSlice";
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";

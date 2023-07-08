@@ -1,6 +1,14 @@
 import { Timestamp } from "firebase/firestore";
+
+export type UserLoginInitialState = {
+  uid: string | null;
+  loginStatus: boolean;
+  loading: boolean;
+  error: string;
+};
+
 export interface UserDataType {
-  uid: string;
+  uid: string | null;
   age: number | null;
   bgImg: string | null;
   birth: {
@@ -12,10 +20,14 @@ export interface UserDataType {
   follower: string[] | [];
   following: string[] | [];
   followingCategory: { [key: string]: number };
-  gender: "Female" | "Male" | "Unknown";
+  gender: string | null;
   introduction: string | null;
   keptPost: string[] | [];
-  liveStreamRoomID: string;
+  liveStream: {
+    roomId: string;
+    hostRoomCode: string;
+    guestRoomCode: string;
+  };
   name: string;
   profileImg: string | null;
   registedDate: number;

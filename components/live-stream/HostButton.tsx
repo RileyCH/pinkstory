@@ -8,7 +8,7 @@ const HostButton = () => {
     <div>
       {uid ? (
         <Link
-          href={`/live-stream/6490284b06cb49564217643c/host`}
+          href={`/live-stream/${uid}/host`}
           className="bg-gray-200 p-[15px] flex justify-center items-center w-[120px] rounded-lg mx-auto"
         >
           發起直播

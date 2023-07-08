@@ -1,5 +1,5 @@
 import Image from "next/image";
-import NativeLogin from "@/components/NativeLogin";
+import NativeLogin from "@/components/login/NativeLogin";
 import landing from "@/public/background/landing.png";
 export const revalidate = 0;
 

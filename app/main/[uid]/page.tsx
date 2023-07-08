@@ -36,7 +36,11 @@ function User({ params }: { params: { uid: string } }) {
     gender: "Female",
     introduction: "",
     keptPost: [],
-    liveStreamRoomID: "",
+    liveStream: {
+      roomId: "",
+      hostRoomCode: "",
+      guestRoomCode: "",
+    },
     name: "",
     profileImg: "",
     registedDate: 0,

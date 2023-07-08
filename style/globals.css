@@ -32,6 +32,15 @@ body {
   box-sizing: border-box;
 }
 
+nav {
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: space-evenly;
+  position: fixed;
+  bottom: 150px;
+}
+
 .nativeLoginArea {
   color: white;
   text-align: center;
@@ -108,5 +117,96 @@ body {
 }
 
 .thirdLoginDiv:hover {
-  background-color: rgba(206, 124, 107);
+  background-color: #ef8679;
+}
+
+.liveStreamControlDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  z-index: 10;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    top: 410px;
+    right: 65px;
+    gap: 40px;
+  }
+}
+
+.liveStreamControlBtn {
+  width: 35px;
+  height: 35px;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+  }
+}
+.liveStreamControlBtn:hover {
+  background-color: #e48d85;
+}
+
+.liveStreamInputWrapper {
+  width: 100vw;
+  position: fixed;
+  bottom: 85px;
+
+  @media (min-width: 768px) {
+    width: 30vw;
+    right: 50px;
+    top: 120px;
+    bottom: 0;
+  }
+}
+
+.liveStreamTitleDiv {
+  width: 85vw;
+  margin: 0 auto 15px auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 30vw;
+    margin-bottom: 30px;
+  }
+}
+
+.liveStreamTitleInput {
+  width: calc(100% - 80px);
+  margin: 0 auto;
+  padding: 5px 10px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  border-radius: 8px;
+}
+
+.liveStreamTitleInput::placeholder {
+  color: white;
+  font-size: 12px;
+}
+
+.liveStreamCoverDiv {
+  width: 85vw;
+  margin: 0 auto;
+  display: flex;
+  @media (min-width: 768px) {
+    width: 30vw;
+  }
+}
+
+.liveStreamCoverImageWrapper {
+  width: calc(100% - 80px);
+  height: 200px;
+  margin-bottom: 10px;
+  position: relative;
 }

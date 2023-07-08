@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useAppSelector } from "@/redux/hooks";
-import NativeLogin from "@/components/NativeLogin";
+import NativeLogin from "@/components/login/NativeLogin";
 import Nav from "@/components/Nav";
 
 function Main() {
