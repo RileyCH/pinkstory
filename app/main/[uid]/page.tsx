@@ -107,7 +107,11 @@ function User({ params }: { params: { uid: string } }) {
 
         <div className="flex items-center">
           <Image
-            src={userData.gender.toLowerCase() === "female" ? female : male}
+            src={
+              userData.gender && userData.gender.toLowerCase() === "female"
+                ? female
+                : male
+            }
             alt=""
             width={20}
             height={20}

@@ -36,7 +36,7 @@ const TagUser: React.FC<TagUserProps> = ({ uid, tagUsers, setTagUsers }) => {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [uid]);
 
   return (
     <div className="w-[100px]">

@@ -71,7 +71,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
       };
       onJoinClick();
     }
-  }, [guestAuthToken]);
+  }, [guestAuthToken, guestConfig, hmsActions]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -83,7 +83,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
     return () => {
       clearTimeout(timer);
     };
-  }, [peers]);
+  }, [peers, host.length, leaveRoom]);
 
   return (
     <div className="relative after:bg-themePink-200 after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">

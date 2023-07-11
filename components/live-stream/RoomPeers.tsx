@@ -29,10 +29,10 @@ const RoomPeers = ({ roomId }: { roomId: string }) => {
       };
       fetchPeers();
 
-      const intervalId = setInterval(fetchPeers, 5000);
-      return () => clearInterval(intervalId);
+      // const intervalId = setInterval(fetchPeers, 5000);
+      // return () => clearInterval(intervalId);
     }
-  }, []);
+  }, [roomId]);
 
   return <div>{Object.keys(roomPeer.peers).length - 1}</div>;
 };
