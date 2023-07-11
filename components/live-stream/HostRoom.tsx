@@ -25,18 +25,12 @@ const HostRoom = () => {
     trackId: hostVideoTrack[0]?.videoTrack,
   });
 
-  const leaveRoom = () => {
-    hmsActions.leave();
-  };
-
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
 
-  console.log(peers);
-
   return (
-    <div className="relative after:bg-lightPink after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
+    <div className="relative after:bg-themePink-200 after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
       <div>
         <video
           ref={videoRef}
@@ -47,9 +41,6 @@ const HostRoom = () => {
       </div>
 
       <div className="absolute top-10 left-2 flex gap-3">
-        <p onClick={() => leaveRoom()} className="bg-slate-200 p-[15px] z-10">
-          結束直播
-        </p>
         <Viewers />
         <Message />
       </div>

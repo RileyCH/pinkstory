@@ -2,7 +2,6 @@
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import { hmsStore, hmsActions, hmsNotifications } from "@/utils/hms";
 import Guest from "@/components/live-stream/Guest";
-import Nav from "@/components/Nav";
 
 const StartStreaming = ({ params }: { params: { roomid: string } }) => {
   return (
@@ -12,8 +11,7 @@ const StartStreaming = ({ params }: { params: { roomid: string } }) => {
       notifications={hmsNotifications}
     >
       <div>
-        <Guest />
-        <Nav />
+        <Guest roomid={params.roomid} />
       </div>
     </HMSRoomProvider>
   );

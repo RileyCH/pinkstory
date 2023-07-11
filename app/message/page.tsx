@@ -28,8 +28,7 @@ const Message = () => {
   }, [uid]);
 
   return (
-    <div>
-      <p className="text-[24px] text-center py-[25px]">聊天室</p>
+    <div className="pt-[80px]">
       {uid ? (
         <div>
           {chatRooms.map((room) => (
@@ -41,7 +40,7 @@ const Message = () => {
               <Image src={profile} alt="" width={30} height={30} />
               <div>
                 <p>
-                  使用者{" "}
+                  使用者
                   {room.data.uid.filter((id) => id !== uid)[0].slice(0, 5)}
                 </p>
                 <div className="w-[80vw] flex justify-between items-center">
@@ -66,7 +65,11 @@ const Message = () => {
               </div>
             </Link>
           ))}
-          <p className="text-center"> －沒有其他訊息了－</p>
+          {chatRooms.length === 0 ? (
+            <p className="text-center"> －訊息載入中－</p>
+          ) : (
+            <p className="text-center mt-5"> －沒有其他訊息了－</p>
+          )}
         </div>
       ) : (
         <div className="text-center mt-[250px]">

@@ -12,7 +12,7 @@ const StartStreaming = ({ params }: { params: { roomid: string } }) => {
       notifications={hmsNotifications}
     >
       <div>
-        <BackDiv url={"live-stream"} />
+        {/* <BackDiv url={"live-stream"} /> */}
         <Host />
       </div>
     </HMSRoomProvider>

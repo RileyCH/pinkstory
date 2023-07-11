@@ -13,7 +13,6 @@ import {
 import { useAppSelector } from "@/redux/hooks";
 import { UserDataType } from "@/utils/type";
 import ControlBar from "@/components/live-stream/ControlBar";
-import profile from "@/public/main/profile.png";
 
 const PreviewRoom = ({
   hostAuthToken,
@@ -59,10 +58,11 @@ const PreviewRoom = ({
         name: userData.name,
         profile: userData.profileImg,
         theme: title,
+        cover: coverUrl,
       }),
       rememberDeviceSelection: true,
     }),
-    [userData.name, hostAuthToken, userData.profileImg, title]
+    [userData.name, hostAuthToken, userData.profileImg, title, coverUrl]
   );
 
   const previewLiveStream = useCallback(async () => {
@@ -81,10 +81,6 @@ const PreviewRoom = ({
     }
   };
 
-  const leaveRoom = () => {
-    hmsActions.leave();
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       previewLiveStream();
@@ -95,20 +91,26 @@ const PreviewRoom = ({
   }, [previewLiveStream]);
 
   return (
-    <div>
-      <div className="relative after:bg-lightPink after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
+    <div className="relative">
+      <div className="relative after:bg-themePink-300 after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
         {peers.length > 0 ? (
           <div>
             <video
               ref={videoRef}
               autoPlay
               className="w-[100vw] h-[100vh] object-cover -scale-x-100"
-            ></video>
+            />
             <ControlBar />
           </div>
         ) : (
           <div className="w-[100vw] h-[100vh] bg-gradient-to-tl from-[#fae8e6] from-10% via-[#F9D1BA] via-30% to-[#e48d85] to-80% object-cover flex flex-col items-center gap-5">
-            <div className="w-[100px] h-[100px] relative rounded-full border-2 p-[20px] border-mainPink mt-[20vh]">
+            <div
+              onClick={previewLiveStream}
+              className="text-white text-[20px] z-40 mt-[13vh] mb-[30px]"
+            >
+              預覽畫面載入中...
+            </div>
+            <div className="w-[100px] h-[100px] relative rounded-full border-2 p-[20px] border-themePink-400">
               {userData.profileImg && (
                 <Image
                   src={`${userData.profileImg}`}
@@ -120,29 +122,26 @@ const PreviewRoom = ({
                 />
               )}
             </div>
-            <div onClick={previewLiveStream} className="text-white z-40">
-              預覽畫面載入中...
-            </div>
           </div>
         )}
       </div>
 
       <div className="liveStreamInputWrapper">
         <div className="liveStreamTitleDiv">
-          <label className="text-[14px] mr-4 text-white">直播標題</label>
           <input
             type="text"
             onChange={(e) => setTitle(e.target.value)}
-            className="liveStreamTitleInput"
-            placeholder="輸入內容..."
+            className={`liveStreamTitleInput bg-opacity-50 ${
+              peers.length > 0
+                ? "bg-black text-white"
+                : "bg-white text-themePink-700"
+            }`}
+            placeholder="輸入直播主題..."
             required
           />
         </div>
 
         <div className="liveStreamCoverDiv">
-          <p className="text-[14px] mr-4 text-white">
-            {coverUrl ? "封面預覽" : "新增封面"}
-          </p>
           {coverUrl ? (
             <div className="liveStreamCoverImageWrapper">
               <Image
@@ -168,9 +167,14 @@ const PreviewRoom = ({
               </label>
             </div>
           ) : (
-            <div className="liveStreamCoverImageWrapper bg-white bg-opacity-30 rounded-lg">
-              <label className="w-[100%] h-[100%] text-white text-[20px] flex items-center justify-center">
-                +
+            <div
+              className={`liveStreamCoverImageWrapper bg-opacity-40 rounded-lg ${
+                peers.length > 0 ? "bg-black" : "bg-white"
+              }`}
+            >
+              <label className="w-[100%] h-[100%] text-themeGray-700 text-[12px] flex flex-col items-center justify-center gap-2">
+                <p>＋</p>
+                <p>新增封面</p>
                 <input
                   type="file"
                   accept="image/*"
@@ -188,18 +192,12 @@ const PreviewRoom = ({
         </div>
       </div>
 
-      <div className="flex justify-center items-center gap-5 fixed bottom-5 left-0 right-0 mx-auto">
-        <div
-          onClick={leaveRoom}
-          className="w-[50px] h-[50px] text-[14px] text-white bg-mainGray rounded-full flex justify-center items-center p-2 cursor-pointer hover:bg-DarkGray"
-        >
-          取消
-        </div>
+      <div className="w-[95vw] flex justify-center items-center gap-5 fixed bottom-5 left-0 right-0 mx-auto">
         <div
           onClick={onJoinClick}
-          className="w-[50px] h-[50px] text-[14px] text-white bg-mainPink rounded-full flex justify-center items-center p-2 cursor-pointer hover:bg-darkPink"
+          className="w-[90%] h-[50px] text-[14px] text-white bg-themePink-400 rounded-full flex justify-center items-center p-2 cursor-pointer hover:bg-darkPink md:w-[50vw] md:max-w-[600px] md:fixed md:bottom-[35px]"
         >
-          開始
+          開始直播
         </div>
       </div>
     </div>

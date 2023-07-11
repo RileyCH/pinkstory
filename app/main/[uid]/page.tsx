@@ -81,10 +81,9 @@ function User({ params }: { params: { uid: string } }) {
       fetchPost();
     }
   }, [user.uid]);
-  console.log(window.Notification.permission);
 
   return (
-    <div>
+    <div className="md:pt-[80px]">
       <div className="flex justify-between">
         <Link href="/main" onClick={() => logout()}>
           登出

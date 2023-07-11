@@ -20,20 +20,14 @@ const HostButton = () => {
       {uid ? (
         <Link
           href={`/live-stream/${uid}/host`}
-          className="bg-gray-200 p-[15px] flex justify-center items-center w-[120px] rounded-lg mx-auto"
+          className="w-[60px] h-[60px] text-[14px] bg-themePink-400 text-white flex justify-center items-center rounded-full fixed right-6 bottom-[70px] z-20 hover:bg-themePink-500 drop-shadow-lg xl:right-[60px] md:w-[80px] md:h-[80px]"
         >
-          發起直播
+          開啟
+          <br />
+          直播
         </Link>
       ) : (
-        <div className="text-center mt-[250px]">
-          <p className="mb-[30px]">您目前尚未登入，需登入才能開啟直播</p>
-          <Link
-            href="/main"
-            className="bg-[#FB6E6E] hover:bg-[#b62c2c] text-white px-[20px] py-[10px] rounded-sm cursor-pointer"
-          >
-            點此登入
-          </Link>
-        </div>
+        ""
       )}
     </div>
   );

@@ -7,6 +7,7 @@ import {
   selectIsLocalAudioEnabled,
   selectIsLocalVideoEnabled,
 } from "@100mslive/react-sdk";
+import cancel from "@/public/live-stream/cancel.png";
 import microphone from "@/public/live-stream/microphone.png";
 import mute from "@/public/live-stream/mute-microphone.png";
 import videoIcon from "@/public/live-stream/video.png";
@@ -27,8 +28,15 @@ const ControlBar = ({}) => {
   const switchCamera = async () => {
     await hmsActions.switchCamera();
   };
+
+  const leaveRoom = () => {
+    hmsActions.leave();
+  };
   return (
     <div className="liveStreamControlDiv">
+      <div onClick={leaveRoom} className="liveStreamControlBtn">
+        <Image src={cancel} alt="camera controller" />
+      </div>
       <div onClick={toggleVideo} className="liveStreamControlBtn">
         <Image
           src={isLocalVideoEnabled ? noVideo : videoIcon}

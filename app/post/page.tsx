@@ -1,8 +1,12 @@
+import Image from "next/image";
 import { collectionGroup, getDocs } from "firebase/firestore";
 import { db } from "@/utils/database";
+import Header from "@/components/Header";
+import SearchBar from "@/components/post/SearchBar";
 import Post from "@/components/main/Post";
 import Nav from "@/components/Nav";
 import { PostType } from "@/utils/type";
+import pinkStory from "@/public/pinkStory-p.png";
 
 async function fetchPosts() {
   const postCollection = collectionGroup(db, "posts");
@@ -43,14 +47,18 @@ export default async function Home() {
 
   return (
     <main>
-      <p className="text-center text-[24px] my-[20px]">文章列表</p>
-      <Post posts={postList} />
+      <div className="w-[100vw] py-[5px] mb-3 bg-gradient-to-tl from-[#fae8e6] from-10% via-[#F9D1BA] via-30% to-[#f9b6b0] to-80% drop-shadow-xl fixed z-30 md:z-0">
+        <div className="w-[90px] h-[35px] relative mx-auto mt-5 mb-1 md:hidden">
+          <Image src={pinkStory} alt="logo" />
+        </div>
+        <SearchBar />
+      </div>
+
+      <div className="pt-[130px] pb-[75px] md:pt-[85px]">
+        <Post posts={postList} />
+      </div>
+
       <Nav />
-      <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9rPlvAdkzmyTmkt6YSmp-LJYn4_RGq30&libraries=geometry"
-        async
-        defer
-      ></script>
     </main>
   );
 }
