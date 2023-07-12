@@ -6,6 +6,9 @@ import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
 import RoomPeers from "./RoomPeers";
 import Live from "@/public/background/landing.png";
+import live1 from "@/public/live-stream/1.png";
+import live2 from "@/public/live-stream/2.jpeg";
+import live3 from "@/public/live-stream/3.png";
 import profile from "@/public/main/profile.png";
 import audience from "@/public/live-stream/audience.png";
 import live from "@/public/live-stream/live.png";
@@ -36,8 +39,6 @@ interface HostEvent {
 
 const Rooms = () => {
   const [rooms, setRooms] = useState<HostEvent[]>([]);
-  const aa = [1, 2, 3, 4, 5, 6, 7, 8];
-
   useEffect(() => {
     const q = query(collection(db, "liveStream"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -109,12 +110,12 @@ const Rooms = () => {
         : ""}
 
       <Link
-        href={`/live-stream/12345/guest`}
-        className="my-1 rounded-lg shadow-lg cursor-pointer relative"
+        href={`/live-stream/7878787878/guest`}
+        className="my-1 rounded-lg shadow-lg cursor-pointer"
       >
         <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
           <Image
-            src={Live}
+            src={live3}
             alt=""
             fill
             className="object-cover object-center rounded-t-lg"
@@ -125,28 +126,116 @@ const Rooms = () => {
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
-          <div className="flex gap-2 bg-black bg-opacity-20 p-2 rounded-lg items-center absolute right-3 bottom-2">
+          <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
             <div className="w-[15px] h-[15px] relative">
               <Image src={audience} alt="" fill />
             </div>
-            <p className="text-white text-[10px]">1000</p>
+            <p className="text-white text-[10px]">37455</p>
           </div>
         </div>
 
-        <div className="max-w-[47vw] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px]">
-          <p className="font-medium break-words mb-[5px]">夏日能量 🥹</p>
-          <div className="flex gap-2 items-center absolute bottom-3">
-            <div className="w-[15px] h-[15px] relative">
-              <Image src={profile} alt="" fill />
+        <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
+          <p className="font-medium break-words mb-[5px]">
+            如果不會化妝就看這裡！
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="w-[20px] h-[20px] relative">
+              <Image
+                src="https://i.pinimg.com/564x/a3/f7/11/a3f7118efebbf323673625e0ff3462e6.jpg"
+                alt=""
+                fill
+                className="rounded-full"
+              />
             </div>
-            <p className="text-[12px] text-darkPink">使用者名稱</p>
+            <p className="text-[12px] text-darkPink">Abbie</p>
           </div>
         </div>
       </Link>
 
       <Link
-        href={`/live-stream/12345/guest`}
-        className="my-1 rounded-lg shadow-lg cursor-pointer relative"
+        href={`/live-stream/7878787878/guest`}
+        className="my-1 rounded-lg shadow-lg cursor-pointer"
+      >
+        <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+          <Image
+            src={live2}
+            alt=""
+            fill
+            className="object-cover object-center rounded-t-lg"
+          />
+          <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={live} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">直播中</p>
+          </div>
+          <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={audience} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">4855</p>
+          </div>
+        </div>
+
+        <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
+          <p className="font-medium break-words mb-[5px]">
+            擺脫懶惰、積極動起來！
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="w-[20px] h-[20px] relative">
+              <Image
+                src="https://i.pinimg.com/564x/70/34/d8/7034d84e4544fbc5aba91e604f01fa67.jpg"
+                alt=""
+                fill
+                className="rounded-full"
+              />
+            </div>
+            <p className="text-[12px] text-darkPink">Mike</p>
+          </div>
+        </div>
+      </Link>
+
+      <Link
+        href={`/live-stream/7878787878/guest`}
+        className="my-1 rounded-lg shadow-lg cursor-pointer"
+      >
+        <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+          <Image
+            src={live1}
+            alt=""
+            fill
+            className="object-cover object-center rounded-t-lg"
+          />
+          <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={live} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">直播中</p>
+          </div>
+          <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={audience} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">485</p>
+          </div>
+        </div>
+
+        <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
+          <p className="font-medium break-words mb-[5px]">
+            沒想過原來寫Code這麼累？
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="w-[20px] h-[20px] relative">
+              <Image src={live1} alt="" fill className="rounded-full" />
+            </div>
+            <p className="text-[12px] text-darkPink">Surfer Alex</p>
+          </div>
+        </div>
+      </Link>
+
+      <Link
+        href={`/live-stream/7878787878/guest`}
+        className="my-1 rounded-lg shadow-lg cursor-pointer"
       >
         <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
           <Image
@@ -161,64 +250,31 @@ const Rooms = () => {
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
-          <div className="flex gap-2 bg-black bg-opacity-20 p-2 rounded-lg items-center absolute right-3 bottom-2">
+          <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
             <div className="w-[15px] h-[15px] relative">
               <Image src={audience} alt="" fill />
             </div>
-            <p className="text-white text-[10px]">1000</p>
+            <p className="text-white text-[10px]">9415</p>
           </div>
         </div>
 
-        <div className="max-w-[47vw] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px]">
-          <p className="font-medium break-words mb-[5px]">夏日能量 🥹</p>
-          <div className="flex gap-2 items-center absolute bottom-3">
-            <div className="w-[15px] h-[15px] relative">
-              <Image src={profile} alt="" fill />
+        <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
+          <p className="font-medium break-words mb-[5px]">
+            週末來趟戶外小旅行吧 ✈️
+          </p>
+          <div className="flex gap-2 items-center">
+            <div className="w-[20px] h-[20px] relative">
+              <Image
+                src="https://i.pinimg.com/564x/a3/f7/11/a3f7118efebbf323673625e0ff3462e6.jpg"
+                alt=""
+                fill
+                className="rounded-full"
+              />
             </div>
-            <p className="text-[12px] text-darkPink">使用者名稱</p>
+            <p className="text-[12px] text-darkPink">Annie</p>
           </div>
         </div>
       </Link>
-
-      {/* {aa.map((a) => (
-        <Link
-          key={a}
-          href={`/live-stream/12345/guest`}
-          className="my-1 rounded-lg shadow-lg cursor-pointer relative"
-        >
-          <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
-            <Image
-              src={Live}
-              alt=""
-              fill
-              className="object-cover object-center rounded-t-lg"
-            />
-            <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
-              <div className="w-[15px] h-[15px] relative">
-                <Image src={live} alt="" fill />
-              </div>
-              <p className="text-white text-[10px]">直播中</p>
-            </div>
-            <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-40 p-2 rounded-lg">
-              <div className="w-[15px] h-[15px] relative">
-                <Image src={audience} alt="" fill />
-              </div>
-              <p className="text-white text-[10px]">1000</p>
-            </div>
-          </div>
-          <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
-            <p className="font-medium break-words mb-[5px]">
-              理想生活第三期 - 夏日能量 🥹
-            </p>
-            <div className="flex gap-2 items-center absolute bottom-3">
-              <div className="w-[15px] h-[15px] relative">
-                <Image src={profile} alt="" fill />
-              </div>
-              <p className="text-[12px] text-darkPink">使用者名稱</p>
-            </div>
-          </div>
-        </Link>
-      ))} */}
     </div>
   );
 };
