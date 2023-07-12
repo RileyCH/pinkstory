@@ -5,7 +5,7 @@ import { StockType } from "@/utils/type";
 const StockDetails = ({ stock }: { stock: StockType }) => {
   return (
     <div className="col-start-1 col-end-3">
-      <div className="w-[100vw] mx-auto flex overflow-x-auto">
+      <div className="mx-auto flex overflow-x-auto">
         {stock.data.picture.length > 0 &&
           stock.data.picture.map((pic: string) => (
             <div key={pic} className={`w-[400px] h-[400px] relative flex-none`}>
@@ -14,7 +14,7 @@ const StockDetails = ({ stock }: { stock: StockType }) => {
           ))}
       </div>
 
-      <p>類別：{stock.data.category}</p>
+      <p>{stock.data.category}</p>
       <p>用途：{stock.data.subCategory}</p>
       <p>品牌：{stock.data.brand}</p>
       <p>名稱：{stock.data.itemName}</p>

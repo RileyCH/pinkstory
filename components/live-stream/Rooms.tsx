@@ -51,7 +51,7 @@ const Rooms = () => {
   }, []);
 
   return (
-    <div className="w-[100vw] max-w-[1200px] mx-auto flex gap-1 flex-wrap justify-center md:gap-2 xl:gap-3">
+    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
       {rooms.length > 0
         ? rooms.map((room: HostEvent) => (
             <Link
@@ -59,7 +59,7 @@ const Rooms = () => {
               href={`/live-stream/${room.data.room_id}/guest`}
               className="my-1 rounded-lg shadow-lg cursor-pointer"
             >
-              <div className="w-[48vw] h-[170px] relative md:w-[200px] md:h-[220px] xl:w-[250px] xl:h-[270px]">
+              <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
                 <Image
                   src={`${JSON.parse(room.data?.user_data)?.cover}`}
                   alt=""
@@ -112,7 +112,7 @@ const Rooms = () => {
         href={`/live-stream/12345/guest`}
         className="my-1 rounded-lg shadow-lg cursor-pointer relative"
       >
-        <div className="w-[48vw] h-[170px] relative md:w-[200px] md:h-[220px] xl:w-[250px] xl:h-[270px]">
+        <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
           <Image
             src={Live}
             alt=""
@@ -133,7 +133,7 @@ const Rooms = () => {
           </div>
         </div>
 
-        <div className="max-w-[48vw] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px]">
+        <div className="max-w-[47vw] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px]">
           <p className="font-medium break-words mb-[5px]">夏日能量 🥹</p>
           <div className="flex gap-2 items-center absolute bottom-3">
             <div className="w-[15px] h-[15px] relative">
@@ -150,7 +150,7 @@ const Rooms = () => {
           href={`/live-stream/12345/guest`}
           className="my-1 rounded-lg shadow-lg cursor-pointer relative"
         >
-          <div className="w-[48vw] h-[170px] relative md:w-[200px] md:h-[220px] xl:w-[250px] xl:h-[270px]">
+          <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
             <Image
               src={Live}
               alt=""
@@ -170,7 +170,7 @@ const Rooms = () => {
               <p className="text-white text-[10px]">1000</p>
             </div>
           </div>
-          <div className="max-w-[48vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
+          <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
             <p className="font-medium break-words mb-[5px]">
               理想生活第三期 - 夏日能量 🥹
             </p>

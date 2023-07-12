@@ -7,7 +7,7 @@ const Post = ({ posts }: { posts: PostType[] }) => {
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
   return (
-    <div className="w-[100vw] max-w-[1200px] mx-auto flex gap-1 flex-wrap justify-center md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
+    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
       {posts.map((post) => (
         <div
           key={post.postID}
@@ -15,7 +15,7 @@ const Post = ({ posts }: { posts: PostType[] }) => {
         >
           <Link href={`/${post.postID}`}>
             {post.data?.picture?.[0] ? (
-              <div className="w-[48vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+              <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
                 <Image
                   src={`${post.data.picture?.[0]}`}
                   alt=""
@@ -28,7 +28,7 @@ const Post = ({ posts }: { posts: PostType[] }) => {
                 <p className="">尚未增加圖片</p>
               </div>
             )}
-            <div className="max-w-[48vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
+            <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
               <p className="font-medium break-words mb-[5px]">
                 {post.data.title ? post.data.title : "尚未填入標題"}
               </p>

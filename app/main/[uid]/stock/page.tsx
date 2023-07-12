@@ -3,7 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import { useAppSelector } from "@/redux/hooks";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { loginUser } from "@/redux/features/signup/loginSlice";
 import AddPostImage from "@/components/create-post/AddPostImage";
 import {
   makeupCategory,
@@ -18,7 +19,8 @@ const itemWrapper =
 const labelStyle = "w-[80px]";
 
 const AddStock = () => {
-  const user = useAppSelector((state) => state.user);
+  // const user = useAppSelector((state) => state.user);
+  const userID = localStorage.getItem("uid");
   const [stockImage, setStockImage] = useState<string[]>([]);
   const [selectCategory, setSelectCategory] = useState<string>("");
   const [subCategory, setSubCategory] = useState<string>("");
@@ -33,11 +35,12 @@ const AddStock = () => {
   const [used, setUsed] = useState<string>("");
   const [note, setNote] = useState<string>("");
   const [createStatus, setCreateStatus] = useState<boolean>(false);
+  console.log(userID);
 
   const addStock = () => {
-    if (user.uid) {
+    if (userID) {
       const stockDetails = {
-        uid: user.uid,
+        uid: userID,
         picture: stockImage,
         category: selectCategory,
         subCategory: subCategory,
@@ -55,6 +58,7 @@ const AddStock = () => {
         note: note,
         createTime: null,
       };
+      console.log(stockDetails);
       axios
         .post(
           "/api/main/stock/create",
