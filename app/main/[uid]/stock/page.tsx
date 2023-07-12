@@ -35,7 +35,6 @@ const AddStock = () => {
   const [used, setUsed] = useState<string>("");
   const [note, setNote] = useState<string>("");
   const [createStatus, setCreateStatus] = useState<boolean>(false);
-  console.log(userID);
 
   const addStock = () => {
     if (userID) {
@@ -58,7 +57,7 @@ const AddStock = () => {
         note: note,
         createTime: null,
       };
-      console.log(stockDetails);
+
       axios
         .post(
           "/api/main/stock/create",
@@ -261,7 +260,7 @@ const AddStock = () => {
       <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white">
         <div
           onClick={addStock}
-          className="w-[100%] h-[40px] bg-red-500 flex items-center justify-center rounded-full text-white cursor-pointer"
+          className="w-[100%] h-[40px] bg-themePink-400 flex items-center justify-center rounded-full text-white cursor-pointer"
         >
           增加一筆紀錄
         </div>
