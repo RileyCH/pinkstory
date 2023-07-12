@@ -62,7 +62,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
       };
       getAuthToken();
     }
-  }, [hmsActions, userData.liveStream.guestRoomCode]);
+  }, [hmsActions]);
 
   useEffect(() => {
     if (guestAuthToken) {
@@ -71,19 +71,19 @@ const Guest = ({ roomid }: { roomid: string }) => {
       };
       onJoinClick();
     }
-  }, [guestAuthToken, guestConfig, hmsActions]);
+  }, [guestAuthToken]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (peers.length > 0 && host.length === 0) {
-        window.alert("直播已結束");
-        leaveRoom();
-      }
-    }, 5000);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [peers, host.length, leaveRoom]);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     if (peers.length > 0 && host.length === 0) {
+  //       window.alert("直播已結束");
+  //       leaveRoom();
+  //     }
+  //   }, 5000);
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, [peers, host.length, leaveRoom]);
 
   return (
     <div className="relative after:bg-themePink-200 after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
