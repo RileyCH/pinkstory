@@ -13,10 +13,12 @@ import {
 import Viewers from "./Viewers";
 import BackDiv from "@/components/BackDiv";
 import Message from "@/components/live-stream/Message";
+import axios from "axios";
 
 const Guest = ({ roomid }: { roomid: string }) => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
+  const [fetchGuestRoomCode, setFetchGuestRoomCode] = useState<string>("");
   const [guestAuthToken, setGuestAuthToken] = useState<string>("");
   const router = useRouter();
 
@@ -53,16 +55,34 @@ const Guest = ({ roomid }: { roomid: string }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (userData.liveStream.guestRoomCode) {
+    if (roomid) {
+      const getGuestRoomCode = async () => {
+        const roomCode = await axios
+          .post("/api/live-stream/join-room", {
+            roomId: roomid,
+          })
+          .then(
+            (res) =>
+              res.data.data.filter((data: any) => data.role === "guest")[0]
+          )
+          .then((res) => setFetchGuestRoomCode(res.code));
+      };
+
+      getGuestRoomCode();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (fetchGuestRoomCode) {
       const getAuthToken = async () => {
         const token = await hmsActions.getAuthTokenByRoomCode({
-          roomCode: userData.liveStream.guestRoomCode,
+          roomCode: fetchGuestRoomCode,
         });
         setGuestAuthToken(token);
       };
       getAuthToken();
     }
-  }, [hmsActions]);
+  }, [fetchGuestRoomCode]);
 
   useEffect(() => {
     if (guestAuthToken) {
@@ -73,17 +93,17 @@ const Guest = ({ roomid }: { roomid: string }) => {
     }
   }, [guestAuthToken]);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     if (peers.length > 0 && host.length === 0) {
-  //       window.alert("直播已結束");
-  //       leaveRoom();
-  //     }
-  //   }, 5000);
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, [peers, host.length, leaveRoom]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (peers.length > 0 && host.length === 0) {
+        window.alert("直播已結束");
+        leaveRoom();
+      }
+    }, 5000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [peers, host.length, leaveRoom]);
 
   return (
     <div className="relative after:bg-themePink-200 after:w-[100vw] after:h-[100vh] after:absolute after:opacity-10 after:top-0">
