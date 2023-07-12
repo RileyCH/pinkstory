@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   useHMSActions,
   useHMSStore,
@@ -15,9 +16,11 @@ import noVideo from "@/public/live-stream/no-video.png";
 import switchCameraIcon from "@/public/live-stream/switch-camera.png";
 
 const ControlBar = ({}) => {
+  const router = useRouter();
   const hmsActions = useHMSActions();
   const isLocalAudioEnabled = useHMSStore(selectIsLocalAudioEnabled);
   const isLocalVideoEnabled = useHMSStore(selectIsLocalVideoEnabled);
+
   const toggleAudio = async () => {
     await hmsActions.setLocalAudioEnabled(!isLocalAudioEnabled);
   };
@@ -31,6 +34,7 @@ const ControlBar = ({}) => {
 
   const leaveRoom = () => {
     hmsActions.leave();
+    router.push("/live-stream");
   };
   return (
     <div className="liveStreamControlDiv">
@@ -39,13 +43,13 @@ const ControlBar = ({}) => {
       </div>
       <div onClick={toggleVideo} className="liveStreamControlBtn">
         <Image
-          src={isLocalVideoEnabled ? noVideo : videoIcon}
+          src={isLocalVideoEnabled ? videoIcon : noVideo}
           alt="camera controller"
         />
       </div>
       <div onClick={toggleAudio} className="liveStreamControlBtn">
         <Image
-          src={isLocalAudioEnabled ? mute : microphone}
+          src={isLocalAudioEnabled ? microphone : mute}
           alt="camera controller"
         />
       </div>

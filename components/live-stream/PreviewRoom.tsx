@@ -133,8 +133,8 @@ const PreviewRoom = ({
             onChange={(e) => setTitle(e.target.value)}
             className={`liveStreamTitleInput bg-opacity-50 ${
               peers.length > 0
-                ? "bg-black text-white"
-                : "bg-white text-themePink-700"
+                ? "bg-black text-white placeholder:text-white"
+                : "bg-white text-themePink-700 placeholder:text-themeGray-400"
             }`}
             placeholder="輸入直播主題..."
             required
@@ -172,7 +172,11 @@ const PreviewRoom = ({
                 peers.length > 0 ? "bg-black" : "bg-white"
               }`}
             >
-              <label className="w-[100%] h-[100%] text-themeGray-700 text-[12px] flex flex-col items-center justify-center gap-2">
+              <label
+                className={`w-[100%] h-[100%] text-[12px] flex flex-col items-center justify-center gap-2 ${
+                  peers.length > 0 ? "text-white" : "text-themeGray-700"
+                }`}
+              >
                 <p>＋</p>
                 <p>新增封面</p>
                 <input

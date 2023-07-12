@@ -24,7 +24,7 @@ type Clicked = "Post" | "Keep" | "Love" | "Stock";
 
 function User({ params }: { params: { uid: string } }) {
   const user = useAppSelector((state) => state.user);
-  const localUid = localStorage.getItem("uid");
+  const [localUid, setLocalUid] = useState<string>("");
   const [userData, setUserData] = useState<UserDataType>({
     uid: "",
     age: 0,
@@ -59,6 +59,13 @@ function User({ params }: { params: { uid: string } }) {
     localStorage.removeItem("uid");
     router.push(`/`);
   };
+
+  useEffect(() => {
+    const localStorageUid = localStorage.getItem("uid");
+    if (localStorageUid) {
+      setLocalUid(localStorageUid);
+    }
+  }, []);
 
   useEffect(() => {
     if (params.uid) {

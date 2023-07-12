@@ -136,11 +136,12 @@ nav {
   flex-direction: column;
   gap: 20px;
   position: absolute;
-  top: 20px;
+  top: 30px;
   right: 35px;
   z-index: 10;
   @media (min-width: 768px) {
     right: 50px;
+    top: 70px;
   }
 }
 
@@ -197,7 +198,6 @@ nav {
 }
 
 .liveStreamTitleInput::placeholder {
-  color: #6a6a6a;
   font-size: 12px;
 }
 
