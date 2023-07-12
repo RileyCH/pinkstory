@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAppSelector } from "@/redux/hooks";
 import { UserLoginInitialState } from "@/utils/type";
+import SearchBar from "./post/SearchBar";
 import add from "../public/add.png";
 import pinkStory from "@/public/pinkStory-p.png";
 
@@ -37,9 +38,17 @@ const Nav = () => {
 
   return (
     <nav>
-      <Link href="/post" className="hidden w-[90px] h-[35px] relative md:block">
-        <Image src={pinkStory} alt="logo" fill className="object-cover" />
-      </Link>
+      <div className="md:flex md:gap-5 md:items-center">
+        <Link
+          href="/post"
+          className="hidden w-[90px] h-[35px] relative md:block"
+        >
+          <Image src={pinkStory} alt="logo" fill className="object-cover" />
+        </Link>
+        <div className="hidden md:block md:max-w-[500px]">
+          <SearchBar />
+        </div>
+      </div>
 
       <div className="flex gap-[40px] items-center mx-auto md:mx-0 xl:gap-[50px] relative">
         {navItems.map((navItems) => (

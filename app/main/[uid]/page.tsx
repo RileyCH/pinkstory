@@ -5,6 +5,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { UserDataType, PostType } from "@/utils/type";
+import { useRouter } from "next/navigation";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -23,6 +24,7 @@ type Clicked = "Post" | "Keep" | "Love" | "Stock";
 
 function User({ params }: { params: { uid: string } }) {
   const user = useAppSelector((state) => state.user);
+  const localUid = localStorage.getItem("uid");
   const [userData, setUserData] = useState<UserDataType>({
     uid: "",
     age: 0,
@@ -51,8 +53,11 @@ function User({ params }: { params: { uid: string } }) {
   });
   const [posts, setPosts] = useState<PostType[]>([]);
   const [click, setClick] = useState<Clicked>("Post");
+  const router = useRouter();
+
   const logout = () => {
     localStorage.removeItem("uid");
+    router.push(`/`);
   };
 
   useEffect(() => {
@@ -84,19 +89,12 @@ function User({ params }: { params: { uid: string } }) {
       fetchPost();
     }
   }, []);
-  console.log(user.uid);
 
   return (
     <div className="pb-[75px]">
       <Header />
 
       <div>
-        {/* <div className="flex justify-between">
-        <Link href="/main" onClick={() => logout()}>
-          登出
-        </Link>
-        <div>通知</div>
-      </div> */}
         <div className="max-w-[1200px] mx-auto pt-[68px] mb-3 relative after:w-[95vw] after:max-w-[1200px] after:border after:border-themeGray-50 after:absolute after:left-0 after:right-0 after:mx-auto after:bottom-2 md:pt-[100px] md:after:w-[90vw]">
           <div className="flex items-center mb-[13px] relative">
             <div className="w-[100vw] h-[150px] opacity-90 absolute -top-5 left-0 md:h-[300px] md:-top-9 max-w-[1200px]">
@@ -147,6 +145,32 @@ function User({ params }: { params: { uid: string } }) {
                       />
                     </div>
                   </div>
+
+                  {localUid === params.uid ? (
+                    <div className="flex gap-2">
+                      <p
+                        onClick={() => logout()}
+                        className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500"
+                      >
+                        編輯個人資料
+                      </p>
+                      <p
+                        onClick={() => logout()}
+                        className="text-[12px] py-1 px-2 bg-themeGray-400 text-white rounded-lg cursor-pointer hover:bg-themeGray-500"
+                      >
+                        登出
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex gap-2">
+                      <p className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500">
+                        追蹤
+                      </p>
+                      <p className="text-[12px] py-1 px-2 bg-themeOrange-500 text-white rounded-lg cursor-pointer hover:bg-themeOrange-800">
+                        發送訊息
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <div className="w-[100%] mb-[15px] text-[14px] xl:text-[16px]">
                   {userData.introduction}
