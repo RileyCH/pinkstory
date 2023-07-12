@@ -10,7 +10,6 @@ export async function GET() {
   if (!uid) {
     return new Response("Uid is wrong", { status: 400 });
   }
-  console.log(uid);
 
   const sanitizedUid = uid.replace("Bearer ", "");
   const userCollection = doc(db, "users", sanitizedUid);

@@ -3,15 +3,18 @@ import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import axios from "axios";
-import { useAppSelector } from "@/redux/hooks";
-import Nav from "@/components/Nav";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { UserDataType, PostType } from "@/utils/type";
+
+import Header from "@/components/Header";
+import Nav from "@/components/Nav";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
 import profile from "@/public/main/profile.png";
 import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
 import plus from "@/public/create-post/plus.png";
+import backGroundImg from "@/public/background/person.jpeg";
 
 const Post = React.lazy(() => import("@/components/main/Post"));
 const Stock = React.lazy(() => import("@/components/main/stock/Stock"));
@@ -53,11 +56,11 @@ function User({ params }: { params: { uid: string } }) {
   };
 
   useEffect(() => {
-    if (user.uid) {
+    if (params.uid) {
       const fetchUserData = async () => {
         await axios
           .get("/api/user-data", {
-            headers: { Authorization: `Bearer ${user.uid}` },
+            headers: { Authorization: `Bearer ${params.uid}` },
           })
           .then((res) => {
             if (res.status === 200) {
@@ -69,7 +72,7 @@ function User({ params }: { params: { uid: string } }) {
       const fetchPost = async () => {
         await axios
           .get("/api/user-data/post", {
-            headers: { Authorization: `Bearer ${user.uid}` },
+            headers: { Authorization: `Bearer ${params.uid}` },
           })
           .then((res) => {
             if (res.status === 200) {
@@ -80,95 +83,178 @@ function User({ params }: { params: { uid: string } }) {
       fetchUserData();
       fetchPost();
     }
-  }, [user.uid]);
+  }, []);
+  console.log(user.uid);
 
   return (
-    <div className="md:pt-[80px]">
-      <div className="flex justify-between">
+    <div className="pb-[75px]">
+      <Header />
+
+      <div>
+        {/* <div className="flex justify-between">
         <Link href="/main" onClick={() => logout()}>
           登出
         </Link>
         <div>通知</div>
-      </div>
-      <div>
-        <div className="flex items-center mb-[20px]">
-          <div className="relative mx-[20px]">
-            <Image src={profile} alt="profile icon" width={70} height={70} />
-            <div className="w-[20px] h-[20px] bg-red-100 flex justify-center items-center rounded-full cursor-pointer absolute right-0 bottom-1">
+      </div> */}
+        <div className="max-w-[1200px] mx-auto pt-[68px] mb-3 relative after:w-[95vw] after:max-w-[1200px] after:border after:border-themeGray-50 after:absolute after:left-0 after:right-0 after:mx-auto after:bottom-2 md:pt-[100px] md:after:w-[90vw]">
+          <div className="flex items-center mb-[13px] relative">
+            <div className="w-[100vw] h-[150px] opacity-90 absolute -top-5 left-0 md:h-[300px] md:-top-9 max-w-[1200px]">
+              <Image
+                src={userData.bgImg ? `${userData.bgImg}` : backGroundImg}
+                fill
+                alt="personal page back-ground image"
+                priority={true}
+                className="object-cover object-top"
+              />
+            </div>
+
+            <div className="mt-[105px] mx-[10px] flex gap-5 relative z-10 md:mt-[200px] md:mx-[50px] xl:mx-[90px]">
+              <div className="w-[80px] h-[80px] relative md:w-[120px] md:h-[120px] xl:w-[170px] xl:h-[170px]">
+                <Image
+                  src={userData.profileImg ? `${userData.profileImg}` : profile}
+                  alt="profile icon"
+                  fill
+                  className="object-cover rounded-full border-[3px] border-white shadow-md md:border-[4px] xl:border-[5px]"
+                  priority={true}
+                />
+              </div>
+
+              {/* <div className="w-[20px] h-[20px] bg-themeGray-100 flex justify-center items-center rounded-full cursor-pointer absolute left-[52px] bottom-1">
               <Image src={plus} alt="profile icon" width={7} height={7} />
+            </div> */}
+
+              <div className="max-w-[calc(100%_-_110px)]">
+                <div className="mt-[25px] flex gap-4 items-center md:mt-[70px] xl:mt-[80px]">
+                  <p className="text-[30px] font-semibold xl:text-[36px]">
+                    {userData.name}
+                  </p>
+                  <div className="flex items-center gap-1">
+                    <p className="text-[14px] text-themeGray-600 mt-1 xl:text-[16px]">
+                      {userData.constellations}
+                    </p>
+
+                    <div className="w-[15px] h-[15px] relative">
+                      <Image
+                        src={
+                          userData.gender &&
+                          userData.gender.toLowerCase() === "female"
+                            ? female
+                            : male
+                        }
+                        alt="gender icon"
+                        fill
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="w-[100%] mb-[15px] text-[14px] xl:text-[16px]">
+                  {userData.introduction}
+                </div>
+
+                <div className="w-[100%] px-1 mx-auto mb-[15px] flex justify-between items-center gap-5 md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
+                  <div className="text-center md:flex md:items-center md:gap-1">
+                    <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
+                      {userData.following.length}
+                    </p>
+                    <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
+                      關注
+                    </p>
+                  </div>
+
+                  <div className="text-center md:flex md:items-center md:gap-1">
+                    <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
+                      {userData.follower.length}
+                    </p>
+                    <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
+                      粉絲
+                    </p>
+                  </div>
+
+                  <div className="text-center md:flex md:items-center md:gap-1">
+                    <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
+                      {posts.length}
+                    </p>
+                    <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
+                      文章
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <p>{userData.name}</p>
-            <p>{userData.uid}</p>
-          </div>
-        </div>
-
-        <div className="flex items-center">
-          <Image
-            src={
-              userData.gender && userData.gender.toLowerCase() === "female"
-                ? female
-                : male
-            }
-            alt=""
-            width={20}
-            height={20}
-          />
-          <p>{userData.constellations}</p>
-        </div>
-        <div>{userData.introduction}</div>
-
-        <div className="flex items-center gap-5">
-          <div className="text-center">
-            <p className="text-[20px]">{userData.following.length}</p>
-            <p>關注</p>
-          </div>
-
-          <div className="text-center">
-            <p className="text-[20px]">{userData.follower.length}</p>
-            <p>粉絲</p>
-          </div>
-
-          <div className="text-center">
-            <p className="text-[20px]">{posts.length}</p>
-            <p>文章總數</p>
-          </div>
-        </div>
-        <div className="flex gap-5">
-          {user.uid === userData.uid ? (
+          <div className="flex gap-5">
+            {/* {user.uid === userData.uid ? (
             <div>編輯個人資料</div>
           ) : (
             <div>
               <div>關注</div>
               <div className="w-[80vw]">發送訊息</div>
             </div>
+          )} */}
+          </div>
+        </div>
+
+        <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-around md:mb-[20px] xl:mb-[30px]">
+          <p
+            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
+              click === "Post"
+                ? "font-bold text-themePink-400"
+                : "text-themePink-900"
+            }`}
+            onClick={() => setClick("Post")}
+          >
+            筆記
+          </p>
+          <p
+            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
+              click === "Keep"
+                ? "font-bold text-themePink-400"
+                : "text-themePink-900"
+            }`}
+            onClick={() => setClick("Keep")}
+          >
+            收藏
+          </p>
+          <p
+            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
+              click === "Love"
+                ? "font-bold text-themePink-400"
+                : "text-themePink-900"
+            }`}
+            onClick={() => setClick("Love")}
+          >
+            按讚
+          </p>
+          <p
+            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
+              click === "Stock"
+                ? "font-bold text-themePink-400"
+                : "text-themePink-900"
+            }`}
+            onClick={() => setClick("Stock")}
+          >
+            囤貨清單
+          </p>
+        </div>
+        <div>
+          {click === "Post" ? (
+            <Suspense fallback={<div>資料讀取中...</div>}>
+              <Post posts={posts} />
+            </Suspense>
+          ) : click === "Keep" ? (
+            <Keep />
+          ) : click === "Love" ? (
+            <Love />
+          ) : click === "Stock" ? (
+            <Suspense fallback={<div>資料讀取中...</div>}>
+              <Stock uid={params.uid} />
+            </Suspense>
+          ) : (
+            ""
           )}
         </div>
-      </div>
-      <div className="flex gap-5">
-        <div onClick={() => setClick("Post")}>筆記</div>
-        <div onClick={() => setClick("Keep")}>收藏</div>
-        <div onClick={() => setClick("Love")}>按讚</div>
-        <div onClick={() => setClick("Stock")}>囤貨清單</div>
-      </div>
-      <div>
-        {click === "Post" ? (
-          <Suspense fallback={<div>資料讀取中...</div>}>
-            <Post posts={posts} />
-          </Suspense>
-        ) : click === "Keep" ? (
-          <Keep />
-        ) : click === "Love" ? (
-          <Love />
-        ) : click === "Stock" ? (
-          <Suspense fallback={<div>資料讀取中...</div>}>
-            <Stock uid={params.uid} />
-          </Suspense>
-        ) : (
-          ""
-        )}
       </div>
 
       <Nav />

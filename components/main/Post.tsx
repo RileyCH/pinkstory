@@ -7,15 +7,15 @@ const Post = ({ posts }: { posts: PostType[] }) => {
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
   return (
-    <div className="w-[100vw] max-w-[1200px] mx-auto flex gap-1 flex-wrap justify-center md:gap-2 xl:gap-3">
+    <div className="w-[100vw] max-w-[1200px] mx-auto flex gap-1 flex-wrap justify-center md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
       {posts.map((post) => (
         <div
           key={post.postID}
-          className="my-1 rounded-lg shadow-lg cursor-pointer  relative"
+          className="my-1 rounded-lg shadow-lg cursor-pointer relative"
         >
           <Link href={`/${post.postID}`}>
             {post.data?.picture?.[0] ? (
-              <div className="w-[48vw] h-[170px] relative md:w-[200px] md:h-[220px] xl:w-[250px] xl:h-[270px]">
+              <div className="w-[48vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
                 <Image
                   src={`${post.data.picture?.[0]}`}
                   alt=""

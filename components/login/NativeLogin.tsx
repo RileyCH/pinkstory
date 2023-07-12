@@ -48,7 +48,7 @@ const NativeLogin = () => {
           {!signUp ? (
             <div className="h-[90vh] md:h-[85vh] 2xl:h-[75vh] flex flex-col justify-between">
               <div className="mb-[10px]">
-                <h1 className="text-[42px] md:text-[72px] 2xl:text-[96px] font-black tracking-widest mb-2 text-mainPink">
+                <h1 className="text-[42px] md:text-[72px] 2xl:text-[96px] font-black tracking-widest mb-2 text-themePink-400">
                   PinkStory
                 </h1>
                 <h2 className="text-[18px] md:text-[24px] 2xl:text-[36px]">
@@ -86,7 +86,7 @@ const NativeLogin = () => {
                     />
                   </div>
 
-                  <button className="w-[270px] xl:w-[490px] bg-mainPink text-[14px] hover:bg-amber-600 py-[10px] rounded-full cursor-pointer">
+                  <button className="w-[270px] xl:w-[490px] bg-themePink-400 text-[14px] hover:bg-amber-600 py-[10px] rounded-full cursor-pointer">
                     登入
                   </button>
                 </form>

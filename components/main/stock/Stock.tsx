@@ -80,20 +80,23 @@ const Stock = ({ uid }: { uid: string }) => {
         </p> */}
       </div>
 
-      <div className="grid gap-2 grid-cols-2">
+      <div className="w-[100vw] max-w-[1200px] mx-auto flex gap-1 flex-wrap justify-center md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
         {!selectItem ? (
           stocks.map((stock) => (
             <Suspense fallback={<div>資料讀取中...</div>} key={stock.stockId}>
               <div
-                className="bg-gray-50 border border-gray-200"
+                className="my-1 rounded-lg shadow-lg cursor-pointer relative"
                 onClick={() => setSelectItem(stock)}
               >
-                <Image
-                  src={`${stock.data.picture[0]}`}
-                  alt=""
-                  width={300}
-                  height={300}
-                />
+                <div>
+                  <Image
+                    src={`${stock.data.picture[0]}`}
+                    alt=""
+                    width={300}
+                    height={300}
+                  />
+                </div>
+
                 <p>類別：{stock.data.category}</p>
                 <p>品牌：{stock.data.brand}</p>
                 <p>品名：{stock.data.itemName}</p>
@@ -107,6 +110,7 @@ const Stock = ({ uid }: { uid: string }) => {
           <StockDetails stock={selectItem} />
         )}
       </div>
+
       {!selectItem && (
         <Link href={`/main/${uid}/stock`}>
           <Image
