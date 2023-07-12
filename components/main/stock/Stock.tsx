@@ -96,17 +96,21 @@ const Stock = ({ uid }: { uid: string }) => {
                     </div>
                   </div>
                 </div>
-                {!selectItem && (
-                  <Link href={`/main/${uid}/stock`}>
-                    <div className="w-[20px] h-[20px] ml-[80px] absolute">
-                      <Image src={add} alt="add new stock" fill />
-                    </div>
-                  </Link>
-                )}
               </Suspense>
             ))
           ) : (
             <StockDetails stock={selectItem} />
+          )}
+
+          {!selectItem && (
+            <Link
+              href={`/main/${uid}/stock`}
+              className="bg-themePink-400 p-4 fixed right-[120px] bottom-[70px] rounded-full"
+            >
+              <div className="w-[20px] h-[20px] relative">
+                <Image src={add} alt="add new stock" fill />
+              </div>
+            </Link>
           )}
         </div>
       </div>

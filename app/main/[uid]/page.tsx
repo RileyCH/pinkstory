@@ -16,6 +16,7 @@ import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
 import plus from "@/public/create-post/plus.png";
 import backGroundImg from "@/public/background/person.jpeg";
+import { fetchData } from "@/redux/features/userDataSlice";
 
 const Post = React.lazy(() => import("@/components/main/Post"));
 const Stock = React.lazy(() => import("@/components/main/stock/Stock"));
@@ -95,7 +96,7 @@ function User({ params }: { params: { uid: string } }) {
       fetchUserData();
       fetchPost();
     }
-  }, []);
+  }, [params.uid]);
 
   return (
     <div className="pb-[75px]">

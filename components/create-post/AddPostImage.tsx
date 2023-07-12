@@ -98,7 +98,7 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
   }, [croppedImage, user.uid, setPostImage]);
 
   return (
-    <div className="w-[100vw] mx-auto">
+    <div className="w-[100vw] max-w-[1200px] mx-auto">
       <div className="w-[100%] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
         <Link href={`/main/${user.uid}`}>
           <Image src={back} alt="back to main page" width={25} height={25} />

@@ -15,7 +15,7 @@ import {
 import FinishAdd from "@/components/create-post/FinishAdd";
 import back from "@/public/back.png";
 const itemWrapper =
-  "w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] pl-[10px] flex gap-2";
+  "w-[90vw] max-w-[1200px] mx-auto mt-[5px] mb-[10px] py-[5px] pl-[10px] flex gap-2";
 const labelStyle = "w-[80px]";
 
 const AddStock = () => {
@@ -74,16 +74,17 @@ const AddStock = () => {
   };
 
   return (
-    <div>
+    <div className="pb-[40px]">
       <div className="w-[100vw] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
         <Link href="../main">
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
       </div>
+
       <AddPostImage postImage={stockImage} setPostImage={setStockImage} />
 
-      <form action="">
-        <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
+      <form className="mb-[40px]">
+        <div className="w-[90vw] max-w-[1200px] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
           {/* <Image src={category} alt="check auth icon" width={20}></Image> */}
           <select
             name=""
@@ -93,13 +94,13 @@ const AddStock = () => {
             <option value="none">請選擇文章分類</option>
             <option value="彩妝">彩妝</option>
             <option value="保養">保養</option>
-            <option value="日用品">日用品</option>
-            <option value="醫療保健">醫療保健</option>
+            <option value="日用">日用</option>
+            <option value="保健">保健</option>
             <option value="其他">其他</option>
           </select>
         </div>
 
-        <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
+        <div className="w-[90vw] max-w-[1200px] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
           {/* <Image src={category} alt="check auth icon" width={20}></Image> */}
           <select
             name=""
@@ -118,13 +119,13 @@ const AddStock = () => {
                   {category}
                 </option>
               ))
-            ) : selectCategory === "日用品" ? (
+            ) : selectCategory === "日用" ? (
               groceryCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))
-            ) : selectCategory === "醫療保健" ? (
+            ) : selectCategory === "保健" ? (
               healthCareCategory.map((category) => (
                 <option key={category} value={category}>
                   {category}
@@ -194,6 +195,8 @@ const AddStock = () => {
             </option>
             <option value="ml">毫升</option>
             <option value="g">公克</option>
+            <option value="pack">組</option>
+            <option value="other">其他</option>
           </select>
         </div>
 
@@ -257,13 +260,11 @@ const AddStock = () => {
         </div>
       </form>
 
-      <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white">
-        <div
-          onClick={addStock}
-          className="w-[100%] h-[40px] bg-themePink-400 flex items-center justify-center rounded-full text-white cursor-pointer"
-        >
-          增加一筆紀錄
-        </div>
+      <div
+        onClick={addStock}
+        className="w-[80vw] max-w-[1200px] bg-themePink-400 text-white mx-auto h-[50px] px-[20px] py-[20px] flex gap-[20px] justify-center items-center rounded-full cursor-pointer hover:bg-themePink-500"
+      >
+        增加一筆紀錄
       </div>
       {createStatus && <FinishAdd />}
     </div>

@@ -51,7 +51,7 @@ const Rooms = () => {
   }, []);
 
   return (
-    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
+    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
       {rooms.length > 0
         ? rooms.map((room: HostEvent) => (
             <Link
@@ -144,7 +144,43 @@ const Rooms = () => {
         </div>
       </Link>
 
-      {aa.map((a) => (
+      <Link
+        href={`/live-stream/12345/guest`}
+        className="my-1 rounded-lg shadow-lg cursor-pointer relative"
+      >
+        <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+          <Image
+            src={Live}
+            alt=""
+            fill
+            className="object-cover object-center rounded-t-lg"
+          />
+          <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={live} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">直播中</p>
+          </div>
+          <div className="flex gap-2 bg-black bg-opacity-20 p-2 rounded-lg items-center absolute right-3 bottom-2">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={audience} alt="" fill />
+            </div>
+            <p className="text-white text-[10px]">1000</p>
+          </div>
+        </div>
+
+        <div className="max-w-[47vw] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px]">
+          <p className="font-medium break-words mb-[5px]">夏日能量 🥹</p>
+          <div className="flex gap-2 items-center absolute bottom-3">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={profile} alt="" fill />
+            </div>
+            <p className="text-[12px] text-darkPink">使用者名稱</p>
+          </div>
+        </div>
+      </Link>
+
+      {/* {aa.map((a) => (
         <Link
           key={a}
           href={`/live-stream/12345/guest`}
@@ -182,7 +218,7 @@ const Rooms = () => {
             </div>
           </div>
         </Link>
-      ))}
+      ))} */}
     </div>
   );
 };
