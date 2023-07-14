@@ -84,14 +84,16 @@ const PostID = async ({ params }: { params: { postid: string } }) => {
           ))}
         </div>
 
-        <div className="flex gap-4 mb-[10px]">
+        <div className="flex gap-4 mb-[20px]">
           <p className="text-[12px] text-themeGray-600">
             {new Date(
               post.postData.data.createTime.seconds * 1000
             ).toLocaleString()}
           </p>
           <p className="text-[12px] text-themeGray-600">
-            {post.postData.data.address.city}・{post.postData.data.address.area}
+            {post.postData.data.address.city}
+            {post.postData.data.address.area &&
+              `・${post.postData.data.address.area}`}
           </p>
         </div>
 

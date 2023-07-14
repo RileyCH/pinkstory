@@ -73,10 +73,10 @@ const Comments = ({
 
   return (
     <div>
-      <p className="text-center text-gray-400 mb-[20px]">
+      <p className="text-[14px] text-center text-themeGray-600 mb-[20px]">
         -- 共 {commentData.length} 則留言 --
       </p>
-      <div>
+      <div className="mb-[20px]">
         {commentData.length > 0 ? (
           commentData.map((comment: CommentsType, index: number) => (
             <div
@@ -97,6 +97,7 @@ const Comments = ({
                   </p>
                 </div>
               </div>
+
               <div
                 onClick={() =>
                   setLoveComment((prev) => {
@@ -107,18 +108,24 @@ const Comments = ({
                     }
                   })
                 }
+                className="text-center"
               >
-                <Image
-                  src={
-                    loveComment.includes(`${comment.postId}`)
-                      ? heartClick
-                      : heart
-                  }
-                  alt=""
-                  width={15}
-                  height={15}
-                />
-                <p>{comment?.data?.loveUser.length}</p>
+                <div className="w-[13px] h-[13px] relative">
+                  <Image
+                    src={
+                      loveComment.includes(`${comment.postId}`)
+                        ? heartClick
+                        : heart
+                    }
+                    alt="love post comment"
+                    fill
+                    sizes="(max-width: 768px) 20px, 50px"
+                  />
+                </div>
+
+                <p className="text-[14px] text-themeGray-600">
+                  {comment?.data?.loveUser.length}
+                </p>
               </div>
             </div>
           ))
@@ -127,7 +134,9 @@ const Comments = ({
         )}
       </div>
 
-      <p className="text-center"> 沒有其他留言了</p>
+      <p className="text-center text-[12px] text-themeGray-400">
+        沒有其他留言了
+      </p>
     </div>
   );
 };
