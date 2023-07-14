@@ -8,7 +8,7 @@ const BackDiv = ({ url }: { url: string }) => {
     <>
       <Link href={`/${url}`} className="fixed top-6 left-6 z-30">
         <Image
-          src={backWhite}
+          src={backPink}
           alt="back to main page"
           width={15}
           height={15}

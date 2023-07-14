@@ -156,10 +156,7 @@ function User({ params }: { params: { uid: string } }) {
 
                   {localUid === params.uid ? (
                     <div className="flex gap-2">
-                      <p
-                        onClick={() => logout()}
-                        className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500"
-                      >
+                      <p className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500">
                         編輯個人資料
                       </p>
                       <p
