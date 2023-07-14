@@ -27,6 +27,7 @@ const AddComment = ({
       },
       { headers: { "Content-Type": "application/json" } }
     );
+    setComment("");
   };
 
   useEffect(() => {
@@ -45,6 +46,7 @@ const AddComment = ({
               type="text"
               placeholder="説點什麼吧..."
               onChange={(e) => setComment(e.target.value)}
+              value={comment}
               className="w-[calc(100%_-_50px)] px-[18px] py-1 h-[35px] text-themePink-500 bg-themeGray-50 block mr-[10px] rounded-full placeholder:text-[14px]"
             />
             <button

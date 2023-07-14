@@ -9,7 +9,6 @@ import { db } from "@/utils/database";
 import { UserDataType } from "@/utils/type";
 import heart from "@/public/post/heart.png";
 import keep from "@/public/post/keep.png";
-import message from "@/public/post/message.png";
 import heartClick from "@/public/post/heart-click.png";
 import keepClick from "@/public/post/keep-click.png";
 
