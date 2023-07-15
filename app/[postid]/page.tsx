@@ -84,7 +84,7 @@ const PostID = async ({ params }: { params: { postid: string } }) => {
             <FollowBtn postUid={post.postData.data.uid} />
           </div>
 
-          <div className="w-[95vw] mx-auto mt-[10px] px-2 md:w-[100%] md:mt-[70px] md:max-h-[calc(80vh_-_130px)] md:overflow-auto">
+          <div className="w-[95vw] mx-auto mt-[10px] px-2 md:w-[100%] md:mt-[70px] md:max-h-[calc(80vh_-_130px)] md:overflow-auto md:no-scrollbar">
             <p className="text-[12px] text-themePink-400 font-medium mb-1 md:text-[14px]">
               {post.postData.data.category.toUpperCase()}
             </p>

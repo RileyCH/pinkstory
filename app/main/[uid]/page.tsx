@@ -213,16 +213,7 @@ function User({ params }: { params: { uid: string } }) {
             </div>
           </div>
 
-          <div className="flex gap-5">
-            {/* {user.uid === userData.uid ? (
-            <div>編輯個人資料</div>
-          ) : (
-            <div>
-              <div>關注</div>
-              <div className="w-[80vw]">發送訊息</div>
-            </div>
-          )} */}
-          </div>
+          <div className="flex gap-5"></div>
         </div>
 
         <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-around md:mb-[20px] xl:mb-[30px]">
@@ -269,15 +260,27 @@ function User({ params }: { params: { uid: string } }) {
         </div>
         <div>
           {click === "Post" ? (
-            <Suspense fallback={<div>資料讀取中...</div>}>
-              <Post posts={posts} />
+            <Suspense
+              fallback={
+                <div className="flex justify-center">資料讀取中...</div>
+              }
+            >
+              <Post
+                posts={posts}
+                userName={userData.name}
+                profileImg={userData.profileImg}
+              />
             </Suspense>
           ) : click === "Keep" ? (
             <Keep />
           ) : click === "Love" ? (
             <Love />
           ) : click === "Stock" ? (
-            <Suspense fallback={<div>資料讀取中...</div>}>
+            <Suspense
+              fallback={
+                <div className="flex justify-center">資料讀取中...</div>
+              }
+            >
               <Stock uid={params.uid} />
             </Suspense>
           ) : (

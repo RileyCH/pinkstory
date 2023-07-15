@@ -1,18 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { PostType } from "@/utils/type";
+import AuthorData from "@/components/post/AuthorData";
 import heartClick from "@/public/post/heart-click.png";
-import profile from "@/public/main/profile.png";
 
-const Post = ({
-  posts,
-  userName,
-  profileImg,
-}: {
-  posts: PostType[];
-  userName: string;
-  profileImg: string | null;
-}) => {
+const PostCard = ({ posts }: { posts: PostType[] }) => {
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
   return (
@@ -30,6 +22,7 @@ const Post = ({
                   alt=""
                   fill
                   className="object-cover object-center rounded-t-lg"
+                  sizes="100%"
                 />
               </div>
             ) : (
@@ -38,26 +31,12 @@ const Post = ({
               </div>
             )}
             <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
-              <p className="font-medium break-words mb-[5px]">
+              <p className="font-medium break-words mb-[5px] md:mb-[10px]">
                 {post.data.title ? post.data.title : "尚未填入標題"}
               </p>
 
               <div className="w-[85%] flex items-center justify-between absolute bottom-3 md:w-[88%]">
-                <div className="flex gap-2 items-center">
-                  <div className="w-[15px] h-[15px] relative md:w-[20px] md:h-[20px] lg:w-[24px] lg:h-[24px]">
-                    <Image
-                      src={profileImg ? profileImg : profile}
-                      alt="post author profile image"
-                      fill
-                      className="rounded-full object-cover"
-                      sizes="100%"
-                    />
-                  </div>
-
-                  <p className="text-[12px] text-darkPink md:text-[14px]">
-                    {userName}
-                  </p>
-                </div>
+                <AuthorData authorId={post.data.uid} />
 
                 <div className="flex gap-[5px] items-center cursor-pointer">
                   <div className="w-[16px] h-[16px] relative">
@@ -82,4 +61,4 @@ const Post = ({
   );
 };
 
-export default Post;
+export default PostCard;

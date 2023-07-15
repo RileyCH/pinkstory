@@ -43,7 +43,13 @@ const Nav = () => {
           href="/post"
           className="hidden w-[90px] h-[35px] relative md:block"
         >
-          <Image src={pinkStory} alt="logo" fill className="object-cover" />
+          <Image
+            src={pinkStory}
+            alt="logo"
+            fill
+            className="object-cover"
+            sizes="100%"
+          />
         </Link>
         <div className="hidden md:block md:max-w-[500px]">
           <SearchBar />
@@ -71,13 +77,7 @@ const Nav = () => {
               <>
                 <p className="hidden md:block">發文</p>
                 <div className="w-[35px] h-[35px] bg-themePink-400 flex justify-center items-center rounded-full md:hidden">
-                  <Image
-                    src={add}
-                    alt="add a new post"
-                    width={18}
-                    height={18}
-                    // className="object-cover"
-                  />
+                  <Image src={add} alt="add a new post" sizes="100%" />
                 </div>
               </>
             ) : (

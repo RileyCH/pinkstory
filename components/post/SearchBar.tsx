@@ -6,7 +6,7 @@ const SearchBar = () => {
   return (
     <form className="w-[90vw] mx-auto my-[10px] flex gap-4 items-center relative md:w-[calc(100vw_-_650px)]">
       <div className="w-[20px] h-[20px] absolute left-4">
-        <Image src={search} alt="search bar" fill />
+        <Image src={search} alt="search bar" fill sizes="100%" />
       </div>
       <input
         type="text"
