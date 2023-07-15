@@ -92,7 +92,7 @@ const CommentUser = ({
   }, [authorId, postId, commentId]);
 
   return (
-    <div onClick={() => loveComment()} className="text-center">
+    <div onClick={() => loveComment()} className="text-center cursor-pointer">
       <div className="w-[13px] h-[13px] relative">
         <Image
           src={!love ? heart : heartClick}

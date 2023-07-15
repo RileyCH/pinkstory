@@ -38,10 +38,13 @@ const AddComment = ({
   }, []);
 
   return (
-    <div className="w-[100vw] flex justify-around items-center gap-3 fixed bottom-0 px-[10px] py-[15px] bg-white shadow-[0px_-10px_10px_-15px_rgba(0,0,0,0.2)]">
+    <div className="w-[100vw] flex justify-around items-center gap-3 fixed bottom-0 px-[10px] py-[15px] bg-white shadow-[0px_-10px_10px_-15px_rgba(0,0,0,0.2)] md:w-[100%] md:shadow-none md:absolute md:bottom-0 md:py-[10px] ">
       {localUid ? (
-        <div className="w-[95vw] flex justify-between">
-          <form onSubmit={handleComment} className="w-[95vw] flex items-center">
+        <div className="w-[95vw] flex justify-between md:w-[100%]">
+          <form
+            onSubmit={handleComment}
+            className="w-[95vw] flex items-center md:w-[100%]"
+          >
             <input
               type="text"
               placeholder="説點什麼吧..."

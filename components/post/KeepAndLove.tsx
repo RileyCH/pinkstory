@@ -86,9 +86,9 @@ const KeepAndLove = ({
   }, [authorId, postId]);
 
   return (
-    <div className="flex gap-4 mb-[40px] relative after:absolute after:w-[90vw] after:left-0 after:right-0 after:-bottom-[16px] after:mx-auto after:border-b after:border-themeGray-100">
+    <div className="flex gap-4 mb-[20px] relative after:absolute after:w-[90vw] after:left-0 after:right-0 after:-bottom-[16px] after:mx-auto after:border-b after:border-themeGray-100 md:after:w-[100%]">
       <div
-        className="flex gap-[5px] items-center"
+        className="flex gap-[5px] items-center cursor-pointer"
         onClick={() => {
           handleAction("love");
         }}
@@ -105,7 +105,7 @@ const KeepAndLove = ({
         <p className="text-[14px] text-themeGray-600">{loveNumber}</p>
       </div>
       <div
-        className="flex gap-[5px] items-center"
+        className="flex gap-[5px] items-center cursor-pointer"
         onClick={() => {
           handleAction("keep");
         }}

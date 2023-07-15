@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import {
   onSnapshot,
@@ -12,8 +13,6 @@ import {
 import { db } from "@/utils/database";
 import LoveComment from "@/components/post/LoveComment";
 import profile from "@/public/main/profile.png";
-import heart from "@/public/post/heart.png";
-import heartClick from "@/public/post/heart-click.png";
 
 interface CommentsType {
   commentId: string;
@@ -40,7 +39,6 @@ const Comments = ({
 }) => {
   const [commentData, setCommentData] = useState<CommentsType[]>([]);
   const [commentUser, setCommentUser] = useState<CommentsUserType[]>([]);
-  const [loveComment, setLoveComment] = useState<string[]>([]);
 
   useEffect(() => {
     const postCollection = collection(
@@ -79,7 +77,6 @@ const Comments = ({
       });
     });
   }, [postId, authorId]);
-  console.log(commentData);
 
   useEffect(() => {
     if (commentData.length > 0) {
@@ -109,17 +106,14 @@ const Comments = ({
 
   return (
     <div>
-      <p className="text-[14px] text-center text-themeGray-600 mb-[20px]">
-        -- 共 {commentData.length} 則留言 --
-      </p>
-      <div className="mb-[20px]">
+      <div className="mb-[15px]">
         {commentData.length > 0 ? (
           commentData.map((comment: CommentsType, index: number) => (
             <div
               key={index}
-              className="w-[90vw] mx-auto my-[10px] pt-[10px] pb-[15px] px-[10px] border-b flex justify-between"
+              className="w-[90vw] mx-auto pt-[10px] pb-[15px] px-[10px] flex justify-between relative after:border-b after:w-[87%] after:absolute after:bottom-1 after:right-1 md:w-[95%] md:after:w-[90%] md:after:right-2"
             >
-              <div className="flex">
+              <Link href={`/main/${commentUser[index]?.uid}`} className="flex">
                 <div className="w-[25px] h-[25px] mr-[10px] relative">
                   <Image
                     src={
@@ -134,7 +128,7 @@ const Comments = ({
                   />
                 </div>
                 <div>
-                  <p className="text-[14px] font-medium">
+                  <p className="text-[14px] font-medium text-themeGray-600">
                     {commentUser[index]?.name
                       ? commentUser[index]?.name
                       : "使用者名稱"}
@@ -148,37 +142,7 @@ const Comments = ({
                     ).toLocaleString()}
                   </p>
                 </div>
-              </div>
-
-              {/* <div
-                onClick={() =>
-                  setLoveComment((prev) => {
-                    if (prev.includes(comment.commentId)) {
-                      return prev.filter((item) => item !== comment.commentId);
-                    } else {
-                      return [...prev, comment.commentId];
-                    }
-                  })
-                }
-                className="text-center"
-              >
-                <div className="w-[13px] h-[13px] relative">
-                  <Image
-                    src={
-                      loveComment.includes(`${comment.commentId}`)
-                        ? heartClick
-                        : heart
-                    }
-                    alt="love post comment"
-                    fill
-                    sizes="(max-width: 768px) 20px, 50px"
-                  />
-                </div>
-
-                <p className="text-[14px] text-themeGray-600">
-                  {comment?.data?.loveUser.length}
-                </p>
-              </div> */}
+              </Link>
               <LoveComment
                 postId={postId}
                 authorId={authorId}
@@ -191,8 +155,8 @@ const Comments = ({
         )}
       </div>
 
-      <p className="text-center text-[12px] text-themeGray-400">
-        沒有其他留言了
+      <p className="text-[14px] text-center text-themeGray-600 mt-[10px] mb-[10px]">
+        -- 共 {commentData.length} 則留言 --
       </p>
     </div>
   );

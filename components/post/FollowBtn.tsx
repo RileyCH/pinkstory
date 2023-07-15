@@ -47,14 +47,14 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
     <>
       {!authorCheck && !followStatus ? (
         <div
-          className="bg-themePink-400 text-white py-1 px-2 rounded text-[12px] hover:bg-themePink-500 cursor-pointer"
+          className="bg-themePink-400 text-white py-1 px-2 rounded text-[12px] hover:bg-themePink-500 cursor-pointer md:text-[14px]"
           onClick={() => clickFollowBtn()}
         >
           追蹤
         </div>
       ) : !authorCheck && followStatus ? (
         <div
-          className="bg-themePink-600 text-white py-1 px-2 rounded text-[12px] hover:bg-themePink-700 cursor-pointer"
+          className="bg-themePink-600 text-white py-1 px-2 rounded text-[12px] hover:bg-themePink-700 cursor-pointer md:text-[14px]"
           onClick={() => clickFollowBtn()}
         >
           追蹤中
