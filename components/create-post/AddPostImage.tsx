@@ -98,31 +98,30 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
   }, [croppedImage, user.uid, setPostImage]);
 
   return (
-    <div className="w-[100vw] max-w-[1200px] mx-auto">
+    <div className="w-[90vw] mx-auto md:mt-3">
       <div className="w-[100%] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
         <Link href={`/main/${user.uid}`}>
           <Image src={back} alt="back to main page" width={25} height={25} />
         </Link>
       </div>
 
-      <div className="w-[90vw] mx-auto mt-[60px]">
-        <div className="mx-auto flex gap-3 overflow-x-auto">
+      <div className="w-[100%] mt-[60px] md:mt-1">
+        <div className="w-[100%] flex items-center justify-start gap-3 overflow-x-auto no-scrollbar">
           {postImage.length > 0
             ? postImage.map((url, index) => (
-                <div
-                  key={index}
-                  className={`w-[200px] h-[200px] relative flex-none`}
-                >
-                  <Image
-                    src={url}
-                    alt="post"
-                    width={200}
-                    height={200}
-                    className="absolute"
-                  />
+                <div key={index} className={`relative flex-none`}>
+                  <div className="relative md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px] md:border md:border-themeGray-200 md:rounded-lg">
+                    <Image
+                      src={url}
+                      alt="post"
+                      fill
+                      sizes="100%"
+                      className="md:rounded-lg"
+                    />
+                  </div>
 
                   <div
-                    className="w-[25px] h-[25px] rounded-full bg-slate-300 text-white flex justify-center items-center text-xs absolute right-3 top-3 hover:cursor-pointer hover:bg-stone-800"
+                    className="w-[20px] h-[20px] rounded-md bg-themeGray-700 bg-opacity-40 text-white flex justify-center items-center text-xs absolute right-0 top-0 hover:cursor-pointer hover:bg-stone-800"
                     onClick={() =>
                       setPostImage((prev) => {
                         const updatedArray = [...prev];
@@ -138,12 +137,12 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
             : ""}
 
           <form
-            className={`w-[200px] h-[200px] border bottom-2 rounded-md flex justify-center items-center`}
+            className={`w-[200px] h-[200px] border border-themeGray-200 rounded-lg flex items-center justify-start md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px] hover:border-themePink-400`}
           >
-            <label className="w-[100vw] max-w-[300px] h-[100%] flex justify-center items-center">
+            <label className="w-[200px] h-[100%] flex justify-center items-center md:w-[100px] md:h-[100px] lg:w-[120px] lg:h-[120px]">
               <Image
                 src={plus}
-                alt="back to main page"
+                alt="add new post image"
                 width={20}
                 height={20}
               />

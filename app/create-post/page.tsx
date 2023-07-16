@@ -5,15 +5,13 @@ import Image from "next/image";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { loginUser } from "@/redux/features/signup/loginSlice";
+import BackDiv from "@/components/BackDiv";
 import AddPostImage from "@/components/create-post/AddPostImage";
 import TagUser from "@/components/create-post/TagUser";
 import Location from "@/components/create-post/Location";
 import FinishAdd from "@/components/create-post/FinishAdd";
 import Nav from "@/components/Nav";
 import { PostType } from "@/utils/type";
-import category from "@/public/create-post/category.png";
-import diskette from "@/public/create-post/diskette.png";
-import back from "@/public/back.png";
 import lock from "@/public/create-post/lock.png";
 
 const CreatePost = () => {
@@ -21,7 +19,7 @@ const CreatePost = () => {
   const dispatch = useAppDispatch();
   const [postImage, setPostImage] = useState<string[]>([]);
   const categories = [
-    { value: "makeup", label: "美妝" },
+    { value: "makeup", label: "彩妝" },
     { value: "fashion", label: "穿搭" },
     { value: "beautyCare", label: "保養" },
     { value: "travel", label: "旅遊" },
@@ -38,7 +36,7 @@ const CreatePost = () => {
   const [selectCategory, setSelectCategory] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [tagUsers, setTagUsers] = useState<string[] | []>([]);
+  const [tagUsers, setTagUsers] = useState<any>([]);
   const [location, setLocation] = useState<PostType["data"]["location"]>({
     lat: 0,
     lon: 0,
@@ -47,7 +45,7 @@ const CreatePost = () => {
     city: "",
     area: "",
   });
-  const [postAuth, setPostAuth] = useState<string>("");
+  const [postAuth, setPostAuth] = useState<string>("public");
   const [postStatus, setPostStatus] = useState<string>("published");
   const [createStatus, setCreateStatus] = useState<boolean>(false);
 
@@ -97,32 +95,26 @@ const CreatePost = () => {
     }
   }, [dispatch]);
 
+  console.log(postAuth);
+
   return (
-    <div className="wrapper relative pb-[70px]">
+    <div className="wrapper relative pb-[70px] pt-1 bg-themeGray-50 md:pt-[70px] md:pb-[20px]">
+      <div className="w-[100vw] h-[50px] px-[15px] flex items-center fixed top-0 left-0 bg-white z-30 drop-shadow">
+        <BackDiv url={`main/${user.uid}`} />
+      </div>
       {user.uid ? (
-        <div className="">
-          <div className="w-[100vw] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
-            <Link href="../main">
-              <Image
-                src={back}
-                alt="back to main page"
-                width={25}
-                height={25}
-              />
-            </Link>
-          </div>
+        <div className="md:bg-white md:w-[95vw] md:rounded-xl md:mx-auto md:py-[20px]">
+          <p className="flex items-center font-semibold text-themePink-700 w-[90vw] pl-[12px] mx-auto relative before:w-1 before:h-4 before:absolute before:bg-themePink-400 before:top-1 before:left-0 before:rounded-md md:text-[18px] md:before:h-[20px]">
+            發佈圖文
+          </p>
           <AddPostImage postImage={postImage} setPostImage={setPostImage} />
-          <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
-            <Image src={category} alt="check auth icon" width={20}></Image>
+
+          <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-4 items-center">
+            <label className="text-[14px]">選擇看板</label>
             <select
-              name=""
-              id=""
               onChange={(e) => setSelectCategory(e.target.value)}
+              className="w-[80px] text-[14px] px-1 py-1 border border-themeGray-200 rounded-md hover:border-themePink-400 cursor-pointer"
             >
-              文章類別
-              <option value="none" disabled>
-                文章類別
-              </option>
               {categories.map((category) => (
                 <option key={category.value} value={category.value}>
                   {category.label}
@@ -132,67 +124,84 @@ const CreatePost = () => {
           </div>
 
           <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px]">
-            <label htmlFor=""></label>
             <input
               type="text"
               onChange={(e) => setTitle(e.target.value)}
               placeholder="填寫標題會有更多讚喔～"
-              className="w-[90vw] border-b-[1px] border-gray-100 p-[10px]"
+              className="w-[90vw] border border-themeGray-200 p-[10px] rounded-lg placeholder:text-[12px] md:placeholder:text-[14px] hover:border-themePink-400"
             />
           </div>
-          <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px]">
+          <div className="w-[90vw] mx-auto mt-[5px] py-[5px] mb-3">
             <textarea
-              rows={6}
+              rows={5}
               cols={40}
               onChange={(e) => setContent(e.target.value)}
               placeholder="新增貼文內容"
-              className="w-[90vw] p-[10px] block border-[1px] border-gray-100"
+              className="w-[90vw] p-[10px] block border-[1px] border-themeGray-200 rounded-lg placeholder:text-[12px] md:placeholder:text-[14px] hover:border-themePink-400"
             />
           </div>
-          <div className="w-[90vw] mx-auto mt-[5px] mb-[20px] py-[15px] flex gap-5 border-b-[1px] border-gray-100 p-[10px]">
-            <TagUser
-              uid={user.uid}
-              tagUsers={tagUsers}
-              setTagUsers={setTagUsers}
-            />
-          </div>
+          <TagUser
+            uid={user.uid}
+            tagUsers={tagUsers}
+            setTagUsers={setTagUsers}
+          />
           <Location
             location={location}
             setLocation={setLocation}
             address={address}
             setAddress={setAddress}
           />
-          <div className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[5px] pl-[10px] flex gap-2">
-            <Image src={lock} alt="check auth icon" width={20}></Image>
-            <select name="" id="" onChange={(e) => setPostAuth(e.target.value)}>
-              文章瀏覽權限
-              <option value="none" disabled>
-                文章瀏覽權限
-              </option>
-              <option value="public">公開可看</option>
-              <option value="private">僅自己可看</option>
-            </select>
-          </div>
-          <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white">
-            <div className="">
-              <Image
-                src={diskette}
-                alt="save draft icon"
-                className="m-auto mb-1"
-              ></Image>
-              <p
-                className="text-[10px]"
-                onClick={() => setPostStatus("drafted")}
-              >
-                草稿
-              </p>
+          <div className="w-[90vw] mx-auto mt-[5px] mb-[20px] py-[5px] pl-[10px] flex gap-2 items-center">
+            <div className="w-[15px] h-[15px] relative">
+              <Image src={lock} alt="check auth icon" fill sizes="100%"></Image>
             </div>
+
+            <label className="text-[14px] mr-3">瀏覽權限</label>
             <div
-              className="w-[80%] h-[40px] bg-red-500 flex items-center justify-center rounded-full text-white cursor-pointer"
+              className="flex items-center mr-5"
+              onClick={() => setPostAuth("public")}
+            >
+              <input
+                type="radio"
+                name="authority"
+                value="public"
+                id="public"
+                className="mr-[6px]"
+                defaultChecked
+              />
+              <label htmlFor="public" className="text-[14px] cursor-pointer">
+                公開可看
+              </label>
+            </div>
+
+            <div
+              className="flex items-center"
+              onClick={() => setPostAuth("private")}
+            >
+              <input
+                type="radio"
+                name="authority"
+                value="private"
+                id="private"
+                className="mr-[6px]"
+              />
+              <label htmlFor="private" className="text-[14px] cursor-pointer">
+                僅自己可看
+              </label>
+            </div>
+          </div>
+          <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white md:static md:w-[90vw] md:mx-auto md:justify-start md:px-0">
+            <Link href="/post">
+              <p className="hidden md:w-[100px] md:h-[40px] md:rounded-lg md:border md:border-themeGray-400 md:text-themeGray-400 md:flex md:items-center md:justify-center md:hover:border-themeGray-800 md:hover:text-themeGray-80 md:cursor-pointer">
+                取消
+              </p>
+            </Link>
+            <p
+              className="w-[95vw] h-[40px] bg-themePink-400 hover:bg-themePink-500 flex items-center justify-center rounded-full text-white cursor-pointer md:w-[100px] md:rounded-lg"
               onClick={createPost}
             >
-              發佈貼文
-            </div>
+              發佈
+            </p>
           </div>
           {createStatus && <FinishAdd />}
         </div>
@@ -205,7 +214,7 @@ const CreatePost = () => {
           </p>
           <Link
             href="/main"
-            className="bg-[#FB6E6E] hover:bg-[#b62c2c] text-white px-[20px] py-[10px] rounded-sm cursor-pointer"
+            className="bg-themePink-400 hover:bg-themePink-500 text-white px-[20px] py-[10px] rounded-sm cursor-pointer"
           >
             點此登入
           </Link>

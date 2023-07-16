@@ -37,7 +37,7 @@ export interface UserDataType {
 export interface PostType {
   postID: string;
   data: {
-    tagUer: string[] | [];
+    tagUer: string[] | null;
     title: string | null;
     authority: string | null;
     address: { area: string | null; city: string | null };

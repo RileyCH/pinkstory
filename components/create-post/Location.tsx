@@ -59,13 +59,18 @@ const Location: React.FC<LocationProps> = ({
     <>
       <div
         onClick={(e: React.MouseEvent<HTMLDivElement>) => checkLocation(e)}
-        className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[10px] pl-[10px] flex gap-2"
+        className="w-[90vw] mx-auto mt-[5px] mb-[10px] py-[10px] pl-[10px] flex gap-2 items-center"
       >
-        <Image src={pin} alt="location icon" width={20} height={20} />
+        <div className="w-[15px] h-[15px] relative">
+          <Image src={pin} alt="location icon" fill sizes="100%" />
+        </div>
+
         {!isClicked ? (
-          <p>新增打卡地點</p>
+          <p className="text-[14px] cursor-pointer hover:text-themePink-400">
+            新增打卡地點
+          </p>
         ) : address.city?.length === 0 && address.area?.length === 0 ? (
-          <p>地點搜尋中...</p>
+          <p className="text-[14px]">地點搜尋中...</p>
         ) : (
           <p>
             {address.city} / {address.area}
