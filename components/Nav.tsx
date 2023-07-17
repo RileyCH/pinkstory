@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -9,7 +10,8 @@ import add from "../public/add.png";
 import pinkStory from "@/public/pinkStory-p.png";
 
 const Nav = () => {
-  const uid = localStorage.getItem("uid");
+  const [uid, setUid] = useState<string | null>(null);
+
   const pathname = usePathname();
   const navItems = [
     {
@@ -33,7 +35,9 @@ const Nav = () => {
       url: "/main",
     },
   ];
-
+  useEffect(() => {
+    setUid(localStorage.getItem("uid"));
+  }, []);
   return (
     <nav>
       <div className="md:flex md:gap-5 md:items-center">

@@ -11,7 +11,7 @@ import back from "@/public/back.png";
 import profile from "@/public/main/profile.png";
 
 const ChatRoom = ({ params }: { params: { roomid: string } }) => {
-  const uid = useAppSelector((state) => state.user.uid);
+  const uid = localStorage.getItem("uid");
   const messageWrapper = useRef<any>(null);
   const [messages, setMessages] = useState<ChatRoomType["data"]>({
     roomId: "",
@@ -33,9 +33,9 @@ const ChatRoom = ({ params }: { params: { roomid: string } }) => {
     });
   }, [params.roomid]);
 
-  useEffect(() => {
-    messageWrapper.current.scrollTop = messageWrapper.current.scrollHeight;
-  }, [messages]);
+  // useEffect(() => {
+  //   messageWrapper.current.scrollTop = messageWrapper.current.scrollHeight;
+  // }, [messages]);
 
   return (
     <div>
