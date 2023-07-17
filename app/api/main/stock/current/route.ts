@@ -14,8 +14,8 @@ export async function GET() {
   const sanitizedUid = uid.replace("Bearer ", "");
   const userCollection = doc(db, "users", sanitizedUid);
   const stockList = collection(userCollection, "stocks");
-  const q = query(stockList, orderBy("durationDay"));
-  const stockDoc = await getDocs(q);
+  // const q = query(stockList, orderBy("durationDay"));
+  const stockDoc = await getDocs(stockList);
 
   if (!stockDoc) {
     return new NextResponse("No posts", { status: 404 });

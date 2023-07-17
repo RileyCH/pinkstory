@@ -10,7 +10,7 @@ import Nav from "@/components/Nav";
 import profile from "@/public/main/profile.png";
 
 const Message = () => {
-  const uid = useAppSelector((state) => state.user.uid);
+  const uid = localStorage.getItem("uid");
   const [chatRooms, setChatRooms] = useState<ChatRoomType[]>([]);
 
   useEffect(() => {

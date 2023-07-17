@@ -22,9 +22,27 @@ const Stock = ({ uid }: { uid: string }) => {
         })
         .then((res) => {
           if (res.status === 200) {
-            setFetchData(res.data);
-            setStocks(res.data);
+            const currentDate = new Date().getTime();
+            const newData = res.data.map((data: StockType) => {
+              const durationTime =
+                new Date(data.data.expirationDate).getTime() - currentDate;
+              const durationDay = Math.ceil(
+                durationTime / (1000 * 60 * 60 * 24)
+              );
+              return {
+                ...data,
+                data: {
+                  ...data.data,
+                  durationDay: durationDay,
+                },
+              };
+            });
+            return newData;
           }
+        })
+        .then((res) => {
+          setFetchData(res);
+          setStocks(res);
         });
     };
     fetchStocks();
@@ -36,7 +54,9 @@ const Stock = ({ uid }: { uid: string }) => {
     } else {
       setStocks(fetchData);
     }
-  }, [category]);
+  }, [category, fetchData]);
+
+  console.log(stocks);
 
   return (
     <div className="max-w-[1200px] mx-auto px-5 flex gap-4">

@@ -77,7 +77,7 @@ export interface StockType {
     };
     price: string | null;
     purchasingDate: string | null;
-    expirationDate: string | null;
+    expirationDate: string;
     durationDay: number | null;
     used: string | null;
     note: string | null;

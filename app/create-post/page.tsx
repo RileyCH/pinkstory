@@ -95,10 +95,8 @@ const CreatePost = () => {
     }
   }, [dispatch]);
 
-  console.log(postAuth);
-
   return (
-    <div className="wrapper relative pb-[70px] pt-1 bg-themeGray-50 md:pt-[70px] md:pb-[20px]">
+    <div className="wrapper relative pb-[70px] pt-1 bg-themeGray-50 min-h-screen md:pt-[70px] md:pb-[20px]">
       <div className="w-[100vw] h-[50px] px-[15px] flex items-center fixed top-0 left-0 bg-white z-30 drop-shadow">
         <BackDiv url={`main/${user.uid}`} />
       </div>
@@ -110,7 +108,9 @@ const CreatePost = () => {
           <AddPostImage postImage={postImage} setPostImage={setPostImage} />
 
           <div className="w-[90vw] mx-auto mt-[20px] mb-[10px] py-[5px] pl-[10px] flex gap-4 items-center">
-            <label className="text-[14px]">選擇看板</label>
+            <label className="text-[14px]">
+              選擇看板<span className="text-themePink-600">*</span>
+            </label>
             <select
               onChange={(e) => setSelectCategory(e.target.value)}
               className="w-[80px] text-[14px] px-1 py-1 border border-themeGray-200 rounded-md hover:border-themePink-400 cursor-pointer"
@@ -156,7 +156,9 @@ const CreatePost = () => {
               <Image src={lock} alt="check auth icon" fill sizes="100%"></Image>
             </div>
 
-            <label className="text-[14px] mr-3">瀏覽權限</label>
+            <label className="text-[14px] mr-3">
+              瀏覽權限<span className="text-themePink-600">*</span>
+            </label>
             <div
               className="flex items-center mr-5"
               onClick={() => setPostAuth("public")}

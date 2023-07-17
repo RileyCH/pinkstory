@@ -23,10 +23,10 @@ export async function POST(req: NextRequest) {
     if (!stockDetails.uid) {
       return new NextResponse("Without user id", { status: 404 });
     }
-    const endDate = new Date(expirationDate);
-    const currentDate = new Date();
-    const remainingTime = endDate.getTime() - currentDate.getTime();
-    const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
+    // const endDate = new Date(expirationDate);
+    // const currentDate = new Date();
+    // const remainingTime = endDate.getTime() - currentDate.getTime();
+    // const remainingDays = Math.ceil(remainingTime / (1000 * 60 * 60 * 24));
 
     const userCollection = doc(db, "users", `${stockDetails.uid}`);
     const stockList = collection(userCollection, "stocks");
@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
       price: price,
       purchasingDate: purchasingDate,
       expirationDate: expirationDate,
-      durationDay: remainingDays,
+      // durationDay: remainingDays,
       used: used,
       note: note,
       createTime: serverTimestamp(),

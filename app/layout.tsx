@@ -1,4 +1,5 @@
 import { Providers } from "@/redux/provider";
+
 import Script from "next/script";
 import "../style/globals.css";
 import { Inter, Noto_Sans_TC } from "next/font/google";

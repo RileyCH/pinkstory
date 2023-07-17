@@ -9,9 +9,7 @@ import add from "../public/add.png";
 import pinkStory from "@/public/pinkStory-p.png";
 
 const Nav = () => {
-  const uid = useAppSelector(
-    (state: { user: UserLoginInitialState }) => state.user.uid
-  );
+  const uid = localStorage.getItem("uid");
   const pathname = usePathname();
   const navItems = [
     {
@@ -85,50 +83,6 @@ const Nav = () => {
             )}
           </Link>
         ))}
-
-        {/* <Link
-          href="/post"
-          className={`hover:text-themePink-500 hover:font-medium relative ${
-            pathname === "/post" &&
-            "text-themePink-500 after:absolute after:border-2 after:border-themePink-400 after:w-[36px] after:-bottom-5 after:-left-[2px]"
-          }`}
-        >
-          發現
-        </Link>
-        <Link
-          href="/live-stream"
-          className="hover:text-themePink-500 hover:font-medium"
-        >
-          直播
-        </Link>
-        <Link href="/create-post">
-          <p className="hidden md:block">發文</p>
-          <Image
-            src={add}
-            alt="add a new post"
-            width={30}
-            height={30}
-            className="rounded-full md:hidden"
-          />
-        </Link>
-        <Link
-          href="/message"
-          className="hover:text-themePink-500 hover:font-medium"
-        >
-          訊息
-        </Link>
-        {uid ? (
-          <Link
-            href={`/main/${uid}`}
-            className="hover:text-themePink-500 hover:font-medium"
-          >
-            主頁
-          </Link>
-        ) : (
-          <Link href="/" className="hover:text-themePink-500 hover:font-medium">
-            主頁
-          </Link>
-        )} */}
       </div>
     </nav>
   );
