@@ -53,6 +53,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
   useEffect(() => {
     dispatch(fetchData());
   }, [dispatch]);
+  console.log();
 
   useEffect(() => {
     if (roomid) {
@@ -70,7 +71,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
 
       getGuestRoomCode();
     }
-  }, []);
+  }, [roomid]);
 
   useEffect(() => {
     if (fetchGuestRoomCode) {
@@ -82,7 +83,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
       };
       getAuthToken();
     }
-  }, [fetchGuestRoomCode]);
+  }, [fetchGuestRoomCode, hmsActions]);
 
   useEffect(() => {
     if (guestAuthToken) {
@@ -91,7 +92,7 @@ const Guest = ({ roomid }: { roomid: string }) => {
       };
       onJoinClick();
     }
-  }, [guestAuthToken]);
+  }, [guestAuthToken, guestConfig, hmsActions]);
 
   useEffect(() => {
     const timer = setTimeout(() => {

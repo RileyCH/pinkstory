@@ -63,19 +63,25 @@ const Rooms = () => {
               <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
                 <Image
                   src={`${JSON.parse(room.data?.user_data)?.cover}`}
-                  alt=""
+                  alt="live stream cover picture from host"
                   fill
+                  sizes="100%"
                   className="object-cover object-center rounded-t-lg"
                 />
                 <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
                   <div className="w-[15px] h-[15px] relative">
-                    <Image src={live} alt="" fill />
+                    <Image
+                      src={live}
+                      alt="live status icon"
+                      fill
+                      sizes="100%"
+                    />
                   </div>
                   <p className="text-white text-[10px]">直播中</p>
                 </div>
                 <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
                   <div className="w-[15px] h-[15px] relative">
-                    <Image src={audience} alt="" fill />
+                    <Image src={audience} alt="viewer icon" fill sizes="100%" />
                   </div>
                   <p className="text-white text-[10px]">
                     <RoomPeers roomId={room.data.room_id} />
@@ -95,8 +101,9 @@ const Rooms = () => {
                         room.data?.user_data &&
                         JSON.parse(room.data?.user_data)?.profile
                       }`}
-                      alt=""
+                      alt="host profile"
                       fill
+                      sizes="100%"
                       className="rounded-full"
                     />
                   </div>
@@ -118,17 +125,18 @@ const Rooms = () => {
             src={live3}
             alt=""
             fill
+            sizes="100%"
             className="object-cover object-center rounded-t-lg"
           />
           <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={live} alt="" fill />
+              <Image src={live} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
           <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={audience} alt="" fill />
+              <Image src={audience} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">37455</p>
           </div>
@@ -144,6 +152,7 @@ const Rooms = () => {
                 src="https://i.pinimg.com/564x/a3/f7/11/a3f7118efebbf323673625e0ff3462e6.jpg"
                 alt=""
                 fill
+                sizes="100%"
                 className="rounded-full"
               />
             </div>
@@ -161,17 +170,18 @@ const Rooms = () => {
             src={live2}
             alt=""
             fill
+            sizes="100%"
             className="object-cover object-center rounded-t-lg"
           />
           <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={live} alt="" fill />
+              <Image src={live} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
           <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={audience} alt="" fill />
+              <Image src={audience} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">4855</p>
           </div>
@@ -187,6 +197,7 @@ const Rooms = () => {
                 src="https://i.pinimg.com/564x/70/34/d8/7034d84e4544fbc5aba91e604f01fa67.jpg"
                 alt=""
                 fill
+                sizes="100%"
                 className="rounded-full"
               />
             </div>
@@ -204,17 +215,18 @@ const Rooms = () => {
             src={live1}
             alt=""
             fill
+            sizes="100%"
             className="object-cover object-center rounded-t-lg"
           />
           <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={live} alt="" fill />
+              <Image src={live} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
           <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={audience} alt="" fill />
+              <Image src={audience} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">485</p>
           </div>
@@ -226,7 +238,13 @@ const Rooms = () => {
           </p>
           <div className="flex gap-2 items-center">
             <div className="w-[20px] h-[20px] relative">
-              <Image src={live1} alt="" fill className="rounded-full" />
+              <Image
+                src={live1}
+                alt=""
+                fill
+                sizes="100%"
+                className="rounded-full"
+              />
             </div>
             <p className="text-[12px] text-darkPink">Surfer Alex</p>
           </div>
@@ -242,11 +260,12 @@ const Rooms = () => {
             src={Live}
             alt=""
             fill
+            sizes="100%"
             className="object-cover object-center rounded-t-lg"
           />
           <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
             <div className="w-[15px] h-[15px] relative">
-              <Image src={live} alt="" fill />
+              <Image src={live} alt="" fill sizes="100%" />
             </div>
             <p className="text-white text-[10px]">直播中</p>
           </div>
@@ -268,6 +287,7 @@ const Rooms = () => {
                 src="https://i.pinimg.com/564x/a3/f7/11/a3f7118efebbf323673625e0ff3462e6.jpg"
                 alt=""
                 fill
+                sizes="100%"
                 className="rounded-full"
               />
             </div>

@@ -56,8 +56,6 @@ const Stock = ({ uid }: { uid: string }) => {
     }
   }, [category, fetchData]);
 
-  console.log(stocks);
-
   return (
     <div className="max-w-[1200px] mx-auto px-5 flex gap-4">
       <SideBar
