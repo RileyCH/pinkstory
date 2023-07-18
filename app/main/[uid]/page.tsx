@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
+import FollowBtn from "@/components/post/FollowBtn";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
 import profile from "@/public/main/profile.png";
@@ -155,29 +156,27 @@ function User({ params }: { params: { uid: string } }) {
                   </div>
 
                   {localUid === params.uid ? (
-                    <div className="flex gap-2">
-                      <p className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500">
+                    <div className="flex gap-3">
+                      <p className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded cursor-pointer hover:bg-themePink-500">
                         編輯個人資料
                       </p>
                       <p
                         onClick={() => logout()}
-                        className="text-[12px] py-1 px-2 bg-themeGray-400 text-white rounded-lg cursor-pointer hover:bg-themeGray-500"
+                        className="text-[12px] py-1 px-2 bg-themeGray-400 text-white rounded cursor-pointer hover:bg-themeGray-500"
                       >
                         登出
                       </p>
                     </div>
                   ) : (
-                    <div className="flex gap-2">
-                      <p className="text-[12px] py-1 px-2 bg-themePink-400 text-white rounded-lg cursor-pointer hover:bg-themePink-500">
-                        追蹤
-                      </p>
-                      <p className="text-[12px] py-1 px-2 bg-themeOrange-500 text-white rounded-lg cursor-pointer hover:bg-themeOrange-800">
+                    <div className="flex gap-3">
+                      <FollowBtn postUid={params.uid} />
+                      <p className="text-[12px] py-1 px-2 bg-themeOrange-500 text-white rounded cursor-pointer hover:bg-themeOrange-800 md:text-[14px]">
                         發送訊息
                       </p>
                     </div>
                   )}
                 </div>
-                <div className="w-[100%] mb-[15px] text-[14px] xl:text-[16px]">
+                <div className="w-[100%] mb-[15px] text-[14px] xl:text-[18px] xl:mb-[20px]">
                   {userData.introduction}
                 </div>
 
@@ -216,48 +215,53 @@ function User({ params }: { params: { uid: string } }) {
           <div className="flex gap-5"></div>
         </div>
 
-        <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-around md:mb-[20px] xl:mb-[30px]">
+        <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-center md:mb-[20px] md:gap-8 xl:gap-14">
           <p
-            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
+            className={`text-[14px] md:text-[16px] ${
               click === "Post"
                 ? "font-bold text-themePink-400"
                 : "text-themePink-900"
             }`}
             onClick={() => setClick("Post")}
           >
-            筆記
+            貼文
           </p>
-          <p
-            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
-              click === "Keep"
-                ? "font-bold text-themePink-400"
-                : "text-themePink-900"
-            }`}
-            onClick={() => setClick("Keep")}
-          >
-            收藏
-          </p>
-          <p
-            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
-              click === "Love"
-                ? "font-bold text-themePink-400"
-                : "text-themePink-900"
-            }`}
-            onClick={() => setClick("Love")}
-          >
-            按讚
-          </p>
-          <p
-            className={`text-[14px] md:text-[16px] xl:text-[18px] ${
-              click === "Stock"
-                ? "font-bold text-themePink-400"
-                : "text-themePink-900"
-            }`}
-            onClick={() => setClick("Stock")}
-          >
-            囤貨清單
-          </p>
+          {localUid === params.uid && (
+            <>
+              <p
+                className={`text-[14px] md:text-[16px] ${
+                  click === "Keep"
+                    ? "font-bold text-themePink-400"
+                    : "text-themePink-900"
+                }`}
+                onClick={() => setClick("Keep")}
+              >
+                收藏
+              </p>
+              <p
+                className={`text-[14px] md:text-[16px] ${
+                  click === "Love"
+                    ? "font-bold text-themePink-400"
+                    : "text-themePink-900"
+                }`}
+                onClick={() => setClick("Love")}
+              >
+                按讚
+              </p>
+              <p
+                className={`text-[14px] md:text-[16px] ${
+                  click === "Stock"
+                    ? "font-bold text-themePink-400"
+                    : "text-themePink-900"
+                }`}
+                onClick={() => setClick("Stock")}
+              >
+                囤貨清單
+              </p>
+            </>
+          )}
         </div>
+
         <div>
           {click === "Post" ? (
             <Suspense

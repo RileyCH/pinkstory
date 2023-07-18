@@ -38,6 +38,7 @@ const Chat = () => {
     registedDate: 0,
     thumbnailedPost: [],
   });
+  const [alert, setAlert] = useState(false);
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
@@ -118,6 +119,8 @@ const Chat = () => {
                     currentYear={currentYear}
                     currentMonth={currentMonth}
                     currentDay={currentDay}
+                    alert={alert}
+                    setAlert={setAlert}
                   />
                 </div>
               ))}
@@ -138,6 +141,7 @@ const Chat = () => {
             currentYear={currentYear}
             currentMonth={currentMonth}
             currentDay={currentDay}
+            setAlert={setAlert}
           />
         ) : (
           <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[200px] md:mx-auto">

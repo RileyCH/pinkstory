@@ -13,18 +13,22 @@ export async function POST(req: NextRequest) {
   if (req.method === "POST") {
     const { messageDetail } = await req.json();
 
-    if (!messageDetail.roomId) {
-      return new Response("Without roomId", { status: 400 });
-    }
+    // if (!messageDetail.roomId) {
+    //   return new Response("Without roomId", { status: 400 });
+    // }
 
     if (!messageDetail.uid) {
       return new Response("Without uid", { status: 400 });
+    }
+    if (!messageDetail.content) {
+      return new Response("No message content", { status: 400 });
     }
 
     const messageDetails = {
       content: messageDetail.content,
       sentTime: new Date(),
       uid: messageDetail.uid,
+      receiveUid: messageDetail.uid,
     };
 
     const messageDoc = doc(db, "messages", messageDetail.roomId);

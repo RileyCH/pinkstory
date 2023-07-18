@@ -11,6 +11,8 @@ import { ChatRoomType, UserDataType, FormatTimeFunction } from "@/utils/type";
 import back from "@/public/back.png";
 import profile from "@/public/main/profile.png";
 
+type SetAlertFunction = React.Dispatch<React.SetStateAction<boolean>>;
+
 const ChatRoom = ({
   roomId,
   formatTime,
@@ -18,6 +20,7 @@ const ChatRoom = ({
   currentMonth,
   currentDay,
   chattingUser,
+  setAlert,
 }: {
   roomId: string;
   formatTime: FormatTimeFunction;
@@ -25,6 +28,7 @@ const ChatRoom = ({
   currentMonth: number;
   currentDay: number;
   chattingUser: UserDataType;
+  setAlert: SetAlertFunction;
 }) => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
@@ -56,6 +60,8 @@ const ChatRoom = ({
   useEffect(() => {
     messageWrapper.current.scrollTop = messageWrapper.current.scrollHeight;
   }, [messages]);
+
+  setAlert(false);
 
   return (
     <div className="">
