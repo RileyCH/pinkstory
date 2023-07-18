@@ -6,11 +6,14 @@ import {
   selectPeers,
 } from "@100mslive/react-sdk";
 import { hmsActions } from "@/utils/hms";
+import EmojiPicker from "emoji-picker-react";
 import sendIcon from "@/public/live-stream/send.png";
 import profile from "@/public/main/profile.png";
+import emojiIcon from "@/public/emoji.png";
 
 const Message = () => {
   const [message, setMessage] = useState<string>("");
+  const [chosenEmoji, setChosenEmoji] = useState(false);
   const broadcastMessages = useHMSStore(selectBroadcastMessages);
   const peers = useHMSStore(selectPeers);
   const messageCollection = useRef<null | HTMLDivElement>(null);
@@ -18,6 +21,10 @@ const Message = () => {
   const sentMessage = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     hmsActions.sendBroadcastMessage(`${message}`);
+    setMessage("");
+  };
+  const onEmojiClick = (emojiObject: any) => {
+    setMessage((prev) => `${prev}${emojiObject.emoji}`);
   };
 
   const peersProfile = peers.map((peer) => {
@@ -84,12 +91,31 @@ const Message = () => {
       <form onSubmit={sentMessage} className="liveStreamMessageInputDiv">
         <input
           type="text"
+          value={message}
           placeholder="輸入訊息..."
           onChange={(e) => {
             setMessage(e.target.value);
           }}
           className="liveStreamMessageInput"
         />
+        <div className="w-[40px] h-[40px] relative mx-4">
+          <Image
+            src={emojiIcon}
+            alt="emoji icon"
+            fill
+            sizes="100%"
+            className="cursor-pointer hover:drop-shadow-xl"
+            onClick={() => setChosenEmoji((prev) => !prev)}
+          />
+          {chosenEmoji && (
+            <div
+              className="absolute bottom-12 right-0"
+              onMouseLeave={() => setChosenEmoji((prev) => !prev)}
+            >
+              <EmojiPicker onEmojiClick={onEmojiClick} />
+            </div>
+          )}
+        </div>
         <button className="w-[40px] h-[40px] bg-themePink-400 rounded-full flex justify-center items-center p-3 relative">
           <Image src={sendIcon} alt="send message" />
         </button>

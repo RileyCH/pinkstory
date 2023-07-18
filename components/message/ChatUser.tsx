@@ -3,6 +3,8 @@ import Image from "next/image";
 import axios from "axios";
 import profile from "@/public/main/profile.png";
 import { ChatRoomType, UserDataType, FormatTimeFunction } from "@/utils/type";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type SetChatRoomsFunction = React.Dispatch<React.SetStateAction<UserDataType>>;
 type SetAlertFunction = React.Dispatch<React.SetStateAction<boolean>>;
@@ -66,7 +68,11 @@ const ChatUser = ({
       <div className="w-[calc(30vw_-_100px)]">
         <div className="md:w-[calc(30vw_-_105px)] flex gap-3 items-center">
           <p className="font-semibold truncate">
-            {chattingUser.name ? chattingUser.name : "資料讀取中..."}
+            {chattingUser.name ? (
+              chattingUser.name
+            ) : (
+              <Skeleton count={1} height={10} width={500} circle={false} />
+            )}
           </p>
           {alert && (
             <div className="w-[10px] h-[10px] bg-themePink-600 rounded-full"></div>

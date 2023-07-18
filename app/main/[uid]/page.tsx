@@ -18,6 +18,8 @@ import male from "@/public/main/male.png";
 import plus from "@/public/create-post/plus.png";
 import backGroundImg from "@/public/background/person.jpeg";
 import { fetchData } from "@/redux/features/userDataSlice";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Post = React.lazy(() => import("@/components/main/Post"));
 const Stock = React.lazy(() => import("@/components/main/stock/Stock"));
@@ -266,7 +268,9 @@ function User({ params }: { params: { uid: string } }) {
           {click === "Post" ? (
             <Suspense
               fallback={
-                <div className="flex justify-center">資料讀取中...</div>
+                <div className="flex justify-center">
+                  <Skeleton count={3} height={320} width={230} circle={false} />
+                </div>
               }
             >
               <Post
@@ -282,7 +286,9 @@ function User({ params }: { params: { uid: string } }) {
           ) : click === "Stock" ? (
             <Suspense
               fallback={
-                <div className="flex justify-center">資料讀取中...</div>
+                <div className="flex justify-center">
+                  <Skeleton count={3} height={320} width={230} circle={false} />
+                </div>
               }
             >
               <Stock uid={params.uid} />
