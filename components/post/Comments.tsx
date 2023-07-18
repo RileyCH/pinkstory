@@ -13,6 +13,8 @@ import {
 import { db } from "@/utils/database";
 import LoveComment from "@/components/post/LoveComment";
 import profile from "@/public/main/profile.png";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 interface CommentsType {
   commentId: string;
@@ -115,23 +117,35 @@ const Comments = ({
             >
               <Link href={`/main/${commentUser[index]?.uid}`} className="flex">
                 <div className="w-[25px] h-[25px] mr-[10px] relative">
-                  <Image
-                    src={
-                      commentUser[index]?.profileImg
-                        ? commentUser[index]?.profileImg
-                        : profile
-                    }
-                    alt="comment user profile image"
-                    fill
-                    sizes="(max-width: 768px) 30px, 50px"
-                    className="rounded-full object-cover"
-                  />
+                  {commentUser[index]?.profileImg ? (
+                    <Image
+                      src={commentUser[index]?.profileImg}
+                      alt="comment user profile image"
+                      fill
+                      sizes="(max-width: 768px) 30px, 50px"
+                      className="rounded-full object-cover"
+                    />
+                  ) : (
+                    <Skeleton
+                      count={1}
+                      width="27px"
+                      height="27px"
+                      circle={true}
+                    />
+                  )}
                 </div>
                 <div>
                   <p className="text-[14px] font-medium text-themeGray-600">
-                    {commentUser[index]?.name
-                      ? commentUser[index]?.name
-                      : "使用者名稱"}
+                    {commentUser[index]?.name ? (
+                      commentUser[index]?.name
+                    ) : (
+                      <Skeleton
+                        count={1}
+                        width="40px"
+                        height="10px"
+                        circle={false}
+                      />
+                    )}
                   </p>
                   <p className="text-[14px] mb-[6px]">
                     {comment?.data?.content}

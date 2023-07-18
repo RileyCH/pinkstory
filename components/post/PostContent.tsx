@@ -7,6 +7,7 @@ import KeepAndLove from "@/components/post/KeepAndLove";
 import Comments from "@/components/post/Comments";
 import AddComment from "@/components/post/AddComment";
 
+
 async function getPost(postid: string) {
   const headersData = headers();
   const protocol = headersData.get("x-forwarded-proto");
