@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
 import { ChatRoomType, UserDataType } from "@/utils/type";

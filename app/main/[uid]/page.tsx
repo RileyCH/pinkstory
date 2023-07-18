@@ -2,16 +2,19 @@
 import React, { useState, useEffect, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { UserDataType, PostType } from "@/utils/type";
 import { useRouter } from "next/navigation";
+import PersonPostSkeleton from "@/components/skeleton/PersonPostSkeleton";
 
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import FollowBtn from "@/components/post/FollowBtn";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
+import Stock from "@/components/main/stock/Stock";
 import profile from "@/public/main/profile.png";
 import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
@@ -21,8 +24,9 @@ import { fetchData } from "@/redux/features/userDataSlice";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const Post = React.lazy(() => import("@/components/main/Post"));
-const Stock = React.lazy(() => import("@/components/main/stock/Stock"));
+const Post = dynamic(() => import("@/components/main/Post"), {
+  loading: () => <PersonPostSkeleton />,
+});
 
 type Clicked = "Post" | "Keep" | "Love" | "Stock";
 
@@ -57,8 +61,8 @@ function User({ params }: { params: { uid: string } }) {
   });
   const [posts, setPosts] = useState<PostType[]>([]);
   const [click, setClick] = useState<Clicked>("Post");
+  const [postLoading, setPostLoading] = useState(false);
   const router = useRouter();
-
   const logout = () => {
     localStorage.removeItem("uid");
     router.push(`/`);
@@ -66,6 +70,7 @@ function User({ params }: { params: { uid: string } }) {
 
   useEffect(() => {
     const localStorageUid = localStorage.getItem("uid");
+    setPostLoading(true);
     if (localStorageUid) {
       setLocalUid(localStorageUid);
     }
@@ -74,6 +79,7 @@ function User({ params }: { params: { uid: string } }) {
   useEffect(() => {
     if (params.uid) {
       const fetchUserData = async () => {
+        setPostLoading(true);
         await axios
           .get("/api/user-data", {
             headers: { Authorization: `Bearer ${params.uid}` },
@@ -86,6 +92,7 @@ function User({ params }: { params: { uid: string } }) {
       };
 
       const fetchPost = async () => {
+        setPostLoading(true);
         await axios
           .get("/api/user-data/post", {
             headers: { Authorization: `Bearer ${params.uid}` },
@@ -93,6 +100,7 @@ function User({ params }: { params: { uid: string } }) {
           .then((res) => {
             if (res.status === 200) {
               setPosts(res.data);
+              setPostLoading(false);
             }
           });
       };
@@ -119,15 +127,17 @@ function User({ params }: { params: { uid: string } }) {
             </div>
 
             <div className="mt-[105px] mx-[10px] flex gap-5 relative z-10 md:mt-[200px] md:mx-[50px] xl:mx-[90px]">
-              <div className="w-[80px] h-[80px] relative md:w-[120px] md:h-[120px] xl:w-[170px] xl:h-[170px]">
-                <Image
-                  src={userData.profileImg ? `${userData.profileImg}` : profile}
-                  alt="profile icon"
-                  fill
-                  className="object-cover rounded-full border-[3px] border-white shadow-md md:border-[4px] xl:border-[5px]"
-                  priority={true}
-                />
-              </div>
+              {
+                <div className="w-[80px] h-[80px] relative md:w-[120px] md:h-[120px] xl:w-[170px] xl:h-[170px]">
+                  <Image
+                    src={userData.profileImg ? userData.profileImg : profile}
+                    fill
+                    alt="personal page back-ground image"
+                    priority={true}
+                    className="object-cover rounded-full border-[3px] border-white shadow-md md:border-[4px] xl:border-[5px]"
+                  />
+                </div>
+              }
 
               {/* <div className="w-[20px] h-[20px] bg-themeGray-100 flex justify-center items-center rounded-full cursor-pointer absolute left-[52px] bottom-1">
               <Image src={plus} alt="profile icon" width={7} height={7} />
@@ -136,11 +146,29 @@ function User({ params }: { params: { uid: string } }) {
               <div className="max-w-[calc(100%_-_110px)]">
                 <div className="mt-[25px] flex gap-4 items-center md:mt-[70px] xl:mt-[80px]">
                   <p className="text-[30px] font-semibold xl:text-[36px]">
-                    {userData.name}
+                    {userData.name ? (
+                      userData.name
+                    ) : (
+                      <Skeleton
+                        count={1}
+                        width="120px"
+                        height="40px"
+                        circle={false}
+                      />
+                    )}
                   </p>
                   <div className="flex items-center gap-1">
                     <p className="text-[14px] text-themeGray-600 mt-1 xl:text-[16px]">
-                      {userData.constellations}
+                      {userData.constellations ? (
+                        userData.constellations
+                      ) : (
+                        <Skeleton
+                          count={1}
+                          width="40px"
+                          height="20px"
+                          circle={false}
+                        />
+                      )}
                     </p>
 
                     <div className="w-[15px] h-[15px] relative">
@@ -172,14 +200,26 @@ function User({ params }: { params: { uid: string } }) {
                   ) : (
                     <div className="flex gap-3">
                       <FollowBtn postUid={params.uid} />
-                      <p className="text-[12px] py-1 px-2 bg-themeOrange-500 text-white rounded cursor-pointer hover:bg-themeOrange-800 md:text-[14px]">
+                      <Link
+                        href="/message"
+                        className="text-[12px] py-1 px-2 bg-themeOrange-500 text-white rounded cursor-pointer hover:bg-themeOrange-800 md:text-[14px]"
+                      >
                         發送訊息
-                      </p>
+                      </Link>
                     </div>
                   )}
                 </div>
                 <div className="w-[100%] mb-[15px] text-[14px] xl:text-[18px] xl:mb-[20px]">
-                  {userData.introduction}
+                  {userData.introduction ? (
+                    userData.introduction
+                  ) : (
+                    <Skeleton
+                      count={1}
+                      width="40vw"
+                      height="20px"
+                      circle={false}
+                    />
+                  )}
                 </div>
 
                 <div className="w-[100%] px-1 mx-auto mb-[15px] flex justify-between items-center gap-5 md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
@@ -213,8 +253,6 @@ function User({ params }: { params: { uid: string } }) {
               </div>
             </div>
           </div>
-
-          <div className="flex gap-5"></div>
         </div>
 
         <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-center md:mb-[20px] md:gap-8 xl:gap-14">
@@ -265,34 +303,20 @@ function User({ params }: { params: { uid: string } }) {
         </div>
 
         <div>
-          {click === "Post" ? (
-            <Suspense
-              fallback={
-                <div className="flex justify-center">
-                  <Skeleton count={3} height={320} width={230} circle={false} />
-                </div>
-              }
-            >
-              <Post
-                posts={posts}
-                userName={userData.name}
-                profileImg={userData.profileImg}
-              />
-            </Suspense>
+          {click === "Post" && postLoading ? (
+            <PersonPostSkeleton />
+          ) : click === "Post" && !postLoading ? (
+            <Post
+              posts={posts}
+              userName={userData.name}
+              profileImg={userData.profileImg}
+            />
           ) : click === "Keep" ? (
             <Keep />
           ) : click === "Love" ? (
             <Love />
           ) : click === "Stock" ? (
-            <Suspense
-              fallback={
-                <div className="flex justify-center">
-                  <Skeleton count={3} height={320} width={230} circle={false} />
-                </div>
-              }
-            >
-              <Stock uid={params.uid} />
-            </Suspense>
+            <Stock uid={params.uid} />
           ) : (
             ""
           )}
