@@ -126,9 +126,9 @@ const ChatUser = ({
               <Skeleton count={1} height={15} width={50} circle={false} />
             )}
           </p>
-          {alert && (
+          {/* {alert && (
             <div className="w-[10px] h-[10px] bg-themePink-600 rounded-full"></div>
-          )}
+          )} */}
         </div>
         <div className="flex justify-between items-center">
           <p className="md:w-[calc(30vw_-_150px)] text-[14px] truncate">

@@ -93,21 +93,23 @@ const Stock = ({ uid }: { uid: string }) => {
                     <p className="px-[5px] py-[2px] bg-themePink-500 text-white absolute top-0 left-0 xl:px-[8px] xl:py-[3px]">
                       {stock.data.category}
                     </p>
-                    <p className="max-w-[160px] truncate">
+                    <p className="max-w-[120px] truncate">
                       品牌：{stock.data.brand}
                     </p>
-                    <p className="max-w-[160px] truncate">
+                    <p className="max-w-[120px] truncate">
                       品名：{stock.data.itemName}
                     </p>
                     <p>數量：{stock.data.amount}</p>
-                    <p>效期：{stock.data.expirationDate}</p>
+                    <p className="text-[8px] text-themeGray-400">
+                      效期：{stock.data.expirationDate}
+                    </p>
                   </div>
 
                   <div className="text-end">
                     <p className="text-themeGray-800 text-[8px]">剩餘時間</p>
                     <p>
                       <span
-                        className={`text-[20px] xl:text-[34px] font-medium ${
+                        className={`text-[20px] xl:text-[28px] font-medium ${
                           stock.data.durationDay && stock.data.durationDay < 30
                             ? " text-red-600"
                             : " text-themePink-400"

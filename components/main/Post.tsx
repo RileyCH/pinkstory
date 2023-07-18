@@ -38,7 +38,7 @@ const Post = ({
               </div>
             )}
             <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
-              <p className="font-medium break-words mb-[5px]">
+              <p className="font-medium break-words mb-[5px] max-w-[170px]">
                 {post.data.title ? post.data.title : "尚未填入標題"}
               </p>
 

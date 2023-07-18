@@ -157,7 +157,7 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
       </div>
 
       {imageSrc ? (
-        <div className="w-[90vw] h-[90vh] fixed top-4 left-0 right-0 mx-auto bg-white">
+        <div className="w-[90vw] h-[90vh] fixed top-4 left-0 right-0 mx-auto bg-white z-50">
           <Cropper
             image={imageSrc}
             crop={crop}
