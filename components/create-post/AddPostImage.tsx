@@ -7,6 +7,7 @@ import Cropper from "react-easy-crop";
 import { storage, db } from "@/utils/database";
 import { useAppSelector } from "@/redux/hooks";
 import { getCroppedImg } from "@/utils/canvasUtils";
+import BackDiv from "@/components/BackDiv";
 import back from "@/public/back.png";
 import plus from "@/public/create-post/plus.png";
 
@@ -99,10 +100,8 @@ const AddPostImage: React.FC<AddPostImageProps> = ({
 
   return (
     <div className="w-[90vw] mx-auto md:mt-3">
-      <div className="w-[100%] h-[50px] pt-[15px] px-[15px] mb-2 flex justify-between items-center fixed top-0 left-0 bg-white z-30">
-        <Link href={`/main/${user.uid}`}>
-          <Image src={back} alt="back to main page" width={25} height={25} />
-        </Link>
+      <div className="w-[100vw] h-[55px] pt-[15px] pb-[20px] px-[15px] flex justify-between items-center fixed top-0 left-0 bg-white z-30 drop-shadow-sm">
+        <BackDiv url={"post"} />
       </div>
 
       <div className="w-[100%] mt-[60px] md:mt-1">

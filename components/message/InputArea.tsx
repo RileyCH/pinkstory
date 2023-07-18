@@ -3,12 +3,14 @@ import { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import EmojiPicker from "emoji-picker-react";
+import LoadingAnimation from "@/components/LoadingAnimation";
 import send from "@/public/live-stream/send.png";
 import emojiIcon from "@/public/emoji.png";
 
 const InputArea = ({ roomId, uid }: { roomId: string; uid: string | null }) => {
   const [inputMessage, setInputMessage] = useState<string>("");
-  const [chosenEmoji, setChosenEmoji] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onEmojiClick = (emojiObject: any) => {
     setInputMessage((prev) => `${prev}${emojiObject.emoji}`);
@@ -16,24 +18,32 @@ const InputArea = ({ roomId, uid }: { roomId: string; uid: string | null }) => {
 
   const submitMessage = (e: React.FormEvent) => {
     e.preventDefault();
-    if (inputMessage) {
-      const messageDetail = {
-        content: inputMessage,
-        uid: uid,
-        sentTime: null,
-        roomId: roomId,
-      };
+    if (inputMessage !== "") {
+      setLoading(true);
+      if (inputMessage) {
+        const messageDetail = {
+          content: inputMessage,
+          uid: uid,
+          sentTime: null,
+          roomId: roomId,
+        };
 
-      axios
-        .post(
-          "/api/message/detail",
-          { messageDetail },
-          { headers: { "Content-Type": "application/json" } }
-        )
-        .catch((error) => {
-          console.error(error);
-        });
-      setInputMessage("");
+        axios
+          .post(
+            "/api/message/detail",
+            { messageDetail },
+            { headers: { "Content-Type": "application/json" } }
+          )
+          .catch((error) => {
+            console.error(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+        setInputMessage("");
+      }
+    } else {
+      window.alert("請先輸入訊息");
     }
   };
 
@@ -73,10 +83,15 @@ const InputArea = ({ roomId, uid }: { roomId: string; uid: string | null }) => {
           </div>
         )}
       </div>
+
       <button className="bg-themePink-400 hover:bg-themePink-500 text-white px-[10px] py-[10px] rounded-full">
-        <div className="w-[15px] h-[15px] relative">
-          <Image src={send} alt="send message button" fill sizes="100%" />
-        </div>
+        {loading ? (
+          <LoadingAnimation />
+        ) : (
+          <div className="w-[15px] h-[15px] relative">
+            <Image src={send} alt="send message button" fill sizes="100%" />
+          </div>
+        )}
       </button>
     </form>
   );

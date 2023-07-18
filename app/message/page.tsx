@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
 import { ChatRoomType, UserDataType } from "@/utils/type";
@@ -7,6 +9,10 @@ import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import ChatUser from "@/components/message/ChatUser";
 import ChatRoom from "@/components/message/ChatRoom";
+import ChatRoomSkeleton from "@/components/skeleton/ChatRoomSkeleton";
+import send from "@/public/message/send.png";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Chat = () => {
   const [uid, setUid] = useState<string | null>(null);
@@ -106,14 +112,12 @@ const Chat = () => {
                   key={index}
                   onClick={() => {
                     setSelectRoom(room.chatRoomId);
-                    setChattingUser(chattingUser);
                   }}
                 >
                   <ChatUser
                     uid={uid}
                     room={room}
                     otherUid={room.data.uid.filter((id) => id !== uid)[0]}
-                    chattingUser={chattingUser}
                     setChattingUser={setChattingUser}
                     formatTime={formatTime}
                     currentYear={currentYear}
@@ -130,10 +134,28 @@ const Chat = () => {
               </div>
             </div>
           ) : (
-            <p className="text-center">訊息讀取中...</p>
+            <ChatRoomSkeleton />
           )}
         </div>
-        {selectRoom ? (
+        {chatRooms.length === 0 ? (
+          <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">
+            <Skeleton
+              count={1}
+              width="100px"
+              height="100px"
+              circle={true}
+              className="mb-8"
+            />
+            <Skeleton
+              count={1}
+              width="100px"
+              height="35px"
+              circle={false}
+              className="mb-3"
+            />
+            <Skeleton count={1} width="240px" height="20px" circle={false} />
+          </div>
+        ) : selectRoom ? (
           <ChatRoom
             roomId={selectRoom}
             chattingUser={chattingUser}
@@ -144,9 +166,18 @@ const Chat = () => {
             setAlert={setAlert}
           />
         ) : (
-          <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[200px] md:mx-auto">
-            <p className="text-[18px] font-medium">你的訊息</p>
-            <p className="text-[14px]">傳送相片或訊息給朋友吧～</p>
+          <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">
+            <div className="w-[80px] h-[80px] relative mb-5">
+              <Image
+                src={send}
+                alt="message"
+                fill
+                sizes="100%"
+                className="object-cover"
+              />
+            </div>
+            <p className="text-[28px] font-medium mb-3">訊息內容</p>
+            <p className="text-[18px]">你還沒選擇要跟哪位朋友聊聊喔～</p>
           </div>
         )}
       </div>

@@ -9,6 +9,7 @@ import { fetchData } from "@/redux/features/userDataSlice";
 import { UserDataType } from "@/utils/type";
 import heart from "@/public/post/heart.png";
 import heartClick from "@/public/post/heart-click.png";
+import LoadingAnimation from "@/components/LoadingAnimation";
 
 const CommentUser = ({
   postId,
@@ -23,8 +24,10 @@ const CommentUser = ({
   const userData = useAppSelector((state) => state.fetchUser) as UserDataType;
   const [love, setLove] = useState<boolean>(false);
   const [loveUserNum, setLoveUserNum] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const loveComment = () => {
+    setLoading(true);
     axios
       .post("/api/post/love-comment", {
         loveComment: {
@@ -37,6 +40,7 @@ const CommentUser = ({
       .then((res) => {
         if (res.status === 200) {
           setLove((prev) => !prev);
+          setLoading(false);
         }
       });
   };
@@ -92,18 +96,27 @@ const CommentUser = ({
   }, [authorId, postId, commentId]);
 
   return (
-    <div onClick={() => loveComment()} className="text-center cursor-pointer">
-      <div className="w-[13px] h-[13px] relative">
-        <Image
-          src={!love ? heart : heartClick}
-          alt="love post comment"
-          fill
-          sizes="(max-width: 768px) 20px, 50px"
-        />
-      </div>
+    <>
+      {loading ? (
+        <LoadingAnimation />
+      ) : (
+        <div
+          onClick={() => loveComment()}
+          className="text-center cursor-pointer"
+        >
+          <div className="w-[13px] h-[13px] relative">
+            <Image
+              src={!love ? heart : heartClick}
+              alt="love post comment"
+              fill
+              sizes="(max-width: 768px) 20px, 50px"
+            />
+          </div>
 
-      <p className="text-[14px] text-themeGray-600">{loveUserNum}</p>
-    </div>
+          <p className="text-[14px] text-themeGray-600">{loveUserNum}</p>
+        </div>
+      )}
+    </>
   );
 };
 

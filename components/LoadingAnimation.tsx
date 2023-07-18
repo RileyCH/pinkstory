@@ -2,7 +2,7 @@ function LoadingAnimation() {
   return (
     <svg
       aria-hidden="true"
-      className="h-5 w-5 animate-spin fill-themePink-300 text-white dark:text-white"
+      className="h-5 w-5 animate-spin fill-themePink-500 text-themePink-300 dark:text-themePink-100"
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -219,7 +219,7 @@ function User({ params }: { params: { uid: string } }) {
 
         <div className="w-[95vw] max-w-[1200px] mx-auto mb-[8px] flex gap-5 justify-center md:mb-[20px] md:gap-8 xl:gap-14">
           <p
-            className={`text-[14px] md:text-[16px] ${
+            className={`text-[14px] md:text-[16px] cursor-pointer hover:text-themePink-400 hover:font-semibold ${
               click === "Post"
                 ? "font-bold text-themePink-400"
                 : "text-themePink-900"
@@ -231,7 +231,7 @@ function User({ params }: { params: { uid: string } }) {
           {localUid === params.uid && (
             <>
               <p
-                className={`text-[14px] md:text-[16px] ${
+                className={`text-[14px] md:text-[16px] cursor-pointer hover:text-themePink-400 hover:font-semibold ${
                   click === "Keep"
                     ? "font-bold text-themePink-400"
                     : "text-themePink-900"
@@ -241,7 +241,7 @@ function User({ params }: { params: { uid: string } }) {
                 收藏
               </p>
               <p
-                className={`text-[14px] md:text-[16px] ${
+                className={`text-[14px] md:text-[16px] cursor-pointer hover:text-themePink-400 hover:font-semibold ${
                   click === "Love"
                     ? "font-bold text-themePink-400"
                     : "text-themePink-900"
@@ -251,7 +251,7 @@ function User({ params }: { params: { uid: string } }) {
                 按讚
               </p>
               <p
-                className={`text-[14px] md:text-[16px] ${
+                className={`text-[14px] md:text-[16px] cursor-pointer hover:text-themePink-400 hover:font-semibold ${
                   click === "Stock"
                     ? "font-bold text-themePink-400"
                     : "text-themePink-900"

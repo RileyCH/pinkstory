@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import axios from "axios";
+import LoadingAnimation from "@/components/LoadingAnimation";
 
 const AddComment = ({
   postId,
@@ -12,22 +13,32 @@ const AddComment = ({
 }) => {
   const [localUid, setLocalUid] = useState<string | null>(null);
   const [comment, setComment] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleComment = (e: React.FormEvent) => {
     e.preventDefault();
-    axios.post(
-      "/api/post/add-comment",
-      {
-        commentDetails: {
-          authorId: authorId,
-          postId: postId,
-          uid: localUid,
-          content: comment,
-        },
-      },
-      { headers: { "Content-Type": "application/json" } }
-    );
-    setComment("");
+    if (comment !== "") {
+      setLoading(true);
+      axios
+        .post(
+          "/api/post/add-comment",
+          {
+            commentDetails: {
+              authorId: authorId,
+              postId: postId,
+              uid: localUid,
+              content: comment,
+            },
+          },
+          { headers: { "Content-Type": "application/json" } }
+        )
+        .finally(() => {
+          setLoading(false);
+        });
+      setComment("");
+    } else {
+      window.alert("請先輸入留言");
+    }
   };
 
   useEffect(() => {
@@ -52,12 +63,16 @@ const AddComment = ({
               value={comment}
               className="w-[calc(100%_-_50px)] px-[18px] py-1 h-[35px] text-themePink-500 bg-themeGray-50 block mr-[10px] rounded-full placeholder:text-[14px]"
             />
-            <button
-              type="submit"
-              className="bg-themePink-400 hover:bg-themePink-500 text-[14px] text-white px-[5px] py-[4px] rounded-lg cursor-pointer"
-            >
-              留言
-            </button>
+            {loading ? (
+              <LoadingAnimation />
+            ) : (
+              <button
+                type="submit"
+                className="bg-themePink-400 hover:bg-themePink-500 text-[14px] text-white px-[5px] py-[4px] rounded-lg cursor-pointer"
+              >
+                留言
+              </button>
+            )}
           </form>
         </div>
       ) : (

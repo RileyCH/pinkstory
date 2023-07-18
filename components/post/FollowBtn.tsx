@@ -11,7 +11,7 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
   const userData = useAppSelector((state) => state.fetchUser) as UserDataType;
   const [authorCheck, setAuthorCheck] = useState(true);
   const [followStatus, setFollowStatus] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const clickFollowBtn = () => {
     setLoading(true);
@@ -25,8 +25,10 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
       .then((res) => {
         if (res.status === 200) {
           setFollowStatus((prev) => !prev);
-          setLoading(false);
         }
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
@@ -65,7 +67,6 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
           onClick={() => clickFollowBtn()}
         >
           {loading ? <LoadingAnimation /> : "追蹤中"}
-          {/* <LoadingAnimation /> */}
         </div>
       ) : (
         ""
