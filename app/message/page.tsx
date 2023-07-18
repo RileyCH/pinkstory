@@ -1,27 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import axios from "axios";
-import { useAppSelector } from "@/redux/hooks";
 import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
-import {
-  ChatRoomType,
-  ChatWithOtherUserType,
-  UserDataType,
-} from "@/utils/type";
+import { ChatRoomType, UserDataType } from "@/utils/type";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
+import ChatUser from "@/components/message/ChatUser";
 import ChatRoom from "@/components/message/ChatRoom";
-import profile from "@/public/main/profile.png";
 
 const Chat = () => {
   const [uid, setUid] = useState<string | null>(null);
   const [chatRooms, setChatRooms] = useState<ChatRoomType[]>([]);
-  const [chatWithOtherUser, setChatWithOtherUser] = useState<
-    ChatWithOtherUserType[]
-  >([]);
   const [selectRoom, setSelectRoom] = useState<string | null>(null);
   const [chattingUser, setChattingUser] = useState<UserDataType>({
     uid: "",
@@ -77,94 +66,29 @@ const Chat = () => {
   }, []);
 
   useEffect(() => {
-    const fetchChatRooms = async () => {
-      await axios
-        .get("/api/message/rooms", {
-          headers: { Authorization: `Bearer ${uid}` },
-        })
-        .then((res) => {
-          if (res.status === 200) {
-            setChatRooms(res.data);
-          }
+    const q = query(
+      collection(db, "messages"),
+      where("uid", "array-contains", uid)
+    );
+    const newMessage = onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        console.log(change.doc.data());
+
+        setChatRooms((prev) => {
+          const unChangedRoom = prev.filter(
+            (room) => room.chatRoomId !== change.doc.data().roomId
+          );
+          return [
+            ...unChangedRoom,
+            {
+              chatRoomId: change.doc.data().roomId,
+              data: change.doc.data() as ChatRoomType["data"],
+            },
+          ];
         });
-    };
-    fetchChatRooms();
-  }, [uid]);
-
-  // useEffect(() => {
-  //   const q = query(
-  //     collection(db, "messages"),
-  //     where("uid", "array-contains", uid)
-  //   );
-  //   const newMessages = onSnapshot(q, (snapshot) => {
-  //     snapshot.docChanges().forEach((change) => {
-  //       console.log(change.doc.data());
-  //       console.log("chatWithOtherUser2", chatWithOtherUser);
-
-  //       // setChatWithOtherUser((prev) => {
-  //       //   const oldMessage = chatWithOtherUser.filter(
-  //       //     (room) => room.chatRoomId === change.doc.data().roomId
-  //       //   )[0];
-  //       //   // const filterMessage = prev.filter(
-  //       //   //   (room) => room.chatRoomId !== change.doc.data().roomId
-  //       //   // );
-  //       //   console.log("oldMessage", oldMessage);
-
-  //       //   return [
-  //       //     ...filterMessage,
-  //       //     {
-  //       //       chatRoomId: oldMessage.chatRoomId,
-  //       //       other: oldMessage.other,
-  //       //       data: {
-  //       //         ...oldMessage.data,
-  //       //         message: change.doc.data(),
-  //       //       },
-  //       //     },
-  //       //   ];
-  //       // });
-
-  //       // const filterMessage = chatRooms.filter(
-  //       //   (data) => data.chatRoomId !== change.doc.data().roomId
-  //       // );
-  //       // setChatRooms([
-  //       //   ...filterMessage,
-  //       //   {
-  //       //     chatRoomId: change.doc.data().roomId,
-  //       //     data: {
-  //       //       roomId: change.doc.data().roomId,
-  //       //       uid: change.doc.data().uid,
-  //       //       message: change.doc.data().message,
-  //       //     },
-  //       //   },
-  //       // ]);
-  //     });
-  //   });
-  // }, [uid]);
-
-  useEffect(() => {
-    chatRooms.map((room) => {
-      const otherUid = room.data.uid.filter((id) => id !== uid)[0];
-
-      const fetchOtherUser = async () => {
-        await axios
-          .get("/api/user-data", {
-            headers: { Authorization: `Bearer ${otherUid}` },
-          })
-          .then((res) => {
-            if (res.status === 200) {
-              setChatWithOtherUser((prev) => [
-                ...prev,
-                {
-                  ...room,
-                  other: res.data,
-                },
-              ]);
-            }
-          });
-      };
-      fetchOtherUser();
+      });
     });
-  }, [chatRooms, uid]);
+  }, [uid]);
 
   return (
     <div>
@@ -176,103 +100,25 @@ const Chat = () => {
           </p>
           {chatRooms.length > 0 ? (
             <div>
-              {chatWithOtherUser.map((room, index) => (
+              {chatRooms.map((room, index) => (
                 <div
                   key={index}
                   onClick={() => {
                     setSelectRoom(room.chatRoomId);
-                    setChattingUser(room.other);
+                    setChattingUser(chattingUser);
                   }}
-                  className="flex gap-3 items-center py-3 px-2 cursor-pointer hover:bg-themePink-100 hover:rounded-lg"
                 >
-                  <div className="w-[40px] h-[40px] relative md:w-[55px] md:h-[55px]">
-                    <Image
-                      src={
-                        room.other.profileImg ? room.other.profileImg : profile
-                      }
-                      alt="user profile image"
-                      fill
-                      sizes="100%"
-                      className="rounded-full object-cover"
-                    />
-                  </div>
-                  <div className="w-[calc(100%_-_75px)]">
-                    <p className="font-semibold md:w-[calc(100%_-_50px)] truncate">
-                      {room.other.name ? room.other.name : "資料讀取中..."}
-                    </p>
-                    <div className="flex justify-between items-center">
-                      <p className="md:w-[calc(100%_-_70px)] text-[14px] truncate">
-                        {room.data.message.slice(-1)[0].uid === uid
-                          ? "你: "
-                          : ""}
-                        {room.data.message.slice(-1)[0].content}
-                      </p>
-                      <p className="text-[12px] text-themeGray-600">
-                        {formatTime(
-                          room.data.message.slice(-1)[0].sentTime.seconds,
-                          room.data.message.slice(-1)[0].sentTime.nanoseconds
-                        ).year === currentYear &&
-                        formatTime(
-                          room.data.message.slice(-1)[0].sentTime.seconds,
-                          room.data.message.slice(-1)[0].sentTime.nanoseconds
-                        ).month === currentMonth &&
-                        formatTime(
-                          room.data.message.slice(-1)[0].sentTime.seconds,
-                          room.data.message.slice(-1)[0].sentTime.nanoseconds
-                        ).day === currentDay
-                          ? `${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).hour
-                            } : ${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).minute
-                            }`
-                          : formatTime(
-                              room.data.message.slice(-1)[0].sentTime.seconds,
-                              room.data.message.slice(-1)[0].sentTime
-                                .nanoseconds
-                            ).year === currentYear
-                          ? `${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).month
-                            }/${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).day
-                            }`
-                          : `${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).year
-                            }/${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).month
-                            }/${
-                              formatTime(
-                                room.data.message.slice(-1)[0].sentTime.seconds,
-                                room.data.message.slice(-1)[0].sentTime
-                                  .nanoseconds
-                              ).day
-                            }`}
-                      </p>
-                    </div>
-                  </div>
+                  <ChatUser
+                    uid={uid}
+                    room={room}
+                    otherUid={room.data.uid.filter((id) => id !== uid)[0]}
+                    chattingUser={chattingUser}
+                    setChattingUser={setChattingUser}
+                    formatTime={formatTime}
+                    currentYear={currentYear}
+                    currentMonth={currentMonth}
+                    currentDay={currentDay}
+                  />
                 </div>
               ))}
 

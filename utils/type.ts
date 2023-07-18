@@ -94,37 +94,13 @@ export interface ChatRoomType {
   };
 }
 
-export interface ChatWithOtherUserType {
-  chatRoomId: string;
-  data: {
-    roomId: string;
-    uid: string[];
-    message: { content: string; sentTime: Timestamp; uid: string }[];
-  };
-  other: {
-    uid: string | null;
-    age: number | null;
-    bgImg: string | null;
-    birth: {
-      date: number | null;
-      month: number | null;
-      year: number | null;
-    };
-    constellations: string | null;
-    follower: string[] | [];
-    following: string[] | [];
-    followingCategory: { [key: string]: number };
-    gender: string | null;
-    introduction: string | null;
-    keptPost: string[] | [];
-    liveStream: {
-      roomId: string;
-      hostRoomCode: string;
-      guestRoomCode: string;
-    };
-    name: string;
-    profileImg: string | null;
-    registedDate: number;
-    thumbnailedPost: string[] | [];
-  };
-}
+export type FormatTimeFunction = (
+  seconds: number,
+  nanoseconds: number
+) => {
+  year: number;
+  month: number;
+  day: number;
+  hour: string | number;
+  minute: string | number;
+};

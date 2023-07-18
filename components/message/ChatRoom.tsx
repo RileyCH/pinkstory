@@ -7,20 +7,9 @@ import { db } from "@/utils/database";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { fetchData } from "@/redux/features/userDataSlice";
 import InputArea from "@/components/message/InputArea";
-import { ChatRoomType, UserDataType } from "@/utils/type";
+import { ChatRoomType, UserDataType, FormatTimeFunction } from "@/utils/type";
 import back from "@/public/back.png";
 import profile from "@/public/main/profile.png";
-
-type FormatTimeFunction = (
-  seconds: number,
-  nanoseconds: number
-) => {
-  year: number;
-  month: number;
-  day: number;
-  hour: string | number;
-  minute: string | number;
-};
 
 const ChatRoom = ({
   roomId,
@@ -63,7 +52,6 @@ const ChatRoom = ({
       }
     });
   }, [roomId]);
-  console.log(chattingUser);
 
   useEffect(() => {
     messageWrapper.current.scrollTop = messageWrapper.current.scrollHeight;
