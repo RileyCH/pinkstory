@@ -79,7 +79,7 @@ const Stock = ({ uid }: { uid: string }) => {
                 className="my-1 rounded-lg shadow-lg cursor-pointer border border-gray-200 relative"
                 onClick={() => setSelectItem(stock)}
               >
-                <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[15vw] xl:h-[250px]">
+                <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[18vw] xl:h-[250px]">
                   <Image
                     src={`${stock.data.picture[0]}`}
                     alt=""
@@ -109,7 +109,7 @@ const Stock = ({ uid }: { uid: string }) => {
                     <p className="text-themeGray-800 text-[8px]">剩餘時間</p>
                     <p>
                       <span
-                        className={`text-[20px] xl:text-[28px] font-medium ${
+                        className={`text-[20px] xl:text-[22px] font-medium ${
                           stock.data.durationDay && stock.data.durationDay < 30
                             ? " text-red-600"
                             : " text-themePink-400"
@@ -130,7 +130,7 @@ const Stock = ({ uid }: { uid: string }) => {
           {!selectItem && (
             <Link
               href={`/main/${uid}/stock`}
-              className="bg-themePink-400 p-4 fixed right-[120px] bottom-[70px] rounded-full"
+              className="bg-themePink-400 p-4 fixed right-[120px] bottom-[70px] rounded-full z-30"
             >
               <div className="w-[20px] h-[20px] relative">
                 <Image src={add} alt="add new stock" fill />

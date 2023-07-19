@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const StockSkeleton = () => {
-  const forRender = new Array(3).fill(0);
+  const forRender = new Array(5).fill(0);
 
   return (
     <div className="w-[80vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4 mt-5">
