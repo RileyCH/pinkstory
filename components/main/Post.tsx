@@ -16,19 +16,20 @@ const Post = ({
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
   return (
-    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
+    <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
       {posts.map((post) => (
         <div
           key={post.postID}
-          className="my-1 rounded-lg shadow-lg cursor-pointer relative"
+          className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] xl:w-[calc(20%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
         >
           <Link href={`/${post.postID}`}>
             {post.data?.picture?.[0] ? (
-              <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[15vw] xl:h-[250px]">
+              <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[250px] 2xl:h-[320px]">
                 <Image
                   src={`${post.data.picture?.[0]}`}
-                  alt=""
+                  alt="main post image"
                   fill
+                  sizes="100%"
                   className="object-cover object-center rounded-t-lg"
                 />
               </div>
@@ -37,13 +38,13 @@ const Post = ({
                 <p className="">尚未增加圖片</p>
               </div>
             )}
-            <div className="max-w-[47vw] px-[15px] pt-[10px] pb-[35px] md:max-w-[200px] xl:max-w-[250px]">
-              <p className="font-medium break-words mb-[5px] max-w-[170px]">
+            <div className="px-[10px] pt-[7px] pb-[35px]">
+              <p className="font-medium break-words mb-[5px] md:mb-[10px] 2xl:text-[18px]">
                 {post.data.title ? post.data.title : "尚未填入標題"}
               </p>
 
               <div className="w-[85%] flex items-center justify-between absolute bottom-3 md:w-[88%]">
-                <div className="flex gap-2 items-center">
+                <div className="flex gap-2">
                   <div className="w-[15px] h-[15px] relative md:w-[20px] md:h-[20px] lg:w-[24px] lg:h-[24px]">
                     <Image
                       src={profileImg ? profileImg : profile}
@@ -54,7 +55,7 @@ const Post = ({
                     />
                   </div>
 
-                  <p className="text-[12px] text-darkPink md:text-[14px]">
+                  <p className="text-[12px] text-darkPink break-words max-w-[90px] md:text-[14px]">
                     {userName}
                   </p>
                 </div>

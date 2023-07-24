@@ -2,14 +2,14 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const StockSkeleton = () => {
-  const forRender = new Array(5).fill(0);
+  const forRender = new Array(8).fill(0);
 
   return (
-    <div className="w-[80vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4 mt-5">
+    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:justify-start md:gap-3 md:w-[90vw] xl:gap-4 2xl:max-w-[1600px]">
       {forRender.map((item, index) => (
         <div
           key={index}
-          className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[15vw] xl:h-[300px] mb-[50px]"
+          className="w-[calc(50%_-_4px)] h-[170px] mb-[80px] relative z-0 md:w-[calc(33%_-_15px)] md:h-[250px] xl:w-[calc(25%_-_15px)] xl:h-[280px] 2xl:w-[calc(25%_-_15px)] 2xl:h-[350px]"
         >
           <Skeleton
             count={1}
@@ -19,7 +19,7 @@ const StockSkeleton = () => {
             className="mb-2"
           />
           <Skeleton count={1} width="100%" height="30px" circle={false} />
-          <div className="w-[47vw] md:w-[29vw] xl:w-[20vw] flex items-center gap-3 mt-2">
+          <div className="w-[calc(50%_-_4px)] flex items-center gap-3 mt-2 md:w-[calc(33%_-_15px)] xl:w-[calc(25%_-_15px)]">
             <Skeleton count={1} width="40px" height="40px" circle={true} />
             <Skeleton count={1} width="80px" height="20px" circle={false} />
           </div>

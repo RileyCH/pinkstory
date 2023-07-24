@@ -6,8 +6,8 @@ import axios from "axios";
 import { StockType } from "@/utils/type";
 import SideBar from "@/components/main/stock/SideBar";
 import StockDetails from "@/components/main/stock/StockDetails";
+import AddStock from "@/components/main/stock/AddStock";
 import StockSkeleton from "@/components/skeleton/StockSkeleton";
-import add from "@/public/add-gray.png";
 
 const Stock = ({ uid }: { uid: string }) => {
   const [category, setCategory] = useState("全部");
@@ -61,83 +61,73 @@ const Stock = ({ uid }: { uid: string }) => {
   }, [category, fetchData]);
 
   return (
-    <div className="max-w-[1200px] mx-auto px-5 flex gap-4">
+    <div>
       <SideBar
         category={category}
         setCategory={setCategory}
         selectItem={selectItem}
         setSelectItem={setSelectItem}
+        uid={uid}
       />
-      <div>
-        <div className="max-w-[1200px] mx-auto flex flex-wrap items-center md:flex md:gap-3 xl:gap-4">
-          {loading ? (
-            <StockSkeleton />
-          ) : !selectItem ? (
-            stocks.map((stock) => (
-              <div
-                key={stock.stockId}
-                className="my-1 rounded-lg shadow-lg cursor-pointer border border-gray-200 relative"
-                onClick={() => setSelectItem(stock)}
-              >
-                <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[18vw] xl:h-[250px]">
-                  <Image
-                    src={`${stock.data.picture[0]}`}
-                    alt=""
-                    fill
-                    className="object-cover object-center rounded-t-lg drop-shadow-sm"
-                  />
-                </div>
 
-                <div className="px-[20px] py-[10px] text-[12px] flex justify-between xl:text-[14px]">
-                  <div>
-                    <p className="px-[5px] py-[2px] bg-themePink-500 text-white absolute top-0 left-0 xl:px-[8px] xl:py-[3px]">
-                      {stock.data.category}
-                    </p>
-                    <p className="max-w-[120px] truncate">
-                      品牌：{stock.data.brand}
-                    </p>
-                    <p className="max-w-[120px] truncate">
-                      品名：{stock.data.itemName}
-                    </p>
-                    <p>數量：{stock.data.amount}</p>
-                    <p className="text-[8px] text-themeGray-400">
-                      效期：{stock.data.expirationDate}
-                    </p>
-                  </div>
-
-                  <div className="text-end">
-                    <p className="text-themeGray-800 text-[8px]">剩餘時間</p>
-                    <p>
-                      <span
-                        className={`text-[20px] xl:text-[22px] font-medium ${
-                          stock.data.durationDay && stock.data.durationDay < 30
-                            ? " text-red-600"
-                            : " text-themePink-400"
-                        }`}
-                      >
-                        {stock.data.durationDay}
-                      </span>
-                      {""} 天
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))
-          ) : (
-            <StockDetails stock={selectItem} />
-          )}
-
-          {!selectItem && (
-            <Link
-              href={`/main/${uid}/stock`}
-              className="bg-themePink-400 p-4 fixed right-[120px] bottom-[70px] rounded-full z-30"
+      <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:justify-start md:max-w-[1200px] md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
+        {loading ? (
+          <StockSkeleton />
+        ) : !selectItem ? (
+          stocks.map((stock) => (
+            <div
+              key={stock.stockId}
+              className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(33%_-_15px)] xl:w-[calc(25%_-_15px)] 2xl:w-[calc(25%_-_15px)]"
+              onClick={() => setSelectItem(stock)}
             >
-              <div className="w-[20px] h-[20px] relative">
-                <Image src={add} alt="add new stock" fill />
+              <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[280px] 2xl:h-[350px]">
+                <Image
+                  src={`${stock.data.picture[0]}`}
+                  alt="stock image"
+                  fill
+                  sizes="100%"
+                  className="object-cover object-center rounded-t-lg drop-shadow-sm"
+                />
               </div>
-            </Link>
-          )}
-        </div>
+
+              <div className="px-[10px] py-[10px] text-[12px] md:flex md:justify-between xl:text-[14px]">
+                <div>
+                  <p className="px-[5px] py-[2px] bg-themePink-500 bg-opacity-80 text-white absolute top-0 left-0 xl:px-[8px] xl:py-[3px]">
+                    {stock.data.category}
+                  </p>
+                  <p className="max-w-[100%] truncate text-[18px] font-semibold text-themePink-700 xl:text-[22px]">
+                    {stock.data.brand}
+                  </p>
+                  <p className="max-w-[100%] truncate font-medium text-themePink-900 mb-1 xl:mb-2 xl:text-[16px]">
+                    {stock.data.itemName}
+                  </p>
+                  <p>效期 | {stock.data.expirationDate}</p>
+                  <p>數量 | {stock.data.amount}</p>
+                </div>
+
+                <div className="text-end flex justify-between items-baseline md:block">
+                  <p className="text-themeGray-800 text-[8px]">剩餘時間</p>
+                  <p>
+                    <span
+                      className={`font-medium text-[24px] xl:text-[32px] 2xl:text-[42px] ${
+                        stock.data.durationDay && stock.data.durationDay < 30
+                          ? " text-red-600"
+                          : " text-themePink-400"
+                      }`}
+                    >
+                      {stock.data.durationDay}
+                    </span>
+                    {""} 天
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))
+        ) : (
+          <StockDetails stock={selectItem} />
+        )}
+
+        {/* {!selectItem && <AddStock uid={uid} />} */}
       </div>
     </div>
   );
