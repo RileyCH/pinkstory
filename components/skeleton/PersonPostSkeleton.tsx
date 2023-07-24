@@ -5,11 +5,11 @@ const PersonPostSkeleton = () => {
   const forRender = new Array(5).fill(0);
 
   return (
-    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4 mt-5">
+    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
       {forRender.map((item, index) => (
         <div
           key={index}
-          className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[15vw] xl:h-[300px] mb-[50px]"
+          className="w-[47vw] h-[170px] relative mb-[80px] z-0 md:w-[29vw] md:h-[250px] md:mb-10 xl:w-[15vw] xl:h-[300px]"
         >
           <Skeleton
             count={1}
