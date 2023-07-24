@@ -9,7 +9,7 @@ const StockSkeleton = () => {
       {forRender.map((item, index) => (
         <div
           key={index}
-          className="w-[calc(50%_-_4px)] h-[170px] mb-[80px] relative z-0 md:w-[calc(33%_-_15px)] md:h-[250px] xl:w-[calc(25%_-_15px)] xl:h-[280px] 2xl:w-[calc(25%_-_15px)] 2xl:h-[350px]"
+          className="w-[calc(50%_-_4px)] h-[170px] mb-[90px] relative z-0 md:w-[calc(33%_-_15px)] md:h-[250px] xl:w-[calc(25%_-_15px)] xl:h-[280px] 2xl:w-[calc(25%_-_15px)] 2xl:h-[350px]"
         >
           <Skeleton
             count={1}
@@ -18,10 +18,18 @@ const StockSkeleton = () => {
             circle={false}
             className="mb-2"
           />
-          <Skeleton count={1} width="100%" height="30px" circle={false} />
-          <div className="w-[calc(50%_-_4px)] flex items-center gap-3 mt-2 md:w-[calc(33%_-_15px)] xl:w-[calc(25%_-_15px)]">
-            <Skeleton count={1} width="40px" height="40px" circle={true} />
-            <Skeleton count={1} width="80px" height="20px" circle={false} />
+
+          <Skeleton count={1} width="80%" height="15px" circle={false} />
+          <Skeleton
+            count={1}
+            width="60%"
+            height="15px"
+            circle={false}
+            className="mb-1"
+          />
+
+          <div className="w-[calc(50%_-_4px)] md:w-[calc(33%_-_15px)] xl:w-[calc(25%_-_15px)]">
+            <Skeleton count={2} width="60px" height="10px" circle={false} />
           </div>
         </div>
       ))}

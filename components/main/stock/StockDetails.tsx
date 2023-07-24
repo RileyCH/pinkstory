@@ -4,7 +4,7 @@ import { StockType } from "@/utils/type";
 
 const StockDetails = ({ stock }: { stock: StockType }) => {
   return (
-    <div className="w-[95vw] mx-auto bg-white rounded-lg pb-3 relative md:max-w-[1200px] md:mt-[10px] md:flex md:justify-start md:gap-5 md:pb-0 xl:max-w-[1600px] xl:gap-8 2xl:gap-10">
+    <div className="w-[95vw] mx-auto bg-white rounded-lg pb-3 relative drop-shadow md:max-w-[1200px] md:mt-[10px] md:flex md:justify-start md:gap-5 md:pb-0 xl:max-w-[1600px] xl:gap-8 2xl:gap-10">
       <div className="w-[100%] h-[350px] mb-3 flex overflow-x-auto relative shadow rounded-lg md:w-[45%] md:h-[450px] md:mb-0 xl:h-[500px] xl:w-[40%] 2xl:w-[35%] 2xl:h-[600px]">
         {stock.data.picture.length > 0 &&
           stock.data.picture.map((pic: string) => (
