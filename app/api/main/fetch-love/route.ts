@@ -16,12 +16,12 @@ export async function GET() {
   const postCollection = collectionGroup(db, "posts");
   const q = query(
     postCollection,
-    where("keepUser", "array-contains", `${sanitizedUid}`)
+    where("loveUser", "array-contains", `${sanitizedUid}`)
   );
   const querySnapshot = await getDocs(q);
-  const keptPosts: PostType[] = [];
+  const lovePosts: PostType[] = [];
   querySnapshot.forEach((doc) => {
-    keptPosts.push({
+    lovePosts.push({
       postID: doc.id,
       data: {
         tagUer: doc.data().tagUer,
@@ -46,5 +46,5 @@ export async function GET() {
       },
     });
   });
-  return new NextResponse(JSON.stringify(keptPosts));
+  return new NextResponse(JSON.stringify(lovePosts));
 }

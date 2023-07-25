@@ -7,7 +7,7 @@ import PersonPostSkeleton from "@/components/skeleton/PersonPostSkeleton";
 import { PostType } from "@/utils/type";
 import heartClick from "@/public/post/heart-click.png";
 
-const Keep = ({ keptPost, uid }: { keptPost: string[]; uid: string }) => {
+const Keep = ({ uid }: { uid: string }) => {
   const [keptPosts, setKeptPosts] = useState<PostType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
@@ -28,7 +28,6 @@ const Keep = ({ keptPost, uid }: { keptPost: string[]; uid: string }) => {
     };
     fetchKeptPost();
   }, [uid]);
-  console.log(keptPosts);
 
   return (
     <div className="w-[95vw] mx-auto flex flex-wrap justify-between min-h-[150px] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:min-h-[200px] 2xl:max-w-[1600px]">
@@ -75,22 +74,6 @@ const Keep = ({ keptPost, uid }: { keptPost: string[]; uid: string }) => {
 
                 <div className="w-[85%] flex items-center justify-between absolute bottom-3 md:w-[88%]">
                   <PostAuthor authorId={post.data.uid} />
-                  {/* <div className="flex gap-2">
-                    <div className="w-[15px] h-[15px] relative md:w-[20px] md:h-[20px] lg:w-[24px] lg:h-[24px]">
-                      <Image
-                        src={profileImg ? profileImg : profile}
-                        alt="post author profile image"
-                        fill
-                        className="rounded-full object-cover"
-                        sizes="100%"
-                      />
-                    </div>
-
-                    <p className="text-[12px] text-darkPink break-words max-w-[90px] md:text-[14px]">
-                      {userName}
-                    </p>
-                  </div> */}
-
                   <div className="flex gap-[5px] items-center cursor-pointer">
                     <div className="w-[16px] h-[16px] relative">
                       <Image
