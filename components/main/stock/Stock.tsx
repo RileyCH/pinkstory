@@ -1,12 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
 import axios from "axios";
 import { StockType } from "@/utils/type";
 import SideBar from "@/components/main/stock/SideBar";
 import StockDetails from "@/components/main/stock/StockDetails";
-import AddStock from "@/components/main/stock/AddStock";
 import StockSkeleton from "@/components/skeleton/StockSkeleton";
 
 const Stock = ({ uid }: { uid: string }) => {
@@ -40,7 +39,10 @@ const Stock = ({ uid }: { uid: string }) => {
                 },
               };
             });
-            return newData;
+            return newData.sort(
+              (a: StockType, b: StockType) =>
+                a.data.durationDay - b.data.durationDay
+            );
           }
         })
         .then((res) => {
@@ -73,6 +75,12 @@ const Stock = ({ uid }: { uid: string }) => {
       <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:justify-start md:max-w-[1200px] md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
         {loading ? (
           <StockSkeleton />
+        ) : !selectItem && stocks.length === 0 ? (
+          <div className="w-[100%] flex flex-col">
+            <p className="text-center mt-[30px] mb-5 text-[14px] xl:text-[16px] xl:mt-[50px]">
+              這個項目還是空的喔～
+            </p>
+          </div>
         ) : !selectItem ? (
           stocks.map((stock) => (
             <div
@@ -126,8 +134,6 @@ const Stock = ({ uid }: { uid: string }) => {
         ) : (
           <StockDetails stock={selectItem} />
         )}
-
-        {/* {!selectItem && <AddStock uid={uid} />} */}
       </div>
     </div>
   );

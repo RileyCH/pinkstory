@@ -168,7 +168,7 @@ function User({ params }: { params: { uid: string } }) {
               profileImg={userData.profileImg}
             />
           ) : click === "Keep" ? (
-            <Keep />
+            <Keep keptPost={userData.keptPost} uid={params.uid} />
           ) : click === "Love" ? (
             <Love />
           ) : click === "Stock" ? (
