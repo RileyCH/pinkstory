@@ -4,52 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-} */
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
-
 * {
   box-sizing: border-box;
-}
-
-nav {
-  width: 100vw;
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: fixed;
-  bottom: 0;
-  background-color: white;
-  box-shadow: 5px -2px 5px 0 rgb(0 0 0 / 0.1);
-
-  @media (min-width: 768px) {
-    height: 65px;
-    padding: 10px 50px;
-    top: 0;
-    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.2));
-    z-index: 30;
-  }
 }
 
 .nativeLoginArea {

@@ -92,12 +92,13 @@ const KeepAndLove = ({
           setKeepNumber(postData.keepUser.length);
         }
       });
+      return onSnapShopPostDoc();
     };
     checkLoveAndKeepNumber();
   }, [authorId, postId]);
 
   return (
-    <div className="flex gap-4 mb-[20px] relative after:absolute after:w-[90vw] after:left-0 after:right-0 after:-bottom-[16px] after:mx-auto after:border-b after:border-themeGray-100 md:after:w-[100%]">
+    <div className="flex gap-4 mb-[30px] relative after:absolute after:w-[90vw] after:left-0 after:right-0 after:-bottom-[16px] after:mx-auto after:border-b after:border-themeGray-100 md:after:w-[100%]">
       {loveLoading ? (
         <LoadingAnimation />
       ) : (

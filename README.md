@@ -1,34 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PinkStory
 
-## Getting Started
+A photo sharing social media with real-time live streaming and messaging features. Inspired with abounding advertisements on the Internet platforms, PinkStory is equipped with shopping record and stocks managing feature to prevent over-shopping.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- Interactive live streaming
+- Shopping record and stocks managing system
+- Real-Time messaging
+- Creating and exploring posts
+- Following and tagging users
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## About PinkStory
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Implemented `Next server-side rendering (server component)` to improve SEO performance and user experience of article pages
+- Concatenated `100ms`, the third party SDK's `WebRTC` technology, to implement interactive live streaming services; also utilizing `Next` built-in `serverless APIs` and `Ngrok` to receive 100ms’ POST requests and passed the live streaming data to firebase datastore
+- Managed and stored reusable and global state with `Redux Toolkit` preventing prop drilling issue
+- Adopted `TypeScript` for type checking to enhance code reliability and reduce unexpected bugs
+- Utilized `Tailwind CSS` to rapidly realize `responsive web design(RWD)` layout
+- Leveraged `Firebase Firestore` and `Cloud Storage` for NoSQL data storage and retrieval
+- Combined `Geolocation API` and `Google Maps` to record the user’s location and show the city and area information of each post
+- Used `Canvas API` and `React-easy-crop` library to crop post image before uploading pictures
+- Implemented `skeleton` materials to optimize user experience
+- Leveraged `Jest` to conduct unit testing.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Built with
 
-## Learn More
+#### Base
 
-To learn more about Next.js, take a look at the following resources:
+- React
+- Next App Router
+- TypeScript
+- Redux(RTK)
+- Tailwind CSS
+- Firebase
+- Git
+- ESLint
+- Jest
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Libraries & Tools
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- 100ms WebRTC SDK
+- React-easy-crop
+- Emoji-picker-react
+- Day.js
+- @Mui/x-date-pickers
+- @Mui/material
+- Firebase Firestore
+- Firebase Cloud Storage
+- Firebase Auth
+- Ngrok
+- Axios
+- Geolocation API and Google Maps

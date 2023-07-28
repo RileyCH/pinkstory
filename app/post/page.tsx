@@ -2,7 +2,6 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import { collectionGroup, getDocs } from "firebase/firestore";
 import { db } from "@/utils/database";
-import Header from "@/components/Header";
 import SearchBar from "@/components/post/SearchBar";
 import Nav from "@/components/Nav";
 import PostSkeleton from "@/components/skeleton/PostSkeleton";

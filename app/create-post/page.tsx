@@ -137,7 +137,7 @@ const CreatePost = () => {
               cols={40}
               onChange={(e) => setContent(e.target.value)}
               placeholder="新增貼文內容"
-              className="w-[90vw] p-[10px] block border-[1px] border-themeGray-200 rounded-lg placeholder:text-[12px] md:placeholder:text-[14px] hover:border-themePink-400"
+              className="w-[90vw] p-[10px] block border-[1px] resize-none border-themeGray-200 rounded-lg placeholder:text-[12px] md:placeholder:text-[14px] hover:border-themePink-400"
             />
           </div>
           <TagUser

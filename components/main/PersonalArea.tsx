@@ -145,7 +145,7 @@ const PersonalArea = ({
               </div>
             </div>
 
-            <div className="w-[95%] px-1 mb-[15px] flex justify-between items-center gap-5 md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
+            <div className="w-[60vw] px-1 mb-[15px] flex justify-between items-center gap-5 md:w-[40vw] md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
               <div className="text-center md:flex md:items-center md:gap-1">
                 <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
                   {userData.following.length}

@@ -155,6 +155,7 @@ const Rooms = () => {
 
       setRooms(updatedRooms);
     });
+    return unsubscribe();
   }, []);
 
   return (

@@ -9,7 +9,7 @@ const PostSkeleton = () => {
       {forRender.map((item, index) => (
         <div
           key={index}
-          className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]"
+          className="w-[47vw] h-[170px] relative mb-[40px] z-0 md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]"
         >
           <Skeleton
             count={1}

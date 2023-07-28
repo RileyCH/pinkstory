@@ -7,7 +7,6 @@ import KeepAndLove from "@/components/post/KeepAndLove";
 import Comments from "@/components/post/Comments";
 import AddComment from "@/components/post/AddComment";
 
-
 async function getPost(postid: string) {
   const headersData = headers();
   const protocol = headersData.get("x-forwarded-proto");
@@ -42,7 +41,7 @@ const PostContent = async ({ postid }: { postid: string }) => {
           post.postData.data.picture.map((pic: string) => (
             <div
               key={pic}
-              className={`w-[400px] h-[400px] relative flex-none md:w-[100%] md:h-[100%]`}
+              className={`w-[100vw] h-[400px] relative flex-none md:w-[100%] md:h-[100%]`}
             >
               <Image
                 src={pic}

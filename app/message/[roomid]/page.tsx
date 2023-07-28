@@ -31,6 +31,7 @@ const ChatRoom = ({ params }: { params: { roomid: string } }) => {
         });
       }
     });
+    return unsubscribe();
   }, [params.roomid]);
 
   // useEffect(() => {

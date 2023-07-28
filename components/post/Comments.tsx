@@ -108,12 +108,12 @@ const Comments = ({
 
   return (
     <div>
-      <div className="mb-[15px]">
+      <div className="mb-[5px]">
         {commentData.length > 0 ? (
           commentData.map((comment: CommentsType, index: number) => (
             <div
               key={index}
-              className="w-[90vw] mx-auto pt-[10px] pb-[15px] px-[10px] flex justify-between relative after:border-b after:w-[87%] after:absolute after:bottom-1 after:right-1 md:w-[95%] md:after:w-[90%] md:after:right-2"
+              className="w-[90vw] mx-auto pt-[8px] pb-[15px] px-[10px] flex justify-between relative after:border-b after:w-[87%] after:absolute after:bottom-1 after:right-1 md:w-[95%] md:after:w-[90%] md:after:right-2"
             >
               <Link href={`/main/${commentUser[index]?.uid}`} className="flex">
                 <div className="w-[25px] h-[25px] mr-[10px] relative">

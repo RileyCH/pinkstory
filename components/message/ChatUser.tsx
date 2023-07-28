@@ -12,7 +12,6 @@ type SetAlertFunction = React.Dispatch<React.SetStateAction<boolean>>;
 const ChatUser = ({
   uid,
   room,
-
   setChattingUser,
   otherUid,
   formatTime,
@@ -101,7 +100,7 @@ const ChatUser = ({
 
   return (
     <div
-      className="md:w-[30vw] flex gap-3 items-center py-3 px-2 cursor-pointer hover:bg-themePink-100 hover:rounded-lg"
+      className="w-[95vw] mx-auto py-3 px-2 flex gap-3 items-center cursor-pointer hover:bg-themePink-100 hover:rounded-lg md:w-[30vw]"
       onClick={() => setChattingUser(roomUsers)}
     >
       <div className="w-[40px] h-[40px] relative md:w-[55px] md:h-[55px]">
@@ -117,8 +116,8 @@ const ChatUser = ({
           <Skeleton count={1} height={55} width={55} circle={true} />
         )}
       </div>
-      <div className="w-[calc(30vw_-_100px)]">
-        <div className="md:w-[calc(30vw_-_105px)] flex gap-3 items-center">
+      <div className="w-[95vw] mx-auto pr-1 md:pr-3 md:w-[calc(30vw_-_100px)]">
+        <div className="md:w-[calc(30vw_-_110px)] flex gap-3 items-center">
           <p className="font-semibold truncate">
             {roomUsers.name ? (
               roomUsers.name
@@ -131,7 +130,7 @@ const ChatUser = ({
           )} */}
         </div>
         <div className="flex justify-between items-center">
-          <p className="md:w-[calc(30vw_-_150px)] text-[14px] truncate">
+          <p className="md:w-[calc(30vw_-_180px)] text-[14px] truncate">
             {room.data.message.slice(-1)[0].uid === uid ? "你: " : ""}
             {room.data.message.slice(-1)[0].content}
           </p>

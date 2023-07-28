@@ -12,6 +12,9 @@ import back from "@/public/back.png";
 import profile from "@/public/main/profile.png";
 
 type SetAlertFunction = React.Dispatch<React.SetStateAction<boolean>>;
+type SetSelectRoomFunction = React.Dispatch<
+  React.SetStateAction<string | null>
+>;
 
 const ChatRoom = ({
   roomId,
@@ -21,6 +24,7 @@ const ChatRoom = ({
   currentDay,
   chattingUser,
   setAlert,
+  setSelectRoom,
 }: {
   roomId: string;
   formatTime: FormatTimeFunction;
@@ -29,6 +33,7 @@ const ChatRoom = ({
   currentDay: number;
   chattingUser: UserDataType;
   setAlert: SetAlertFunction;
+  setSelectRoom: SetSelectRoomFunction;
 }) => {
   const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
@@ -64,12 +69,12 @@ const ChatRoom = ({
   setAlert(false);
 
   return (
-    <div className="">
+    <div className="w-[100vw] min-h-full fixed z-40 top-0 left-0 bg-white md:static">
       {
-        <div className="md:py-[10px] md:w-[calc(70vw_-_30px)]">
-          <div className="w-[100%] h-[60px] px-[15px] flex gap-5 items-center  bg-white z-30 border-b pb-2">
-            <Link
-              href="/message"
+        <div className="md:w-[calc(70vw_-_30px)]">
+          <div className="w-[100%] h-[70px] px-[15px] py-2 flex gap-5 items-center  bg-white z-30 border-b pb-2">
+            <div
+              onClick={() => setSelectRoom(null)}
               className="w-[25px] h-[25px] relative md:hidden"
             >
               <Image
@@ -78,7 +83,7 @@ const ChatRoom = ({
                 fill
                 sizes="100%"
               />
-            </Link>
+            </div>
             <div>
               <Link
                 href={`/main/${friendId}`}
@@ -104,7 +109,7 @@ const ChatRoom = ({
           </div>
 
           <div
-            className="mt-[100px] max-h-[calc(100vh_-_220px)] overflow-auto no-scrollbar md:mt-3 md:px-[15px]"
+            className="text-[14px] mt-[5px] px-3 max-h-[calc(100vh_-_150px)] md:text-[16px] md:max-h-[calc(100vh_-_220px)] overflow-auto no-scrollbar md:mt-3 md:px-[15px]"
             ref={messageWrapper}
           >
             {messages.message.map((message, index) =>
@@ -124,8 +129,8 @@ const ChatRoom = ({
                     />
                   </div>
 
-                  <div className="relative">
-                    <p className="bg-themeGray-100 px-[15px] py-[6px] rounded-full">
+                  <div className="relative max-w-[85%]">
+                    <p className="break-words bg-themeGray-100 px-[15px] py-[6px] rounded-full">
                       {message.content}
                     </p>
                     <p className="w-[80px] text-[8px] text-themeGray-500 pl-2 absolute ">
@@ -198,8 +203,8 @@ const ChatRoom = ({
                 </div>
               ) : message.uid === userData.uid ? (
                 <div key={index} className="flex gap-3 justify-end items-start">
-                  <div className="text-end relative mb-[30px]">
-                    <p className="bg-themeGray-100 px-[15px] py-[6px] rounded-full">
+                  <div className="text-end relative mb-[30px] max-w-[85%]">
+                    <p className="bg-themeGray-100 px-[15px] py-[6px] break-words rounded-full">
                       {message.content}
                     </p>
                     <p className="w-[80px] text-[8px] text-themeGray-500 pl-2 absolute right-1">

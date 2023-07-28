@@ -91,6 +91,7 @@ const CommentUser = ({
           setLoveUserNum(commentData.loveUser.length);
         }
       });
+      return onSnapShopPostDoc();
     };
     checkLoveAndKeepNumber();
   }, [authorId, postId, commentId]);

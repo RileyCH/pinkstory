@@ -78,8 +78,6 @@ const Chat = () => {
     );
     const newMessage = onSnapshot(q, (snapshot) => {
       snapshot.docChanges().forEach((change) => {
-        console.log(change.doc.data());
-
         setChatRooms((prev) => {
           const unChangedRoom = prev.filter(
             (room) => room.chatRoomId !== change.doc.data().roomId
@@ -94,6 +92,10 @@ const Chat = () => {
         });
       });
     });
+
+    return () => {
+      newMessage();
+    };
   }, [uid]);
 
   return (
@@ -101,7 +103,7 @@ const Chat = () => {
       <Header />
       <div className="pt-[50px] md:pt-[70px] md:flex md:gap-4">
         <div className="w-[100vw] min-h-[calc(100vh_-_70px)] max-h-[calc(100vh_-_200px)] overflow-auto no-scrollbar bg-themeGray-50 md:w-[30vw] md:min-h-[calc(100vh_-_70px)] md:py-[15px] md:px-[15px]">
-          <p className="text-[16px] font-semibold text-themePink-700 pl-[12px] mb-2 relative before:w-1 before:h-5 before:absolute before:bg-themePink-400 before:top-[6px] before:left-0 before:rounded-md md:text-[24px] md:before:h-[26px] md:mb-6">
+          <p className="text-[20px] font-semibold text-themePink-700 pl-[12px] mt-5 mb-1 ml-4 relative before:w-1 before:h-5 before:absolute before:bg-themePink-400 before:top-[6px] before:left-0 before:rounded-md md:text-[24px] md:before:h-[26px] md:mb-3 md:ml-2 md:mt-2">
             訊息
           </p>
           {chatRooms.length > 0 ? (
@@ -163,6 +165,7 @@ const Chat = () => {
             currentMonth={currentMonth}
             currentDay={currentDay}
             setAlert={setAlert}
+            setSelectRoom={setSelectRoom}
           />
         ) : (
           <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">

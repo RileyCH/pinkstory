@@ -19,7 +19,7 @@ const PostCard = ({ posts }: { posts: PostType[] }) => {
               <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
                 <Image
                   src={`${post.data.picture?.[0]}`}
-                  alt=""
+                  alt="post main image"
                   fill
                   className="object-cover object-center rounded-t-lg"
                   sizes="100%"
