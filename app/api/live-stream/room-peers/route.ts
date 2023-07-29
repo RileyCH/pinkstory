@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
 
           {
             headers: {
-              Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2ODk3NDQ3MTcsImV4cCI6MTY4OTgzMTExNywianRpIjoiand0X25vbmNlIiwidHlwZSI6Im1hbmFnZW1lbnQiLCJ2ZXJzaW9uIjoyLCJuYmYiOjE2ODk3NDQ3MTcsImFjY2Vzc19rZXkiOiI2NDhmMzc1OTkxYzAyM2I0ZTJkNzY3OGMifQ._CLPHk_qtG6bi78Ar3vP2hY7Ya0F-7z3HG_Q-eSy7zg`,
-              //   "Content-Type": "application/json",
+              Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
+              "Content-Type": "application/json",
             },
           }
         )
