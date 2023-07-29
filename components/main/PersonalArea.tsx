@@ -14,6 +14,7 @@ import female from "@/public/main/female.png";
 import male from "@/public/main/male.png";
 
 const PersonalArea = ({
+  isLogin,
   userData,
   isOtherUserPage,
   otherUser,
@@ -21,6 +22,7 @@ const PersonalArea = ({
   paramsId,
   posts,
 }: {
+  isLogin: boolean;
   userData: UserDataType;
   isOtherUserPage: boolean;
   otherUser: UserDataType;
@@ -50,7 +52,7 @@ const PersonalArea = ({
     <div className="w-[100vw] mx-auto pt-[55px] relative after:w-[95vw] after:max-w-[1200px] after:border-b after:border-themeGray-100 after:absolute after:left-0 after:right-0 after:mx-auto after:bottom-[2px] md:pt-[65px] md:after:w-[90vw] md:max-w-[1200px] 2xl:max-w-[1600px] after:2xl:max-w-[1600px]">
       <div className="mb-[13px] relative">
         <div className="w-[100vw] h-[200px] opacity-90 relative md:h-[250px] max-w-[1200px] xl:h-[350px] 2xl:max-w-[1600px] 2xl:h-[400px]">
-          {!isOtherUserPage ? (
+          {!isOtherUserPage && isLogin ? (
             <Image
               src={userData.bgImg ? `${userData.bgImg}` : backGroundImg}
               fill
@@ -73,7 +75,7 @@ const PersonalArea = ({
 
         <div className="mx-[10px] -mt-[30px] flex gap-5 relative z-10 md:mx-[50px] md:-mt-[50px] xl:mx-[90px]">
           <div className="w-[80px] h-[80px] relative md:w-[120px] md:h-[120px] md:mr-3 xl:w-[170px] xl:h-[170px] xl:mr-5 2xl:w-[200px] 2xl:h-[200px] 2xl:mr-10">
-            {!isOtherUserPage ? (
+            {!isOtherUserPage && isLogin ? (
               <Image
                 src={userData.profileImg ? userData.profileImg : profile}
                 fill
@@ -103,7 +105,9 @@ const PersonalArea = ({
               <div className="flex gap-4 items-center mb-1 md:gap-5 xl:gap-6">
                 {userData.name || otherUser.name ? (
                   <p className="text-[30px] font-semibold xl:text-[36px]">
-                    {!isOtherUserPage ? userData.name : otherUser.name}
+                    {!isOtherUserPage && isLogin
+                      ? userData.name
+                      : otherUser.name}
                   </p>
                 ) : (
                   <div className="w-[60px] h-[30px] md:w-[120px] md:h-[40px]">
@@ -116,7 +120,7 @@ const PersonalArea = ({
                   </div>
                 )}
 
-                {!isOtherUserPage ? (
+                {!isOtherUserPage && isLogin ? (
                   <div className="flex gap-3">
                     {/* <p className="text-[10px] py-[2px] px-[6px] bg-themePink-400 text-white rounded cursor-pointer hover:bg-themePink-500 md:text-[12px]">
                       編輯資料
@@ -155,7 +159,7 @@ const PersonalArea = ({
                     circle={false}
                   />
                 )}
-                {!isOtherUserPage ? (
+                {!isOtherUserPage && isLogin ? (
                   <div className="w-[15px] h-[15px] relative">
                     {userData.gender && (
                       <Image
@@ -191,7 +195,7 @@ const PersonalArea = ({
               <div className="w-[100%] mb-[15px] text-[14px] xl:text-[18px] xl:mb-[20px]">
                 {userData.introduction || otherUser.introduction ? (
                   <p>
-                    {!isOtherUserPage
+                    {!isOtherUserPage && isLogin
                       ? userData.introduction
                       : otherUser.introduction}
                   </p>
@@ -211,7 +215,7 @@ const PersonalArea = ({
             <div className="w-[60vw] px-1 mb-[15px] flex justify-between items-center gap-5 md:w-[40vw] md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
               <div className="text-center md:flex md:items-center md:gap-1">
                 <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
-                  {!isOtherUserPage
+                  {!isOtherUserPage && isLogin
                     ? userData.following.length
                     : otherUser.following.length}
                 </p>
@@ -222,7 +226,7 @@ const PersonalArea = ({
 
               <div className="text-center md:flex md:items-center md:gap-1">
                 <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
-                  {!isOtherUserPage
+                  {!isOtherUserPage && isLogin
                     ? userData.follower.length
                     : otherUser.follower.length}
                 </p>

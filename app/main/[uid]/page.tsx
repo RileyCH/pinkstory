@@ -26,6 +26,7 @@ type Clicked = "Post" | "Keep" | "Love" | "Stock";
 function User({ params }: { params: { uid: string } }) {
   const userStatus = useAppSelector((state) => state.user);
   const userData = useAppSelector((state) => state.fetchUser);
+  const [isOtherUserPage, setIsOtherUserPage] = useState(false);
   const [otherUser, setOtherUserData] = useState<UserDataType>({
     uid: "",
     age: 0,
@@ -55,12 +56,11 @@ function User({ params }: { params: { uid: string } }) {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [click, setClick] = useState<Clicked>("Post");
   const [postLoading, setPostLoading] = useState(false);
-  const [isOtherUserPage, setIsOtherUserPage] = useState(false);
 
   useEffect(() => {
-    if (userStatus.uid !== params.uid) {
-      setIsOtherUserPage(true);
+    if (userStatus.uid && userStatus.uid !== params.uid) {
       const fetchUserData = async () => {
+        setIsOtherUserPage(true);
         setPostLoading(true);
         await axios
           .get("/api/user-data", {
@@ -100,6 +100,7 @@ function User({ params }: { params: { uid: string } }) {
       <Header />
       <main>
         <PersonalArea
+          isLogin={userStatus.loginStatus}
           userData={userData}
           isOtherUserPage={isOtherUserPage}
           otherUser={otherUser}

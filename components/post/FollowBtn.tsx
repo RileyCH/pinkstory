@@ -56,7 +56,7 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
     <>
       {!authorCheck && !followStatus ? (
         <div
-          className="text-[14px] bg-themePink-400 text-white py-[2px] px-[6px] rounded hover:bg-themePink-500 cursor-pointer md:text-[16px]"
+          className="text-[10px] bg-themePink-400 text-white py-[2px] px-[6px] rounded hover:bg-themePink-500 cursor-pointer md:text-[12px]"
           onClick={() => {
             clickFollowBtn();
           }}
@@ -65,7 +65,7 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
         </div>
       ) : !authorCheck && followStatus ? (
         <div
-          className="bg-themePink-600 text-white py-[2px] px-[6px] rounded text-[10px] hover:bg-themePink-700 cursor-pointer md:text-[14px]"
+          className="bg-themePink-600 text-white py-[2px] px-[6px] rounded text-[10px] hover:bg-themePink-700 cursor-pointer md:text-[12px]"
           onClick={() => clickFollowBtn()}
         >
           {loading ? <LoadingAnimation /> : "追蹤中"}
