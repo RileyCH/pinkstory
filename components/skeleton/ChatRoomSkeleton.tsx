@@ -6,7 +6,7 @@ const ChatRoomSkeleton = () => {
   return (
     <>
       {arrayForRender.map((item, index) => (
-        <div key={index} className="flex gap-3 items-center ml-3 mb-4">
+        <div key={index} className="flex gap-1 items-center ml-3 mb-4">
           <Skeleton count={1} width="70px" height="70px" circle={true} />
           <div>
             <Skeleton

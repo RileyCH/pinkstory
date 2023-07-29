@@ -13,7 +13,7 @@ const notoSansTc = Noto_Sans_TC({
 
 export const metadata = {
   title: "PinkStory",
-  description: "Enrich your life.",
+  description: "Enrich your life, anytime, anywhere.",
 };
 
 export default function RootLayout({

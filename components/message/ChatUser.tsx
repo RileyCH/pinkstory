@@ -113,10 +113,12 @@ const ChatUser = ({
             className="rounded-full object-cover"
           />
         ) : (
-          <Skeleton count={1} height={55} width={55} circle={true} />
+          <div className="w-[40px] h-[40px] md:w-[55px] md:h-[55px]">
+            <Skeleton count={1} height="100%" width="100%" circle={true} />
+          </div>
         )}
       </div>
-      <div className="w-[95vw] mx-auto pr-1 md:pr-3 md:w-[calc(30vw_-_100px)]">
+      <div className="w-[calc(100%_-_45px)] mx-auto pr-1 md:pr-3 md:w-[calc(30vw_-_100px)]">
         <div className="md:w-[calc(30vw_-_110px)] flex gap-3 items-center">
           <p className="font-semibold truncate">
             {roomUsers.name ? (

@@ -65,6 +65,7 @@ const NativeLogin = () => {
                     <input
                       type="email"
                       placeholder="Email"
+                      defaultValue="test7@gmail.com"
                       onChange={(e) => setEmail(e.target.value)}
                       className="loginInput"
                     />
@@ -80,6 +81,7 @@ const NativeLogin = () => {
                     </div>
                     <input
                       type="password"
+                      defaultValue="123123"
                       placeholder="Password"
                       onChange={(e) => setPassword(e.target.value)}
                       className="loginInput"

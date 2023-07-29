@@ -17,7 +17,7 @@ const SideBar = ({
   uid: string;
 }) => {
   return (
-    <div className="w-[95vw] mx-auto mb-[5px] md:px-1 flex gap-[20px] items-center md:w-[85vw] md:max-w-[1200px] md:my-[10px] xl:max-w-[1600px]">
+    <div className="w-[95vw] mx-auto mb-[5px] md:px-1 flex gap-[10px] items-center md:w-[85vw] md:max-w-[1200px] md:my-[10px] md:gap-[20px] xl:max-w-[1600px]">
       <div className="flex gap-2 text-[12px] text-center md:text-[14px] xl:text-[16px] ">
         <p
           onClick={() => {

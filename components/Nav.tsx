@@ -39,7 +39,7 @@ const Nav = () => {
     setUid(localStorage.getItem("uid"));
   }, []);
   return (
-    <nav className="w-[100vw] h-[60px] flex justify-between items-center fixed bottom-0 bg-white shadow md:h-[65px] md:top-0 md:px-[20px] md:py-[10px] drop-shadow z-30">
+    <nav className="w-[100vw] h-[60px] flex justify-between items-center fixed bottom-0 bg-white shadow md:h-[65px] md:top-0 md:px-[35px] md:py-[10px] drop-shadow z-30">
       <div className="md:flex md:gap-5 md:items-center">
         <Link
           href="/post"

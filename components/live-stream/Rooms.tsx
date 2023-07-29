@@ -159,15 +159,15 @@ const Rooms = () => {
   }, []);
 
   return (
-    <div className="w-[95vw] max-w-[1200px] mx-auto flex flex-wrap justify-between md:flex md:justify-start md:gap-3 md:w-[90vw] md:mx-auto xl:gap-4">
+    <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
       {rooms.length > 0
         ? rooms.map((room: HostEvent) => (
             <Link
               key={room.data.room_id}
               href={`/live-stream/${room.data.room_id}/guest`}
-              className="my-1 rounded-lg shadow-lg cursor-pointer"
+              className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
             >
-              <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+              <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
                 <Image
                   src={`${JSON.parse(room.data?.user_data)?.cover}`}
                   alt="live stream cover picture from host"
@@ -227,9 +227,9 @@ const Rooms = () => {
         <Link
           key={index}
           href={`/live-stream/thisIsFakeData/guest`}
-          className="my-1 rounded-lg shadow-lg cursor-pointer"
+          className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
         >
-          <div className="w-[47vw] h-[170px] relative md:w-[29vw] md:h-[250px] xl:w-[20vw] xl:h-[300px]">
+          <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
             <Image
               src={data.cover}
               alt=""
