@@ -1,8 +1,8 @@
-import { useEffect, useState, Suspense, FormEvent, ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { fetchData } from "@/redux/features/userDataSlice";
 import { UserDataType } from "@/utils/type";
 import profile from "@/public/main/profile.png";
@@ -14,7 +14,6 @@ interface TagUserProps {
 }
 
 const TagUser: React.FC<TagUserProps> = ({ uid, tagUsers, setTagUsers }) => {
-  const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
   const [isSelecting, setIsSelecting] = useState<boolean>(false);
   const [interactiveUser, setInteractiveUser] = useState<string[] | []>([]);
@@ -22,10 +21,6 @@ const TagUser: React.FC<TagUserProps> = ({ uid, tagUsers, setTagUsers }) => {
     UserDataType[]
   >([]);
   const [selectUser, setSelectUser] = useState<UserDataType[] | []>([]);
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
 
   useEffect(() => {
     if (userData) {

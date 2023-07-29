@@ -1,9 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { fetchData } from "@/redux/features/userDataSlice";
+import { useAppSelector } from "@/redux/hooks";
 import {
   useHMSActions,
   useHMSStore,
@@ -16,7 +14,6 @@ import Message from "@/components/live-stream/Message";
 import axios from "axios";
 
 const Guest = ({ roomid }: { roomid: string }) => {
-  const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
   const [fetchGuestRoomCode, setFetchGuestRoomCode] = useState<string>("");
   const [guestAuthToken, setGuestAuthToken] = useState<string>("");
@@ -49,11 +46,6 @@ const Guest = ({ roomid }: { roomid: string }) => {
     hmsActions.leave();
     router.push("/live-stream");
   };
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
-  console.log();
 
   useEffect(() => {
     if (roomid) {

@@ -1,7 +1,6 @@
 "use client";
 import { HMSRoomProvider } from "@100mslive/react-sdk";
 import { hmsActions, hmsNotifications, hmsStore } from "@/utils/hms";
-import BackDiv from "@/components/BackDiv";
 import Host from "@/components/live-stream/Host";
 
 const StartStreaming = ({ params }: { params: { roomid: string } }) => {

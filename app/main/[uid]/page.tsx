@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { UserDataType, PostType } from "@/utils/type";
 import { useRouter } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
 import PersonPostSkeleton from "@/components/skeleton/PersonPostSkeleton";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
@@ -23,8 +24,9 @@ const Post = dynamic(() => import("@/components/main/Post"), {
 type Clicked = "Post" | "Keep" | "Love" | "Stock";
 
 function User({ params }: { params: { uid: string } }) {
-  const [localUid, setLocalUid] = useState<string>("");
-  const [userData, setUserData] = useState<UserDataType>({
+  const userStatus = useAppSelector((state) => state.user);
+  const userData = useAppSelector((state) => state.fetchUser);
+  const [otherUser, setOtherUserData] = useState<UserDataType>({
     uid: "",
     age: 0,
     bgImg: "",
@@ -53,22 +55,11 @@ function User({ params }: { params: { uid: string } }) {
   const [posts, setPosts] = useState<PostType[]>([]);
   const [click, setClick] = useState<Clicked>("Post");
   const [postLoading, setPostLoading] = useState(false);
-  const router = useRouter();
-  const logout = () => {
-    localStorage.removeItem("uid");
-    router.push(`/`);
-  };
+  const [isOtherUserPage, setIsOtherUserPage] = useState(false);
 
   useEffect(() => {
-    const localStorageUid = localStorage.getItem("uid");
-    setPostLoading(true);
-    if (localStorageUid) {
-      setLocalUid(localStorageUid);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (params.uid) {
+    if (userStatus.uid !== params.uid) {
+      setIsOtherUserPage(true);
       const fetchUserData = async () => {
         setPostLoading(true);
         await axios
@@ -77,11 +68,16 @@ function User({ params }: { params: { uid: string } }) {
           })
           .then((res) => {
             if (res.status === 200) {
-              setUserData(res.data);
+              setOtherUserData(res.data);
             }
           });
       };
+      fetchUserData();
+    }
+  }, [params.uid, userStatus.uid]);
 
+  useEffect(() => {
+    if (params.uid) {
       const fetchPost = async () => {
         setPostLoading(true);
         await axios
@@ -95,7 +91,6 @@ function User({ params }: { params: { uid: string } }) {
             }
           });
       };
-      fetchUserData();
       fetchPost();
     }
   }, [params.uid]);
@@ -106,7 +101,9 @@ function User({ params }: { params: { uid: string } }) {
       <main>
         <PersonalArea
           userData={userData}
-          localUid={localUid}
+          isOtherUserPage={isOtherUserPage}
+          otherUser={otherUser}
+          uid={userStatus.uid}
           paramsId={params.uid}
           posts={posts}
         />
@@ -122,7 +119,7 @@ function User({ params }: { params: { uid: string } }) {
           >
             貼文
           </p>
-          {localUid === params.uid && (
+          {!isOtherUserPage && (
             <>
               <p
                 className={`text-[14px] md:text-[16px] cursor-pointer hover:text-themePink-400 hover:font-semibold ${
@@ -166,6 +163,8 @@ function User({ params }: { params: { uid: string } }) {
               posts={posts}
               userName={userData.name}
               profileImg={userData.profileImg}
+              otherUser={otherUser}
+              isOtherUserPage={isOtherUserPage}
             />
           ) : click === "Keep" ? (
             <Keep uid={params.uid} />

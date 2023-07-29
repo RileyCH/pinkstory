@@ -4,8 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import dayjs from "dayjs";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { loginUser } from "@/redux/features/signup/loginSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -25,7 +24,7 @@ const inputStyle =
   "w-[90vw] border border-themeGray-200 px-[10px] py-[5px] rounded-lg placeholder:text-[12px] md:placeholder:text-[14px] hover:border-themePink-400";
 
 const AddStock = () => {
-  const userID = localStorage.getItem("uid");
+  const userStatus = useAppSelector((state) => state.user);
   const [stockImage, setStockImage] = useState<string[]>([]);
   const [selectCategory, setSelectCategory] = useState<string>("");
   const [subCategory, setSubCategory] = useState<string>("");
@@ -69,7 +68,7 @@ const AddStock = () => {
 
     if (
       stockImage &&
-      userID &&
+      userStatus.uid &&
       selectCategory &&
       subCategory &&
       brand &&
@@ -80,7 +79,7 @@ const AddStock = () => {
       expirationDate
     ) {
       const stockDetails = {
-        uid: userID,
+        uid: userStatus.uid,
         picture: stockImage,
         category: selectCategory,
         subCategory: subCategory,
@@ -113,14 +112,12 @@ const AddStock = () => {
         });
     }
   };
-  console.log("expirationDate", expirationDate);
-  console.log("purchasingDate", purchasingDate);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <div className="wrapper relative pb-[70px] pt-1 bg-themeGray-50 min-h-screen md:pt-[70px] md:pb-[20px]">
         <div className="w-[100vw] h-[50px] px-[15px] flex items-center fixed top-0 left-0 bg-white z-30 drop-shadow">
-          <BackDiv url={`main/${userID}`} />
+          <BackDiv url={`main/${userStatus.uid}`} />
         </div>
 
         <div className="md:bg-white md:w-[95vw] md:rounded-xl md:mx-auto md:py-[20px]">
@@ -409,7 +406,7 @@ const AddStock = () => {
             </div>
           </form>
           <div className="w-[100vw] h-[50px] px-[20px] py-[30px] flex gap-[20px] justify-center items-center fixed bottom-0 bg-white md:static md:w-[90vw] md:mx-auto md:justify-start md:px-0">
-            <Link href={`/main/${userID}`}>
+            <Link href={`/main/${userStatus.uid}`}>
               <p className="hidden md:w-[100px] md:h-[40px] md:rounded-lg md:border md:border-themeGray-400 md:text-themeGray-400 md:flex md:items-center md:justify-center md:hover:border-themeGray-800 md:hover:text-themeGray-80 md:cursor-pointer">
                 取消
               </p>

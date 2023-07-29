@@ -1,11 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import SignUp from "@/components/login/SignUp";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { loginUser } from "@/redux/features/signup/loginSlice";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/utils/database";
 import emailIcon from "@/public/login/email.png";
 import passwordIcon from "@/public/login/padlock.png";
@@ -14,36 +12,26 @@ import google from "@/public/login/google.png";
 
 const NativeLogin = () => {
   const [signUp, setSignUp] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [email, setEmail] = useState<string>("test7@gmail.com");
+  const [password, setPassword] = useState<string>("123123");
   const router = useRouter();
-  const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    dispatch(loginUser({ email: email, password: password, uid: "" }));
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         router.push(`main/${user.uid}`);
       })
       .catch((error) => {
+        window.alert("請重新登入！");
         console.error(error);
       });
   };
 
-  useEffect(() => {
-    const checkUid = localStorage.getItem("uid");
-    if (checkUid) {
-      dispatch(loginUser({ uid: checkUid, email: "", password: "" }));
-      router.push(`main/${checkUid}`);
-    }
-  }, [dispatch, router]);
-
   return (
     <>
-      {!user.loginStatus && (
+      {
         <div className="nativeLoginArea">
           {!signUp ? (
             <div className="h-[90vh] md:h-[85vh] 2xl:h-[75vh] flex flex-col justify-between">
@@ -119,7 +107,7 @@ const NativeLogin = () => {
             <SignUp />
           )}
         </div>
-      )}
+      }
     </>
   );
 };

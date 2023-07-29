@@ -4,7 +4,7 @@ import { UserDataType } from "@/utils/type";
 import axios from "axios";
 
 const initialState = {
-  uid: typeof window !== "undefined" ? localStorage.getItem("uid") : "",
+  uid: "",
   age: 0,
   bgImg: "",
   birth: {
@@ -16,7 +16,7 @@ const initialState = {
   follower: [],
   following: [],
   followingCategory: {},
-  gender: "Female",
+  gender: "",
   introduction: "",
   keptPost: [],
   liveStream: {
@@ -30,15 +30,18 @@ const initialState = {
   thumbnailedPost: [],
 };
 
-export const fetchData = createAsyncThunk("fetchUserData/fetch", async () => {
-  return await axios
-    .get("/api/user-data", {
-      headers: { Authorization: `Bearer ${initialState.uid}` },
-    })
-    .then((response) => {
-      return response.data;
-    });
-});
+export const fetchData = createAsyncThunk(
+  "fetchUserData/fetch",
+  async (payload: { uid: string }) => {
+    return await axios
+      .get("/api/user-data", {
+        headers: { Authorization: `Bearer ${payload.uid}` },
+      })
+      .then((response) => {
+        return response.data;
+      });
+  }
+);
 
 const loginSlice = createSlice({
   name: "fetchUserData",

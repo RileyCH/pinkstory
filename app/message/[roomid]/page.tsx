@@ -11,14 +11,14 @@ import back from "@/public/back.png";
 import profile from "@/public/main/profile.png";
 
 const ChatRoom = ({ params }: { params: { roomid: string } }) => {
-  const uid = localStorage.getItem("uid");
+  const userStatus = useAppSelector((state) => state.user);
   const messageWrapper = useRef<any>(null);
   const [messages, setMessages] = useState<ChatRoomType["data"]>({
     roomId: "",
     uid: [],
     message: [],
   });
-  const friendId = messages.uid.filter((id) => id !== uid)[0];
+  const friendId = messages.uid.filter((id) => id !== userStatus.uid)[0];
 
   useEffect(() => {
     const messageDoc = doc(db, "messages", params.roomid);
@@ -34,13 +34,9 @@ const ChatRoom = ({ params }: { params: { roomid: string } }) => {
     return unsubscribe();
   }, [params.roomid]);
 
-  // useEffect(() => {
-  //   messageWrapper.current.scrollTop = messageWrapper.current.scrollHeight;
-  // }, [messages]);
-
   return (
     <div>
-      {uid && (
+      {userStatus.uid && (
         <div className="mb-[80px]">
           <div className="w-[100vw] h-[100px] py-[50px] px-[15px] mb-2 flex gap-5 items-center fixed top-0 left-0 bg-white z-30">
             <Link href="/message">
@@ -95,13 +91,13 @@ const ChatRoom = ({ params }: { params: { roomid: string } }) => {
                     </p>
                   </div>
                 </div>
-              ) : message.uid === uid ? (
+              ) : message.uid === userStatus.uid ? (
                 <div
                   key={message.sentTime.seconds}
                   className="flex gap-3 justify-end items-start mb-[20px]"
                 >
                   <div className="text-end">
-                    <p>{uid.slice(0, 5)}</p>
+                    <p>{userStatus.uid.slice(0, 5)}</p>
                     <p className="bg-gray-100 p-[12px] rounded-lg">
                       {message.content}
                     </p>
@@ -124,7 +120,7 @@ const ChatRoom = ({ params }: { params: { roomid: string } }) => {
             )}
           </div>
 
-          <InputArea roomId={params.roomid} uid={uid} />
+          <InputArea roomId={params.roomid} uid={userStatus.uid} />
         </div>
       )}
     </div>

@@ -78,6 +78,9 @@ const Comments = ({
         }
       });
     });
+    return () => {
+      unsubscribe();
+    };
   }, [postId, authorId]);
 
   useEffect(() => {

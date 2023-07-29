@@ -1,10 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { loginUser } from "@/redux/features/signup/loginSlice";
+import { useAppSelector } from "@/redux/hooks";
 import BackDiv from "@/components/BackDiv";
 import AddPostImage from "@/components/create-post/AddPostImage";
 import TagUser from "@/components/create-post/TagUser";
@@ -15,8 +14,7 @@ import { PostType } from "@/utils/type";
 import lock from "@/public/create-post/lock.png";
 
 const CreatePost = () => {
-  const user = useAppSelector((state) => state.user);
-  const dispatch = useAppDispatch();
+  const userStatus = useAppSelector((state) => state.user);
   const [postImage, setPostImage] = useState<string[]>([]);
   const categories = [
     { value: "makeup", label: "彩妝" },
@@ -33,7 +31,7 @@ const CreatePost = () => {
     { value: "photography", label: "攝影" },
     { value: "pet", label: "寵物" },
   ];
-  const [selectCategory, setSelectCategory] = useState<string>("");
+  const [selectCategory, setSelectCategory] = useState<string>("makeup");
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [tagUsers, setTagUsers] = useState<any>([]);
@@ -50,9 +48,9 @@ const CreatePost = () => {
   const [createStatus, setCreateStatus] = useState<boolean>(false);
 
   const createPost = () => {
-    if (user.uid) {
+    if (userStatus.loginStatus) {
       const postDetails: PostType["data"] = {
-        uid: user.uid,
+        uid: userStatus.uid,
         picture: postImage,
         category: selectCategory,
         title: title,
@@ -88,19 +86,12 @@ const CreatePost = () => {
     }
   };
 
-  useEffect(() => {
-    const checkUid = localStorage.getItem("uid");
-    if (checkUid) {
-      dispatch(loginUser({ uid: checkUid, email: "", password: "" }));
-    }
-  }, [dispatch]);
-
   return (
     <div className="wrapper relative pb-[70px] pt-1 bg-themeGray-50 min-h-screen md:pt-[70px] md:pb-[20px]">
       <div className="w-[100vw] h-[50px] px-[15px] flex items-center fixed top-0 left-0 bg-white z-30 drop-shadow">
-        <BackDiv url={`main/${user.uid}`} />
+        <BackDiv url={`main/${userStatus.uid}`} />
       </div>
-      {user.uid ? (
+      {userStatus.uid ? (
         <div className="md:bg-white md:w-[95vw] md:rounded-xl md:mx-auto md:py-[20px]">
           <p className="flex items-center font-semibold text-themePink-700 w-[90vw] pl-[12px] mx-auto relative before:w-1 before:h-4 before:absolute before:bg-themePink-400 before:top-1 before:left-0 before:rounded-md md:text-[18px] md:before:h-[20px]">
             發佈圖文
@@ -141,7 +132,7 @@ const CreatePost = () => {
             />
           </div>
           <TagUser
-            uid={user.uid}
+            uid={userStatus.uid}
             tagUsers={tagUsers}
             setTagUsers={setTagUsers}
           />
@@ -215,8 +206,8 @@ const CreatePost = () => {
             需登入才能發佈文章
           </p>
           <Link
-            href="/main"
-            className="bg-themePink-400 hover:bg-themePink-500 text-white px-[20px] py-[10px] rounded-sm cursor-pointer"
+            href="/"
+            className="bg-themePink-400 hover:bg-themePink-500 text-white px-[10px] py-[10px] rounded-lg cursor-pointer"
           >
             點此登入
           </Link>

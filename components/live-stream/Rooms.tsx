@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { collection, query, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
+import { useAppSelector } from "@/redux/hooks";
 import RoomPeers from "./RoomPeers";
 import live2 from "@/public/live-stream/2.jpeg";
 import audience from "@/public/live-stream/audience.png";
@@ -34,6 +35,8 @@ interface HostEvent {
 }
 
 const Rooms = () => {
+  const userStatus = useAppSelector((state) => state.user);
+  const router = useRouter();
   const [rooms, setRooms] = useState<HostEvent[]>([]);
   const streamingData = [
     {
@@ -145,6 +148,14 @@ const Rooms = () => {
     },
   ];
 
+  const joinRoom = (roomId: string) => {
+    if (userStatus.loginStatus) {
+      router.push(`/live-stream/${roomId}/guest`);
+    } else {
+      window.alert("登入後才能觀看直播喔～");
+    }
+  };
+
   useEffect(() => {
     const q = query(collection(db, "liveStream"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -162,9 +173,9 @@ const Rooms = () => {
     <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
       {rooms.length > 0
         ? rooms.map((room: HostEvent) => (
-            <Link
+            <div
               key={room.data.room_id}
-              href={`/live-stream/${room.data.room_id}/guest`}
+              onClick={() => joinRoom(room.data.room_id)}
               className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
             >
               <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
@@ -219,14 +230,14 @@ const Rooms = () => {
                   </p>
                 </div>
               </div>
-            </Link>
+            </div>
           ))
         : ""}
 
       {streamingData.map((data, index) => (
-        <Link
+        <div
           key={index}
-          href={`/live-stream/thisIsFakeData/guest`}
+          onClick={() => joinRoom("thisIsFakeData")}
           className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
         >
           <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
@@ -266,7 +277,7 @@ const Rooms = () => {
               <p className="text-[12px] text-darkPink">{data.name}</p>
             </div>
           </div>
-        </Link>
+        </div>
       ))}
     </div>
   );

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppSelector } from "@/redux/hooks";
 import { fetchData } from "@/redux/features/userDataSlice";
 import InputArea from "@/components/message/InputArea";
 import { ChatRoomType, UserDataType, FormatTimeFunction } from "@/utils/type";
@@ -35,7 +35,6 @@ const ChatRoom = ({
   setAlert: SetAlertFunction;
   setSelectRoom: SetSelectRoomFunction;
 }) => {
-  const dispatch = useAppDispatch();
   const userData = useAppSelector((state) => state.fetchUser);
   const messageWrapper = useRef<any>(null);
   const [messages, setMessages] = useState<ChatRoomType["data"]>({
@@ -44,10 +43,6 @@ const ChatRoom = ({
     message: [],
   });
   const friendId = messages.uid.filter((id) => id !== userData.uid)[0];
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
 
   useEffect(() => {
     const messageDoc = doc(db, "messages", roomId);

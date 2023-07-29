@@ -1,44 +1,46 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchData } from "@/redux/features/userDataSlice";
+import { useAppSelector } from "@/redux/hooks";
 import axios from "axios";
 import { UserDataType } from "@/utils/type";
 import LoadingAnimation from "@/components/LoadingAnimation";
 
 const FollowBtn = ({ postUid }: { postUid: string }) => {
-  const dispatch = useAppDispatch();
+  const userStatus = useAppSelector((state) => state.user);
   const userData = useAppSelector((state) => state.fetchUser) as UserDataType;
   const [authorCheck, setAuthorCheck] = useState(true);
   const [followStatus, setFollowStatus] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
   const clickFollowBtn = () => {
-    setLoading(true);
-    axios
-      .post("/api/user-data/follow", {
-        followingDetail: {
-          uid: userData.uid,
-          followingUid: postUid,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setFollowStatus((prev) => !prev);
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    if (userStatus.loginStatus) {
+      setLoading(true);
+      axios
+        .post("/api/user-data/follow", {
+          followingDetail: {
+            uid: userData.uid,
+            followingUid: postUid,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setFollowStatus((prev) => !prev);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      window.alert("登入後才能追蹤其他使用者唷～");
+    }
   };
 
   useEffect(() => {
-    dispatch(fetchData());
     if (userData.uid !== postUid) {
       setAuthorCheck(false);
       setLoading(false);
     }
-  }, [dispatch, userData.uid, postUid]);
+  }, [userData.uid, postUid]);
 
   useEffect(() => {
     if (userData) {
@@ -54,7 +56,7 @@ const FollowBtn = ({ postUid }: { postUid: string }) => {
     <>
       {!authorCheck && !followStatus ? (
         <div
-          className="bg-themePink-400 text-white py-[2px] px-[6px] rounded text-[10px] hover:bg-themePink-500 cursor-pointer md:text-[12px]"
+          className="text-[14px] bg-themePink-400 text-white py-[2px] px-[6px] rounded hover:bg-themePink-500 cursor-pointer md:text-[16px]"
           onClick={() => {
             clickFollowBtn();
           }}

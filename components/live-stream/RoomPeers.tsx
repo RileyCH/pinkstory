@@ -28,9 +28,6 @@ const RoomPeers = ({ roomId }: { roomId: string }) => {
           .then((res) => setRoomPeer(res.data));
       };
       fetchPeers();
-
-      // const intervalId = setInterval(fetchPeers, 5000);
-      // return () => clearInterval(intervalId);
     }
   }, [roomId]);
 

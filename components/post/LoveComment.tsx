@@ -2,10 +2,9 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import axios from "axios";
-import { doc, getDoc, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { fetchData } from "@/redux/features/userDataSlice";
+import { useAppSelector } from "@/redux/hooks";
 import { UserDataType } from "@/utils/type";
 import heart from "@/public/post/heart.png";
 import heartClick from "@/public/post/heart-click.png";
@@ -20,59 +19,33 @@ const CommentUser = ({
   authorId: string;
   commentId: string;
 }) => {
-  const dispatch = useAppDispatch();
+  const userStatus = useAppSelector((state) => state.user);
   const userData = useAppSelector((state) => state.fetchUser) as UserDataType;
   const [love, setLove] = useState<boolean>(false);
   const [loveUserNum, setLoveUserNum] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const loveComment = () => {
-    setLoading(true);
-    axios
-      .post("/api/post/love-comment", {
-        loveComment: {
-          uid: userData.uid,
-          authorUid: authorId,
-          postId: postId,
-          commentId: commentId,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setLove((prev) => !prev);
-          setLoading(false);
-        }
-      });
+    if (userStatus.loginStatus) {
+      setLoading(true);
+      axios
+        .post("/api/post/love-comment", {
+          loveComment: {
+            uid: userData.uid,
+            authorUid: authorId,
+            postId: postId,
+            commentId: commentId,
+          },
+        })
+        .then((res) => {
+          if (res.status === 200) {
+            setLoading(false);
+          }
+        });
+    } else {
+      window.alert("您目前尚未登入");
+    }
   };
-
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const checkLoveStatus = async () => {
-      const commentDoc = doc(
-        db,
-        "users",
-        authorId,
-        "posts",
-        postId,
-        "comments",
-        commentId
-      );
-      const getCommentDoc = await getDoc(commentDoc);
-      if (getCommentDoc.exists()) {
-        const loveUsers = getCommentDoc.data().loveUser;
-
-        if (loveUsers.includes(userData.uid)) {
-          setLove(true);
-        }
-
-        setLoveUserNum(loveUsers.length);
-      }
-    };
-    checkLoveStatus();
-  }, [authorId, postId, userData.uid, commentId]);
 
   useEffect(() => {
     const checkLoveAndKeepNumber = () => {
@@ -88,13 +61,21 @@ const CommentUser = ({
       const onSnapShopPostDoc = onSnapshot(commentDoc, (doc) => {
         const commentData = doc.data();
         if (commentData) {
+          const loveStatus = commentData.loveUser;
+          if (loveStatus.includes(userStatus.uid)) {
+            setLove(true);
+          } else {
+            setLove(false);
+          }
           setLoveUserNum(commentData.loveUser.length);
         }
       });
-      return onSnapShopPostDoc();
+      return () => {
+        onSnapShopPostDoc();
+      };
     };
     checkLoveAndKeepNumber();
-  }, [authorId, postId, commentId]);
+  }, [authorId, postId, commentId, userStatus.uid]);
 
   return (
     <>

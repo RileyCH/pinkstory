@@ -10,8 +10,7 @@ import add from "../public/add.png";
 import pinkStory from "@/public/pinkStory-p.png";
 
 const Nav = () => {
-  const [uid, setUid] = useState<string | null>(null);
-
+  const uid = useAppSelector((state) => state.user.uid);
   const pathname = usePathname();
   const navItems = [
     {
@@ -35,9 +34,7 @@ const Nav = () => {
       url: "/main",
     },
   ];
-  useEffect(() => {
-    setUid(localStorage.getItem("uid"));
-  }, []);
+
   return (
     <nav className="w-[100vw] h-[60px] flex justify-between items-center fixed bottom-0 bg-white shadow md:h-[65px] md:top-0 md:px-[35px] md:py-[10px] drop-shadow z-30">
       <div className="md:flex md:gap-5 md:items-center">

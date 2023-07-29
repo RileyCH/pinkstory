@@ -1,4 +1,5 @@
 import { Providers } from "@/redux/provider";
+import LoginStatus from "@/components/login/LoginStatus";
 
 import Script from "next/script";
 import "../style/globals.css";
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <Providers>
       <html lang="en">
+        <LoginStatus />
         {/* <body className={inter.className}>{children}</body> */}
         <body>{children}</body>
       </html>

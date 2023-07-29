@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { PostType } from "@/utils/type";
+import { PostType, UserDataType } from "@/utils/type";
 import heartClick from "@/public/post/heart-click.png";
 import profile from "@/public/main/profile.png";
 
@@ -8,10 +8,14 @@ const Post = ({
   posts,
   userName,
   profileImg,
+  otherUser,
+  isOtherUserPage,
 }: {
   posts: PostType[];
   userName: string;
   profileImg: string | null;
+  otherUser: UserDataType;
+  isOtherUserPage: boolean;
 }) => {
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
@@ -59,17 +63,31 @@ const Post = ({
                 <div className="w-[85%] flex items-center justify-between absolute bottom-3 md:w-[88%]">
                   <div className="flex gap-2">
                     <div className="w-[15px] h-[15px] relative md:w-[20px] md:h-[20px] lg:w-[24px] lg:h-[24px]">
-                      <Image
-                        src={profileImg ? profileImg : profile}
-                        alt="post author profile image"
-                        fill
-                        className="rounded-full object-cover"
-                        sizes="100%"
-                      />
+                      {!isOtherUserPage ? (
+                        <Image
+                          src={profileImg ? profileImg : profile}
+                          alt="post author profile image"
+                          fill
+                          className="rounded-full object-cover"
+                          sizes="100%"
+                        />
+                      ) : (
+                        <Image
+                          src={
+                            otherUser.profileImg
+                              ? otherUser.profileImg
+                              : profile
+                          }
+                          alt="post author profile image"
+                          fill
+                          className="rounded-full object-cover"
+                          sizes="100%"
+                        />
+                      )}
                     </div>
 
                     <p className="text-[12px] text-darkPink break-words max-w-[90px] md:text-[14px]">
-                      {userName}
+                      {!isOtherUserPage ? userName : otherUser.name}
                     </p>
                   </div>
 
