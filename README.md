@@ -1,6 +1,12 @@
+<div align="center">
+  <a href="https://pinkstory.vercel.app/" style="margin-bottom:20px; display:block;">
+    <img src="./public/pinkStory.png" alt="Logo" width="100px">
+  </a>
+</div>
+
 # PinkStory
 
-A photo sharing social media with real-time live streaming and messaging features. Inspired with abounding advertisements on the Internet platforms, PinkStory is equipped with shopping record and stocks managing feature to prevent over-shopping.
+[PinkStory](https://pinkstory.vercel.app/) is a photo sharing social media with real-time live streaming and messaging features. Inspired with abounding advertisements on the Internet platforms, PinkStory is equipped with shopping record and stocks managing feature to prevent over-shopping.
 
 ## Features
 
@@ -51,3 +57,12 @@ A photo sharing social media with real-time live streaming and messaging feature
 - Ngrok
 - Axios
 - Geolocation API and Google Maps
+
+#### Contact
+
+  <a href="https://www.linkedin.com/in/yucingchang/" text-decoration="none">
+    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" />
+  </a>
+  <a href="mailto:fantasy821116@gmail.com">
+    <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
+  </a>
