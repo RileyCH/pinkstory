@@ -171,70 +171,73 @@ const Rooms = () => {
 
   return (
     <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
-      {rooms.length > 0
-        ? rooms.map((room: HostEvent) => (
-            <div
-              key={room.data.room_id}
-              onClick={() => joinRoom(room.data.room_id)}
-              className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
-            >
-              <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
-                <Image
-                  src={`${JSON.parse(room.data?.user_data)?.cover}`}
-                  alt="live stream cover picture from host"
-                  fill
-                  sizes="100%"
-                  className="object-cover object-center rounded-t-lg"
-                />
-                <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
-                  <div className="w-[15px] h-[15px] relative">
-                    <Image
-                      src={live}
-                      alt="live status icon"
-                      fill
-                      sizes="100%"
-                    />
-                  </div>
-                  <p className="text-white text-[10px]">直播中</p>
+      {rooms.length > 0 ? (
+        rooms.map((room: HostEvent) => (
+          <div
+            key={room.data.room_id}
+            onClick={() => joinRoom(room.data.room_id)}
+            className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"
+          >
+            <div className="w-[100%] h-[170px] relative md:h-[250px] xl:h-[300px] 2xl:h-[320px]">
+              <Image
+                src={`${JSON.parse(room.data?.user_data)?.cover}`}
+                alt="live stream cover picture from host"
+                fill
+                sizes="100%"
+                className="object-cover object-center rounded-t-lg"
+              />
+              <div className="w-[78px] bg-black bg-opacity-40 px-[7px] py-[2px] flex gap-2 justify-center items-center rounded-full absolute top-3 right-3">
+                <div className="w-[15px] h-[15px] relative">
+                  <Image src={live} alt="live status icon" fill sizes="100%" />
                 </div>
-                <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
-                  <div className="w-[15px] h-[15px] relative">
-                    <Image src={audience} alt="viewer icon" fill sizes="100%" />
-                  </div>
-                  <p className="text-white text-[10px]">
-                    <RoomPeers roomId={room.data.room_id} />
-                  </p>
-                </div>
+                <p className="text-white text-[10px]">直播中</p>
               </div>
-
-              <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
-                <p className="font-medium break-words mb-[5px]">
-                  {room.data?.user_data &&
-                    JSON.parse(room.data?.user_data)?.theme}
-                </p>
-                <div className="flex gap-2 items-center">
-                  <div className="w-[20px] h-[20px] relative">
-                    <Image
-                      src={`${
-                        room.data?.user_data &&
-                        JSON.parse(room.data?.user_data)?.profile
-                      }`}
-                      alt="host profile"
-                      fill
-                      sizes="100%"
-                      className="rounded-full"
-                    />
-                  </div>
-                  <p className="text-[12px] text-darkPink">
-                    {room.data.user_name}
-                  </p>
+              <div className="flex gap-2 items-center absolute right-3 bottom-2 bg-black bg-opacity-20 p-2 rounded-lg">
+                <div className="w-[15px] h-[15px] relative">
+                  <Image src={audience} alt="viewer icon" fill sizes="100%" />
                 </div>
+                <p className="text-white text-[10px]">
+                  <RoomPeers roomId={room.data.room_id} />
+                </p>
               </div>
             </div>
-          ))
-        : ""}
 
-      {streamingData.map((data, index) => (
+            <div className="max-w-[150px] px-[15px] py-[10px] md:max-w-[200px] xl:max-w-[250px] flex flex-col justify-between">
+              <p className="font-medium break-words mb-[5px]">
+                {room.data?.user_data &&
+                  JSON.parse(room.data?.user_data)?.theme}
+              </p>
+              <div className="flex gap-2 items-center">
+                <div className="w-[20px] h-[20px] relative">
+                  <Image
+                    src={`${
+                      room.data?.user_data &&
+                      JSON.parse(room.data?.user_data)?.profile
+                    }`}
+                    alt="host profile"
+                    fill
+                    sizes="100%"
+                    className="rounded-full"
+                  />
+                </div>
+                <p className="text-[12px] text-darkPink">
+                  {room.data.user_name}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      ) : (
+        <div className="mt-[30vh] flex flex-col items-center text-center mx-auto">
+          <div className="w-[60px] h-[60px] relative mb-[20px] xl:w-[80px] xl:h-[80px]">
+            <Image src={live} alt="live icon" fill sizes="100%" />
+          </div>
+          <p className="mb-[10px]">目前沒有其他使用者正在直播唷～</p>
+          <p className="text-[14px]">點擊下方按鈕開始直播</p>
+        </div>
+      )}
+
+      {/* {streamingData.map((data, index) => (
         <div
           key={index}
           onClick={() => joinRoom("thisIsFakeData")}
@@ -278,7 +281,7 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-      ))}
+      ))} */}
     </div>
   );
 };

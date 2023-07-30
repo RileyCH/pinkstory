@@ -194,7 +194,7 @@ const PersonalArea = ({
 
               <div className="w-[100%] mb-[15px] text-[14px] xl:text-[18px] xl:mb-[20px]">
                 {userData.introduction || otherUser.introduction ? (
-                  <p>
+                  <p className="max-w-[100%] break-words">
                     {!isOtherUserPage && isLogin
                       ? userData.introduction
                       : otherUser.introduction}

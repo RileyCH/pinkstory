@@ -22,7 +22,7 @@ const Post = ({
   return (
     <div className="w-[95vw] mx-auto flex flex-wrap justify-between min-h-[150px] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:min-h-[200px] 2xl:max-w-[1600px]">
       {posts.length === 0 ? (
-        <div className="w-[100%] flex flex-col">
+        <div className="w-[100%] min-h-[35vh] flex flex-col">
           <p className="text-center mt-[30px] mb-5 text-[14px] xl:text-[16px] xl:mt-[50px]">
             目前還沒有貼文喔～快去新增吧！
           </p>

@@ -92,7 +92,7 @@ const NativeLogin = () => {
                     )}
                   </button>
                 </form>
-                <p className="text-[14px] mb-[20px] md:mb-[30px] relative textOr">
+                <p className="text-[14px] mb-[20px] md:mb-[30px] relative">
                   或
                 </p>
                 <div className="thirdLoginDiv">
@@ -116,7 +116,7 @@ const NativeLogin = () => {
               </div>
             </div>
           ) : (
-            <SignUp />
+            <SignUp setSignUp={setSignUp} />
           )}
         </div>
       }

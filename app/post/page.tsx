@@ -58,7 +58,7 @@ export default async function Home() {
         <SearchBar />
       </div>
 
-      <div className="pt-[110px] pb-[75px] md:pt-[85px]">
+      <div className="pt-[60px] pb-[75px] md:pt-[85px]">
         <PostCard posts={postList} />
       </div>
 

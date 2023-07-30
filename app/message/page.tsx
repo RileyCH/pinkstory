@@ -17,6 +17,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 const Chat = () => {
   const userStatus = useAppSelector((state) => state.user);
+  const [isLoading, setIsLoading] = useState(false);
   const [chatRooms, setChatRooms] = useState<ChatRoomType[]>([]);
   const [selectRoom, setSelectRoom] = useState<string | null>(null);
   const [chattingUser, setChattingUser] = useState<UserDataType>({
@@ -71,16 +72,19 @@ const Chat = () => {
 
   useEffect(() => {
     if (userStatus.loginStatus) {
+      setIsLoading(true);
       const q = query(
         collection(db, "messages"),
         where("uid", "array-contains", userStatus.uid)
       );
       const newMessage = onSnapshot(q, (snapshot) => {
+        setIsLoading(false);
         snapshot.docChanges().forEach((change) => {
           setChatRooms((prev) => {
             const unChangedRoom = prev.filter(
               (room) => room.chatRoomId !== change.doc.data().roomId
             );
+
             return [
               ...unChangedRoom,
               {
@@ -107,7 +111,13 @@ const Chat = () => {
             <p className="text-[20px] font-semibold text-themePink-700 pl-[12px] mt-5 mb-1 ml-4 relative before:w-1 before:h-5 before:absolute before:bg-themePink-400 before:top-[6px] before:left-0 before:rounded-md md:text-[24px] md:before:h-[26px] md:mb-3 md:ml-2 md:mt-2">
               訊息
             </p>
-            {chatRooms.length > 0 ? (
+            {isLoading ? (
+              <ChatRoomSkeleton />
+            ) : !isLoading && chatRooms.length === 0 ? (
+              <div className="text-themeGray-600 text-center mt-[20vh] mb-[20px] xl:text-[18px]">
+                目前尚無聊天訊息
+              </div>
+            ) : (
               <div>
                 {chatRooms.map((room, index) => (
                   <div
@@ -132,16 +142,10 @@ const Chat = () => {
                     />
                   </div>
                 ))}
-
-                <div className="text-[14px] text-themeGray-600 text-center mt-[30px] mb-[20px]">
-                  -- 沒有其他對話了 --
-                </div>
               </div>
-            ) : (
-              <ChatRoomSkeleton />
             )}
           </div>
-          {chatRooms.length === 0 ? (
+          {isLoading ? (
             <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">
               <Skeleton
                 count={1}
@@ -202,90 +206,6 @@ const Chat = () => {
           <Nav />
         </div>
       )}
-      {/* <div className="pt-[50px] md:pt-[70px] md:flex md:gap-4">
-        <div className="w-[100vw] min-h-[calc(100vh_-_70px)] max-h-[calc(100vh_-_200px)] overflow-auto no-scrollbar bg-themeGray-50 md:w-[30vw] md:min-h-[calc(100vh_-_70px)] md:py-[15px] md:px-[15px]">
-          <p className="text-[20px] font-semibold text-themePink-700 pl-[12px] mt-5 mb-1 ml-4 relative before:w-1 before:h-5 before:absolute before:bg-themePink-400 before:top-[6px] before:left-0 before:rounded-md md:text-[24px] md:before:h-[26px] md:mb-3 md:ml-2 md:mt-2">
-            訊息
-          </p>
-          {chatRooms.length > 0 ? (
-            <div>
-              {chatRooms.map((room, index) => (
-                <div
-                  key={index}
-                  onClick={() => {
-                    setSelectRoom(room.chatRoomId);
-                  }}
-                >
-                  <ChatUser
-                    uid={userStatus.uid}
-                    room={room}
-                    otherUid={
-                      room.data.uid.filter((id) => id !== userStatus.uid)[0]
-                    }
-                    setChattingUser={setChattingUser}
-                    formatTime={formatTime}
-                    currentYear={currentYear}
-                    currentMonth={currentMonth}
-                    currentDay={currentDay}
-                    alert={alert}
-                    setAlert={setAlert}
-                  />
-                </div>
-              ))}
-
-              <div className="text-[14px] text-themeGray-600 text-center mt-[30px] mb-[20px]">
-                -- 沒有其他對話了 --
-              </div>
-            </div>
-          ) : (
-            <ChatRoomSkeleton />
-          )}
-        </div>
-        {chatRooms.length === 0 ? (
-          <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">
-            <Skeleton
-              count={1}
-              width="100px"
-              height="100px"
-              circle={true}
-              className="mb-8"
-            />
-            <Skeleton
-              count={1}
-              width="100px"
-              height="35px"
-              circle={false}
-              className="mb-3"
-            />
-            <Skeleton count={1} width="240px" height="20px" circle={false} />
-          </div>
-        ) : selectRoom ? (
-          <ChatRoom
-            roomId={selectRoom}
-            chattingUser={chattingUser}
-            formatTime={formatTime}
-            currentYear={currentYear}
-            currentMonth={currentMonth}
-            currentDay={currentDay}
-            setAlert={setAlert}
-            setSelectRoom={setSelectRoom}
-          />
-        ) : (
-          <div className="hidden md:flex md:flex-col md:justify-center md:items-center md:w-[280px] md:mx-auto">
-            <div className="w-[80px] h-[80px] relative mb-5">
-              <Image
-                src={send}
-                alt="message"
-                fill
-                sizes="100%"
-                className="object-cover"
-              />
-            </div>
-            <p className="text-[28px] font-medium mb-3">訊息內容</p>
-            <p className="text-[18px]">你還沒選擇要跟哪位朋友聊聊喔～</p>
-          </div>
-        )}
-      </div> */}
       <Nav />
     </div>
   );

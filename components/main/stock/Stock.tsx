@@ -76,7 +76,7 @@ const Stock = ({ uid }: { uid: string }) => {
         {loading ? (
           <StockSkeleton />
         ) : !selectItem && stocks.length === 0 ? (
-          <div className="w-[100%] flex flex-col">
+          <div className="w-[100%] min-h-[35vh] flex flex-col">
             <p className="text-center mt-[30px] mb-5 text-[14px] xl:text-[16px] xl:mt-[50px]">
               這個項目還是空的喔～
             </p>

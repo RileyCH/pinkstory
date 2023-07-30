@@ -7,9 +7,13 @@ import heartClick from "@/public/post/heart-click.png";
 const PostCard = ({ posts }: { posts: PostType[] }) => {
   posts.sort((a, b) => b.data.createTime.seconds - a.data.createTime.seconds);
 
+  const filteredPosts = posts.filter(
+    (post) => post.data.authority !== "private"
+  );
+
   return (
     <div className="w-[95vw] mx-auto flex flex-wrap justify-between md:w-[90vw] md:max-w-[1200px] md:justify-start md:gap-3 xl:gap-4 2xl:max-w-[1600px]">
-      {posts.map((post) => (
+      {filteredPosts.map((post) => (
         <div
           key={post.postID}
           className="w-[calc(50%_-_4px)] my-1 rounded-lg shadow-lg cursor-pointer relative md:w-[calc(25%_-_15px)] 2xl:w-[calc(20%_-_15px)]"

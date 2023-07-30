@@ -34,7 +34,7 @@ const Keep = ({ uid }: { uid: string }) => {
       {isLoading ? (
         <PersonPostSkeleton />
       ) : !isLoading && lovePosts.length === 0 ? (
-        <div className="w-[100%] flex flex-col">
+        <div className="w-[100%] min-h-[35vh] flex flex-col">
           <p className="text-center mt-[30px] mb-5 text-[14px] xl:text-[16px] xl:mt-[50px]">
             快去為喜歡的文章點讚吧~
           </p>

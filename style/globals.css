@@ -14,23 +14,23 @@
   position: fixed;
   right: 0;
   left: 0;
-  top: 50px;
+  top: 35px;
   margin: auto;
   z-index: 10;
 
   @media (min-width: 768px) {
     margin: 0;
-    top: 100px;
+    top: 80px;
     left: 120px;
   }
   @media (min-width: 1280px) {
     margin: 0;
-    top: 80px;
+    top: 60px;
     left: 720px;
   }
   @media (min-width: 1920px) {
     margin: 0;
-    top: 100px;
+    top: 120px;
     left: 900px;
   }
 }
@@ -85,6 +85,45 @@
 
 .thirdLoginDiv:hover {
   background-color: #ef8679;
+}
+
+.signUpInputDiv {
+  width: 300px;
+  margin: 0 auto 15px auto;
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 450px;
+    margin-bottom: 20px;
+  }
+  @media (min-width: 1280px) {
+    width: 550px;
+    margin-bottom: 25px;
+  }
+}
+
+.signUpInput {
+  width: 90%;
+  margin: 0 auto;
+  padding: 10px 48px;
+  background-color: rgba(237, 199, 191, 0.2);
+  color: white;
+  border-radius: 6px;
+}
+
+.signUpInput::placeholder {
+  color: white;
+  font-size: 14px;
+}
+
+.signUpSelect {
+  width: 90%;
+  margin: 0 auto;
+  padding: 13px 48px;
+  background-color: rgba(237, 199, 191, 0.2);
+  color: white;
+  border-radius: 6px;
 }
 
 .liveStreamControlDiv {
@@ -217,5 +256,9 @@
   .no-scrollbar {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
+  }
+
+  .no-calendar::-webkit-calendar-picker-indicator {
+    opacity: 0;
   }
 }
