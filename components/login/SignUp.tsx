@@ -29,9 +29,15 @@ const SignUp = ({ setSignUp }: { setSignUp: SetSignUpAction }) => {
   const [gender, setGender] = useState<string>("none");
   const [constellations, setConstellations] = useState<string>("none");
   const [selfIntro, setSelfIntro] = useState<string | null>(null);
-  const [liveSteamRoomId, setLiveSteamRoomId] = useState<string | null>(null);
-  const [hostRoomCode, setHostRoomCode] = useState<string | null>(null);
-  const [guestRoomCode, setGuestRoomCode] = useState<string | null>(null);
+  const [liveSteamRoomId, setLiveSteamRoomId] = useState<string | null>(
+    "64c65559eba04ea8683df3cc"
+  );
+  const [hostRoomCode, setHostRoomCode] = useState<string | null>(
+    "zgs-bcla-nfx"
+  );
+  const [guestRoomCode, setGuestRoomCode] = useState<string | null>(
+    "gwu-zzwh-wdf"
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const birthDayRef = useRef<HTMLInputElement>(null);
@@ -131,12 +137,9 @@ const SignUp = ({ setSignUp }: { setSignUp: SetSignUpAction }) => {
       selfIntro
     ) {
       setIsLoading(true);
-      const aa = await createLiveStreamRoom();
-      // const bb = await createRoomCode(aa);
-
+      // await createLiveStreamRoom();
       await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-          console.log(aa);
           if (userCredential && birthDayRef.current) {
             const newUserId = userCredential.user.uid;
             const userData = {
