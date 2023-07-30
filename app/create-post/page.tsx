@@ -10,6 +10,7 @@ import TagUser from "@/components/create-post/TagUser";
 import Location from "@/components/create-post/Location";
 import FinishAdd from "@/components/create-post/FinishAdd";
 import Nav from "@/components/Nav";
+import LoadingAnimation from "@/components/LoadingAnimation";
 import { PostType } from "@/utils/type";
 import lock from "@/public/create-post/lock.png";
 
@@ -46,9 +47,11 @@ const CreatePost = () => {
   const [postAuth, setPostAuth] = useState<string>("public");
   const [postStatus, setPostStatus] = useState<string>("published");
   const [createStatus, setCreateStatus] = useState<boolean>(false);
+  const [isPublishing, setIsPublishing] = useState<boolean>(false);
 
   const createPost = () => {
     if (userStatus.loginStatus) {
+      setIsPublishing(true);
       const postDetails: PostType["data"] = {
         uid: userStatus.uid,
         picture: postImage,
@@ -82,6 +85,9 @@ const CreatePost = () => {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          setIsPublishing(false);
         });
     }
   };
@@ -193,7 +199,7 @@ const CreatePost = () => {
               className="w-[95vw] h-[40px] bg-themePink-400 hover:bg-themePink-500 flex items-center justify-center rounded-full text-white cursor-pointer md:w-[100px] md:rounded-lg"
               onClick={createPost}
             >
-              發佈
+              {isPublishing ? <LoadingAnimation /> : "發佈"}
             </p>
           </div>
           {createStatus && <FinishAdd />}

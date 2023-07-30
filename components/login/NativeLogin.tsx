@@ -5,6 +5,7 @@ import Image from "next/image";
 import SignUp from "@/components/login/SignUp";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/utils/database";
+import LoadingAnimation from "../LoadingAnimation";
 import emailIcon from "@/public/login/email.png";
 import passwordIcon from "@/public/login/padlock.png";
 import facebook from "@/public/login/facebook.png";
@@ -14,10 +15,12 @@ const NativeLogin = () => {
   const [signUp, setSignUp] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("test7@gmail.com");
   const [password, setPassword] = useState<string>("123123");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -26,6 +29,9 @@ const NativeLogin = () => {
       .catch((error) => {
         window.alert("請重新登入！");
         console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -39,7 +45,7 @@ const NativeLogin = () => {
                 <h1 className="text-[42px] md:text-[72px] 2xl:text-[96px] font-black tracking-widest mb-2 text-themePink-400">
                   PinkStory
                 </h1>
-                <h2 className="text-[18px] md:text-[24px] 2xl:text-[36px]">
+                <h2 className="text-[18px] font-semibold md:text-[24px] 2xl:text-[36px]">
                   Enrich your life, <br />
                   anytime, anywhere.
                 </h2>
@@ -77,7 +83,13 @@ const NativeLogin = () => {
                   </div>
 
                   <button className="w-[270px] xl:w-[490px] bg-themePink-400 text-[14px] hover:bg-amber-600 py-[10px] rounded-full cursor-pointer">
-                    登入
+                    {isLoading ? (
+                      <div className="flex justify-center">
+                        <LoadingAnimation />
+                      </div>
+                    ) : (
+                      "登入"
+                    )}
                   </button>
                 </form>
                 <p className="text-[14px] mb-[20px] md:mb-[30px] relative textOr">

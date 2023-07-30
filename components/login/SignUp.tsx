@@ -1,51 +1,57 @@
-import { useRef } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/utils/database";
 
 const SignUp = () => {
-  //   const auth = getAuth();
-  //   const emailRef = React.useRef<HTMLInputElement>(null);
-  //   const passwordRef = React.useRef<HTMLInputElement>(null);
+  const [email, setEmail] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
 
-  //   const handleSignUp = (event: React.FormEvent) => {
-  //     event.preventDefault();
-
-  //     if (emailRef.current?.value && passwordRef.current?.value) {
-  //       createUserWithEmailAndPassword(
-  //         auth,
-  //         emailRef.current.value,
-  //         passwordRef.current.value
-  //       )
-  //         .then((userCredential) => {
-  //           // Signed in
-  //           const user = userCredential.user;
-  //           console.log(user, userCredential);
-  //         })
-  //         .catch((error) => {
-  //           const errorCode = error.code;
-  //           const errorMessage = error.message;
-  //         });
-  //     }
-  //   };
+  const handleSignUp = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email && password) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user, userCredential);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+        });
+    }
+  };
+  console.log(email);
 
   return (
     <div>
       <p>我要註冊</p>
       <form
-        action=""
         onSubmit={(e) => {
-          //   handleSignUp(e);
+          handleSignUp(e);
         }}
       >
         <div>
           <label htmlFor="">帳號</label>
-          <input type="email" />
+          <input
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            className="text-themePink-400"
+          />
         </div>
         <div>
           <label htmlFor="">密碼</label>
-          <input type="password" />
+          <input
+            type="password"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            className="text-themePink-400"
+          />
         </div>
-        <button>登入</button>
+        <button>註冊</button>
       </form>
 
       <div>或</div>
