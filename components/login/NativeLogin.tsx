@@ -95,7 +95,7 @@ const NativeLogin = () => {
                 <p className="text-[14px] mb-[20px] md:mb-[30px] relative">
                   或
                 </p>
-                <div className="thirdLoginDiv">
+                {/* <div className="thirdLoginDiv">
                   <div>
                     <Image src={facebook} alt="login account" width={20} />
                   </div>
@@ -106,7 +106,7 @@ const NativeLogin = () => {
                     <Image src={google} alt="login account" width={15} />
                   </div>
                   <p>Google 登入</p>
-                </div>
+                </div> */}
                 <div
                   onClick={() => setSignUp(true)}
                   className="w-[270px] text-[14px] mx-auto cursor-pointer"
