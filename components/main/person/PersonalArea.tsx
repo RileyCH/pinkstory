@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -8,6 +9,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/utils/database";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkUser } from "@/redux/features/loginSlice";
+import FollowUsers from "@/components/main/person/FollowUsers";
 import profile from "@/public/main/profile.png";
 import backGroundImg from "@/public/background/person.jpeg";
 import female from "@/public/main/female.png";
@@ -33,6 +35,9 @@ const PersonalArea = ({
   const userStatus = useAppSelector((state) => state.user);
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const [checkFollowing, setCheckFollowing] = useState<boolean>(false);
+  const [checkFollower, setCheckFollower] = useState<boolean>(false);
+
   const sendMessage = () => {
     if (userStatus.loginStatus) {
       router.push(`/message`);
@@ -213,26 +218,56 @@ const PersonalArea = ({
             </div>
 
             <div className="w-[60vw] px-1 mb-[15px] flex justify-between items-center gap-5 md:w-[40vw] md:justify-start md:gap-10 xl:gap-[55px] md:mb-[20px] xl:mb-[30px]">
-              <div className="text-center md:flex md:items-center md:gap-1">
-                <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
-                  {!isOtherUserPage && isLogin
-                    ? userData.following.length
-                    : otherUser.following.length}
-                </p>
-                <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
-                  關注
-                </p>
+              <div>
+                <div
+                  onClick={() => setCheckFollowing(true)}
+                  className="text-center cursor-pointer relative md:flex md:items-center md:gap-1"
+                >
+                  <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
+                    {!isOtherUserPage && isLogin
+                      ? userData.following.length
+                      : otherUser.following.length}
+                  </p>
+                  <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
+                    關注
+                  </p>
+                </div>
+
+                {checkFollowing && (
+                  <FollowUsers
+                    user={
+                      isOtherUserPage ? otherUser.following : userData.following
+                    }
+                    isSelecting={checkFollowing}
+                    checkFollow={setCheckFollowing}
+                  />
+                )}
               </div>
 
-              <div className="text-center md:flex md:items-center md:gap-1">
-                <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
-                  {!isOtherUserPage && isLogin
-                    ? userData.follower.length
-                    : otherUser.follower.length}
-                </p>
-                <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
-                  粉絲
-                </p>
+              <div>
+                <div
+                  onClick={() => setCheckFollower(true)}
+                  className="text-center cursor-pointer relative md:flex md:items-center md:gap-1"
+                >
+                  <p className="text-[18px] text-themePink-500 font-medium xl:text-[24px]">
+                    {!isOtherUserPage && isLogin
+                      ? userData.follower.length
+                      : otherUser.follower.length}
+                  </p>
+                  <p className="text-[14px] text-themeGray-700 xl:text-[16px]">
+                    粉絲
+                  </p>
+                </div>
+
+                {checkFollower && (
+                  <FollowUsers
+                    user={
+                      isOtherUserPage ? otherUser.follower : userData.follower
+                    }
+                    isSelecting={checkFollower}
+                    checkFollow={setCheckFollower}
+                  />
+                )}
               </div>
 
               <div className="text-center md:flex md:items-center md:gap-1">

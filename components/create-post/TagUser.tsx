@@ -3,7 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
-import { fetchData } from "@/redux/features/userDataSlice";
 import { UserDataType } from "@/utils/type";
 import profile from "@/public/main/profile.png";
 

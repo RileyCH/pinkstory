@@ -9,7 +9,7 @@ import { useAppSelector } from "@/redux/hooks";
 import PersonPostSkeleton from "@/components/skeleton/PersonPostSkeleton";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
-import PersonalArea from "@/components/main/PersonalArea";
+import PersonalArea from "@/components/main/person/PersonalArea";
 import Keep from "@/components/main/Keep";
 import Love from "@/components/main/Love";
 import Stock from "@/components/main/stock/Stock";
