@@ -6,16 +6,16 @@ export async function POST(req: NextRequest) {
   try {
     const roomId = await req.json().then((res) => res.roomId);
     if (!roomId) return new NextResponse("Without room id", { status: 400 });
-    console.log(roomId);
 
     if (req.method === "POST") {
+      const managementToken = await liveStream100ms.getManagementToken();
       const result = await axios
         .get(
           `${liveStream100ms.listPeers}/${roomId}/peers`,
 
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
+              Authorization: `Bearer ${managementToken}`,
               "Content-Type": "application/json",
             },
           }

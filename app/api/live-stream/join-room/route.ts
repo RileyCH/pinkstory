@@ -8,13 +8,14 @@ export async function POST(req: NextRequest) {
     if (!roomId) return new NextResponse("Without room id", { status: 400 });
 
     if (req.method === "POST") {
+      const managementToken = await liveStream100ms.getManagementToken();
       const result = await axios
         .post(
           `${liveStream100ms.createRoomCode}/${roomId}`,
           {},
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
+              Authorization: `Bearer ${managementToken}`,
               "Content-Type": "application/json",
             },
           }

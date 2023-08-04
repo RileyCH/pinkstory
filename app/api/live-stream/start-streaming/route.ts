@@ -5,9 +5,10 @@ import liveStream100ms from "@/utils/liveStream100ms";
 //temp for compile
 export async function GET(req: NextRequest) {
   try {
+    const managementToken = await liveStream100ms.getManagementToken();
     const result = await axios.get(`${liveStream100ms.activeSessions}`, {
       headers: {
-        Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
+        Authorization: `Bearer ${managementToken}`,
       },
     });
     const streamingRooms = result.data;

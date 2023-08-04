@@ -12,18 +12,19 @@ export async function POST(req: NextRequest) {
       const currentDate = new Date();
       const unixTimestamp = Math.floor(currentDate.getTime() / 1000);
 
+      const managementToken = await liveStream100ms.getManagementToken();
       const result = await axios
         .post(
           `${liveStream100ms.createRoom}`,
           {
             name: `new-room-${unixTimestamp}`,
             description: "PinkStory live stream room",
-            template_id: process.env.NEXT_NEXT_PUBLIC_100MS_TEMPLATE_ID,
+            template_id: process.env.NEXT_PUBLIC_100MS_TEMPLATE_ID,
             region: "us",
           },
           {
             headers: {
-              Authorization: `Bearer ${process.env.NEXT_NEXT_PUBLIC_100MS_MANAGEMENT_TOKEN}`,
+              Authorization: `Bearer ${managementToken}`,
               "Content-Type": "application/json",
             },
           }
