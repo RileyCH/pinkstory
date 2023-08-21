@@ -1,15 +1,17 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import Skeleton from "react-loading-skeleton";
 import FollowBtn from "@/components/post/FollowBtn";
-import { UserDataType, PostType } from "@/utils/type";
 import { signOut } from "firebase/auth";
 import { auth } from "@/utils/database";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { checkUser } from "@/redux/features/loginSlice";
 import FollowUsers from "@/components/main/person/FollowUsers";
+import NewMessage from "@/components/main/person/NewMessage";
+import { UserDataType, PostType, ChatRoomType } from "@/utils/type";
 import profile from "@/public/main/profile.png";
 import backGroundImg from "@/public/background/person.jpeg";
 import female from "@/public/main/female.png";
@@ -40,7 +42,36 @@ const PersonalArea = ({
 
   const sendMessage = () => {
     if (userStatus.loginStatus) {
-      router.push(`/message`);
+      axios
+        .get("/api/message/rooms", {
+          headers: {
+            Authorization: `Bearer ${uid}`,
+          },
+        })
+        .then((res) => {
+          const filteredRoom = res.data.filter((room: ChatRoomType) =>
+            room.data.uid.includes(paramsId)
+          );
+          if (filteredRoom.length > 0) {
+            router.push(`/message/${filteredRoom[0].chatRoomId}`);
+          } else {
+            // axios
+            //   .post(
+            //     "/api/message/new-room",
+            //     {
+            //       messageDetail: {
+            //         uid: uid,
+            //         receiveUid: paramsId,
+            //       },
+            //     },
+            //     { headers: { "Content-Type": "application/json" } }
+            //   )
+            //   .then((res) => {
+            //     console.log(res);
+            //     router.push(`/message/${res}`);
+            //   });
+          }
+        });
     } else {
       window.alert("登入才能傳送訊息喔！");
     }
@@ -146,6 +177,7 @@ const PersonalArea = ({
                     >
                       發送訊息
                     </div>
+                    {/* <NewMessage /> */}
                   </div>
                 )}
               </div>

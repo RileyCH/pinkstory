@@ -15,7 +15,7 @@ import send from "@/public/message/send.png";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-const Chat = () => {
+const Chat = ({ params }: { params: { roomid: string } }) => {
   const userStatus = useAppSelector((state) => state.user);
   const [isLoading, setIsLoading] = useState(false);
   const [chatRooms, setChatRooms] = useState<ChatRoomType[]>([]);

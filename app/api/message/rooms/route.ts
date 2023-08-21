@@ -1,13 +1,6 @@
 import { NextResponse } from "next/server";
 import { headers } from "next/headers";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  orderBy,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "@/utils/database";
 
 export async function GET() {
