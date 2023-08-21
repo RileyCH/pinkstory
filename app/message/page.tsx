@@ -6,6 +6,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 import { db } from "@/utils/database";
 import { useAppSelector } from "@/redux/hooks";
 import { ChatRoomType, UserDataType } from "@/utils/type";
+import { formatTime } from "@/utils/formatTime";
 import Header from "@/components/Header";
 import Nav from "@/components/Nav";
 import ChatUser from "@/components/message/ChatUser";
@@ -51,24 +52,6 @@ const Chat = ({ params }: { params: { roomid: string } }) => {
   const currentYear = currentDate.getFullYear();
   const currentMonth = currentDate.getMonth() + 1;
   const currentDay = currentDate.getDate();
-
-  const formatTime = (seconds: number, nanoseconds: number) => {
-    const milliseconds = seconds * 1000 + nanoseconds / 1000000;
-    const resultDate = new Date(milliseconds);
-    return {
-      year: resultDate.getFullYear(),
-      month: resultDate.getMonth() + 1,
-      day: resultDate.getDate(),
-      hour:
-        resultDate.getHours() > 9
-          ? resultDate.getHours()
-          : `0${resultDate.getHours()}`,
-      minute:
-        resultDate.getMinutes() > 9
-          ? resultDate.getMinutes()
-          : `0${resultDate.getMinutes()}`,
-    };
-  };
 
   useEffect(() => {
     if (userStatus.loginStatus) {
